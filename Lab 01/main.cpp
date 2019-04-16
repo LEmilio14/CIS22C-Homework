@@ -8,12 +8,12 @@ string generateBars(int number);
 int getUserInputInt(const int& min, const int& max);
 
 void displayMainMenu();
-void displayAddRemoveMenu();
+void displayAddRemoveTotalMenu();
 
 namespace UI
 {
 	const int TERMINAL_WIDTH = 100;
-	const int TERMINAL_HEIGHT = 40;
+	const int TERMINAL_HEIGHT = 30;
 
 	const string BARS = "=";
 
@@ -26,6 +26,8 @@ namespace UI
 
 	enum MAIN_MENU_OPTIONS { MAIN_NONE, MAIN_ADD, MAIN_SUBSTRACT, MAIN_TOTAL, MAIN_EMPTY, MAIN_EXIT };
 	enum PICK_CURRENCY_OPTIONS { CURRENCY_NONE, CURRENCY_DOLLARS, CURRENCY_EUROS, CURRENCY_YEN, CURRENCY_RUPEE, CURRENCY_YUAN, CURRENCY_BACK};
+	enum TOTAL_CURRENCY_OPTIONS { TOTAL_NONE, TOTAL_DOLLARS, TOTAL_EUROS, TOTAL_YEN, TOTAL_RUPEE, TOTAL_YUAN, TOTAL_BACK };
+
 }
 
 
@@ -38,7 +40,7 @@ int main()
 	{
 		displayMainMenu();
 		cout << UI::PROMPT_OPTION;
-		cin >> inputMain;
+		inputMain = getUserInputInt(UI::MAIN_MENU_OPTIONS::MAIN_ADD, UI::MAIN_MENU_OPTIONS::MAIN_EXIT);
 
 		switch (inputMain)
 		{
@@ -46,9 +48,9 @@ int main()
 		case UI::MAIN_MENU_OPTIONS::MAIN_ADD:
 			do
 			{
-				displayAddRemoveMenu();
+				displayAddRemoveTotalMenu();
 				cout << UI::PROMPT_OPTION;
-				inputMain = getUserInputInt(UI::MAIN_MENU_OPTIONS::MAIN_ADD, UI::MAIN_MENU_OPTIONS::MAIN_EXIT);
+				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 
 				switch (subMenuInput)
 				{
@@ -78,9 +80,10 @@ int main()
 		case UI::MAIN_MENU_OPTIONS::MAIN_SUBSTRACT:
 			do
 			{
-				displayAddRemoveMenu();
+				displayAddRemoveTotalMenu();
 				cout << UI::PROMPT_OPTION;
-				cin >> subMenuInput;
+				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+
 				switch (subMenuInput)
 				{
 				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS:
@@ -105,16 +108,49 @@ int main()
 				}
 			} while (subMenuInput != UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 			break;
+		case UI::MAIN_MENU_OPTIONS::MAIN_TOTAL:
+			do
+			{
+				displayAddRemoveTotalMenu();
+				cout << UI::PROMPT_OPTION;
+				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+
+				switch (subMenuInput)
+				{
+				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS:
+
+					break;
+				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_EUROS:
+
+					break;
+				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YEN:
+
+					break;
+				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_RUPEE:
+
+					break;
+				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YUAN:
+
+					break;
+				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK:
+
+					break;
+				default:
+					break;
+				}
+
+			} while (subMenuInput != UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+			break;
+		case UI::MAIN_MENU_OPTIONS::MAIN_EMPTY:
+
+			break;
+
 		default:
 			break;
 		}
 
-
-
-
 	} while (inputMain != UI::MAIN_MENU_OPTIONS::MAIN_EXIT);
 	
-
 
 
 	system("pause");
@@ -136,7 +172,7 @@ void displayMainMenu()
 	const size_t titleMargin = (UI::TERMINAL_WIDTH + walletText.length()) / 2;
 	const size_t optionMargin = titleMargin - walletText.length();
 
-	cout << right << setw(titleMargin) << walletText << endl << endl << bars << endl << endl;
+	cout << right << setw(titleMargin) << endl << walletText << endl << endl << bars << endl << endl;
 
 	cout << setw(optionMargin + addText.length()) << addText << endl << endl
 		<< setw(optionMargin + substractText.length()) << substractText << endl << endl
@@ -149,7 +185,7 @@ void displayMainMenu()
 	return;
 }
 
-void displayAddRemoveMenu()
+void displayAddRemoveTotalMenu()
 {
 	system("CLS");
 
@@ -165,7 +201,7 @@ void displayAddRemoveMenu()
 	const size_t titleMargin = (UI::TERMINAL_WIDTH + currencyText.length()) / 2;
 	const size_t optionMargin = titleMargin - currencyText.length();
 
-	cout << right << setw(titleMargin) << currencyText << endl << endl << bars << endl << endl;
+	cout << right << setw(titleMargin) << endl << currencyText << endl << endl << bars << endl << endl;
 
 	cout << setw(optionMargin + dollarText.length()) << dollarText << endl << endl
 		<< setw(optionMargin + eurosText.length()) << eurosText << endl << endl
@@ -217,13 +253,11 @@ int getUserInputInt(const int& min, const int& max)
 				err = true;
 			}
 		}
-		/*
 		catch (invalid_argument&)
 		{
 			cerr << UI::ERR_EXCEPTION_INVALID_ARGUMENT << endl;
 			err = true;
 		}
-		*/
 		catch (out_of_range&)
 		{
 			cerr << UI::ERR_EXCEPTION_OUT_OF_RANGE << endl;
