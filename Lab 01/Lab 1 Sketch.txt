@@ -1,20 +1,10 @@
-THINGS TO ADD
-Add new data to currency class:
-	currencyNotePlural = Dollars
-	currencyCentsPlural = Cents
-	We need this because we might print:
-		"You have 5 dollars"
-	But if we try to just add an "s" to currencyNote,
-		"You have 5 yens"
-	Is wrong. So instead we define the plural name.
-
-
-
 class Currency
 	private:
 		//DATA
 		string currencyNote; //Ex. Dollar, Euro, Yen
+		string currencyNotePlural;
 		string currencyCoin; //Ex. Cent, Sen, Paise
+		string currencyCoinPlural;
 		int wholeParts; //Ex. Dollars. 1 whole = 100 fractions
 		int fractionalParts; //Ex. Cents. 1 cent = 0.01 wholes.
 	public:
@@ -41,6 +31,11 @@ class Currency
 		friend istream& operator>>(ostream& is, const Currency& cur); //Accept (Add) currency
 		//Getters and setters
 		(get and set for every data member here)
+		//Add and subtract functions
+		void addWhole(int)
+		void addFractional(int)
+		void subtractWhole(int)
+		void subtractFractional(int)
 
 class Dollar : public Currency
 	currencyNote = "Dollar";
