@@ -1,16 +1,39 @@
 #include "Currency.h"
 
+Currency::Currency()
+{
+
+}
+
+void Currency::empty()
+{
+	wholeParts = 0;
+	fractionalParts = 0;
+}
+
+bool Currency::isEmpty()
+{
+	if (wholeParts == 0 && fractionalParts == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void Currency::addWhole(const double a)
 {
 	//Cast to truncate any extra decimals
-	addFractional(static_cast<int>(a * fractionsInWhole));
+	addFractional(static_cast<int>(a * Currency::fractionsInWhole));
 }
 
 void Currency::addFractional(const int a)
 {
 	int totalFractionalParts = getTotalFractionalParts() + a;
-	int quotient = totalFractionalParts / fractionsInWhole;
-	int remainder = totalFractionalParts % fractionsInWhole;
+	int quotient = totalFractionalParts / Currency::fractionsInWhole;
+	int remainder = totalFractionalParts % Currency::fractionsInWhole;
 
 	if (quotient < 0 || remainder < 0)
 	{
@@ -55,12 +78,12 @@ int Currency::getFractionalParts() const
 
 double Currency::getTotalWholeParts() const
 {
-	return wholeParts + (static_cast<double>(fractionalParts) / fractionsInWhole);
+	return wholeParts + (static_cast<double>(fractionalParts) / Currency::fractionsInWhole);
 }
 
 int Currency::getTotalFractionalParts() const
 {
-	return (wholeParts * fractionsInWhole) + fractionalParts;
+	return (wholeParts * Currency::fractionsInWhole) + fractionalParts;
 }
 
 void Currency::setWholeParts(const int whole)
@@ -95,8 +118,8 @@ void Currency::setTotalFractionalParts(const int totalFractional)
 	}
 	else
 	{
-		int quotient = totalFractional / fractionsInWhole;
-		int remainder = totalFractional % fractionsInWhole;
+		int quotient = totalFractional / Currency::fractionsInWhole;
+		int remainder = totalFractional % Currency::fractionsInWhole;
 
 		wholeParts = quotient;
 		fractionalParts = remainder;
@@ -112,7 +135,7 @@ void Currency::setTotalWholeParts(const double totalWhole)
 	else
 	{
 		wholeParts = static_cast<int>(totalWhole);
-		fractionalParts = static_cast<int>((totalWhole - wholeParts) * fractionsInWhole);
+		fractionalParts = static_cast<int>((totalWhole - wholeParts) * Currency::fractionsInWhole);
 	}
 }
 

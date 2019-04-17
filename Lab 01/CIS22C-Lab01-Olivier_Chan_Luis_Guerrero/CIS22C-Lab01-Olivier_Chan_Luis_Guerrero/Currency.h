@@ -16,13 +16,12 @@
 #pragma once
 
 #include <string>
-#include "ExceptionCurrencyMismatch.cpp"
-#include "ExceptionCurrencyNegative.cpp"
+#include "ExceptionCurrencyMismatch.h"
+#include "ExceptionCurrencyNegative.h"
 
 class Currency
 {
 private:
-	const int fractionsInWhole = 100;
 	std::string currencyNote; //Dollar, Euro, Yen, Rupee, Yuan
 	std::string currencyNotePlural; //Dollars, Euros, Yen, Rupees, Yuan
 	std::string currencyCoin; //Cent, Cent, Sen, Paisa, Fen
@@ -30,11 +29,17 @@ private:
 	int wholeParts;
 	int fractionalParts;
 public:
-	//Constructor using initialization list
+	//Constants
+	static const int fractionsInWhole = 100;
+	//Constructors, also using initialization list
+	Currency();
 	Currency(std::string cNote, std::string cNotePlural, std::string cCoin, std::string cCoinPlural, int whole, int fractional)
 		:currencyNote(cNote), currencyNotePlural(cNotePlural), currencyCoin(cCoin), currencyCoinPlural(cCoinPlural), wholeParts(whole), fractionalParts(fractional) {}
 	//Virtual destructor since Currency is a base class
 	virtual ~Currency();
+	//Helper functions
+	void empty();
+	bool isEmpty();
 	//Add functions: Add negative numbers to subtract. Note that setting whole or fractional parts to negative values will throw an exception.
 	void addWhole(const double a);
 	void addFractional(const int a);
