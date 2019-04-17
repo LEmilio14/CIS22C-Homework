@@ -2,7 +2,12 @@
 
 Currency::Currency()
 {
-
+	currencyNote = "";
+	currencyNotePlural = "";
+	currencyCoin = "";
+	currencyCoinPlural = "";
+	int wholeParts = 0;
+	int fractionalParts = 0;
 }
 
 void Currency::empty()

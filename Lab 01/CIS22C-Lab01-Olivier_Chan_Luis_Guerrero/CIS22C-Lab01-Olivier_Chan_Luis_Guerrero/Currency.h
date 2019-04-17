@@ -21,7 +21,7 @@
 
 class Currency
 {
-private:
+protected:
 	std::string currencyNote; //Dollar, Euro, Yen, Rupee, Yuan
 	std::string currencyNotePlural; //Dollars, Euros, Yen, Rupees, Yuan
 	std::string currencyCoin; //Cent, Cent, Sen, Paisa, Fen
@@ -31,10 +31,8 @@ private:
 public:
 	//Constants
 	static const int fractionsInWhole = 100;
-	//Constructors, also using initialization list
+	//Constructor
 	Currency();
-	Currency(std::string cNote, std::string cNotePlural, std::string cCoin, std::string cCoinPlural, int whole, int fractional)
-		:currencyNote(cNote), currencyNotePlural(cNotePlural), currencyCoin(cCoin), currencyCoinPlural(cCoinPlural), wholeParts(whole), fractionalParts(fractional) {}
 	//Virtual destructor since Currency is a base class
 	virtual ~Currency();
 	//Helper functions
