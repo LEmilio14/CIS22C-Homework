@@ -1,73 +1,115 @@
 #include "Wallet.h"
+#include "ExceptionWalletZero.h"
+#include "ExceptionWalletOutOfBounds.h"
 #include "Currency.h"
-#include "ExceptionWalletZero.cpp"
+#include "Dollar.h"
+#include "Euro.h"
+#include "Yen.h"
+#include "Rupee.h"
+#include "Yuan.h"
 
-Wallet::Wallet(double dol, double eu, double ye, double rup, double yu)
+Wallet::Wallet(double dol, double eu, double ye, double ru, double yu)
 {
+	dollar = new Dollar(static_cast<int>(dol), static_cast<int>((dol - static_cast<int>(dol)) * 100));
+	euro = new Euro(static_cast<int>(eu), static_cast<int>((eu - static_cast<int>(eu)) * 100));
+	yen = new Yen(static_cast<int>(ye), static_cast<int>((ye - static_cast<int>(ye)) * 100));
+	rupee = new Rupee(static_cast<int>(ru), static_cast<int>((ru - static_cast<int>(ru)) * 100));
+	yuan = new Yuan(static_cast<int>(yu), static_cast<int>((yu - static_cast<int>(yu)) * 100));
+}
 
-	dollar = new Currency();
-	euro = new Currency();
-	yen = new Currency();
-	rupee = new Currency();
-	yuan = new Currency();
-	//yuan = new Currency("Yuan", "Yuan", "Fen", "Fens", static_cast<int>(numb), static_cast<int>(((int)numb % 100) * 100));
+Wallet::~Wallet()
+{
+	delete dollar;
+	delete euro;
+	delete yen;
+	delete rupee;
+	delete yuan;
+}
 
+int Wallet::getNumZeroCurrency()
+{
+	int num = 0;
+
+	for (int i = 0; i < 5; i++)
+	{
+		if ((*this)[i].isEmpty())
+		{
+			num++;
+		}
+	}
+
+	return num;
 }
 
 //Gets the number of currencies that are not 0.0
-int Wallet::getNumbOfNonZeroCur()
+int Wallet::getNumNonZeroCurrency()
 {
-	int numbOfNonZero;
+	int num = 0;
 
 	for(int i = 0; i < 5; i++)
 	{
-		if(0 == walletList[i].getWholeParts && 0 == walletList[i].getFractionalParts)
-		numbOfNonZero++;
+		if (!(*this)[i].isEmpty())
+		{
+			num++;
+		}
 	}
 
-	return numbOfNonZero;
+	return num;
 }
 
 //Adds currency to the wallet class with currency functions
-void Wallet::addCurrency(Currency *currencyName, double amount)
+void Wallet::addCurrency(int index, double amount)
 {
-	int i;
-	
-	for (i = 0; i < 5 ; i++)
+	(*this)[index].addWhole(amount);
+}
+
+//Removes currency to the wallet class with currency functions
+void Wallet::addCurrency(std::string abbr, double amount)
+{
+	for (int i = 0; i < 5; i++)
 	{
-		if (amount > 0)
+		if ((*this)[i].getCurrencyAbbreviation() == abbr)
 		{
-			throw (ExceptionCurrencyNegative());
-		}
-		else
-		{
-			currencyName->addFractional(amount);
-			currencyName->addWhole(amount);
+			(*this)[i].addWhole(amount);
 		}
 	}
 }
 
-//Removes currency to the wallet class with currency functions
-void Wallet::removeCurrency(Currency *currencyName, double amount)
+//Removes currency from the wallet class with currency functions
+void Wallet::removeCurrency(int index, double amount)
 {
-	int i;
+	(*this)[index].addWhole(-amount);
+}
 
-	for (i = 0; i < 5; i++)
+void Wallet::removeCurrency(std::string abbr, double amount)
+{
+	for (int i = 0; i < 5; i++)
 	{
-		if (0 == walletList[i].getWholeParts && 0 == walletList[i].getFractionalParts)
+		if ((*this)[i].getCurrencyAbbreviation() == abbr)
 		{
-			throw (ExceptionWalletZero());
+			(*this)[i].addWhole(-amount);
 		}
-		else
+	}
+}
+
+void Wallet::emptyCurrency(int index)
+{
+	(*this)[index].empty();
+}
+
+void Wallet::emptyCurrency(std::string abbr)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if ((*this)[i].getCurrencyAbbreviation() == abbr)
 		{
-			currencyName->addFractional(amount);
-			currencyName->addWhole(amount);
+			(*this)[i].empty();
 		}
 	}
 }
 
 //sets all whole and fractionalparts to 0.
-void Wallet::zeroAllCurrency()
+void Wallet::emptyAllCurrency()
 {
 	dollar->empty();
 	euro->empty();
@@ -77,24 +119,72 @@ void Wallet::zeroAllCurrency()
 }
 
 //Checks if wallet is empty.
-bool Wallet::walletIsEmpty()
+bool Wallet::isWalletEmpty()
 {
 	for (int i = 0; i < 5; i++)
 	{
-		if (0 == walletList[i].getWholeParts && 0 == walletList[i].getFractionalParts) {
-			return true;
-		}else
-		return false;
+		if (!(*this)[i].isEmpty())
+		{
+			//Something in the wallet wasn't empty so return false
+			return false;
+		}
 	}
+	//Everything in the wallet was empty so return true
+	return true;
 }
 
 
 //Checks if currency is not zero
-bool Wallet::isCurrencyNonZero(Currency *currencyName)
+bool Wallet::isCurrencyEmpty(int index)
 {
-	if (0 != currencyName->getWholeParts && 0 != currencyName->getFractionalParts)
+	if ((*this)[index].isEmpty())
 	{
-		return true;
-	}else
-	return false;
+		return false;
+	}
+	else
+	return true;
+}
+
+bool Wallet::isCurrencyEmpty(std::string abbr)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if ((*this)[i].getCurrencyAbbreviation() == abbr)
+		{
+			if (!(*this)[i].isEmpty())
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+Currency& Wallet::operator[](const int index)
+{
+	if (index == 0)
+	{
+		return *dollar;
+	}
+	else if (index == 1)
+	{
+		return *euro;
+	}
+	else if (index == 2)
+	{
+		return *yen;
+	}
+	else if (index == 3)
+	{
+		return *rupee;
+	}
+	else if (index == 4)
+	{
+		return *yuan;
+	}
+	else
+	{
+		throw ExceptionWalletOutOfBounds();
+	}
 }

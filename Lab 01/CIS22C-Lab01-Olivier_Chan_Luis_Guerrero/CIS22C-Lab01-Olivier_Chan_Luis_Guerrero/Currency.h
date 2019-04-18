@@ -22,6 +22,7 @@
 class Currency
 {
 protected:
+	std::string abbreviation; //USD, EUR, JPY, INR, CNY
 	std::string currencyNote; //Dollar, Euro, Yen, Rupee, Yuan
 	std::string currencyNotePlural; //Dollars, Euros, Yen, Rupees, Yuan
 	std::string currencyCoin; //Cent, Cent, Sen, Paisa, Fen
@@ -33,7 +34,7 @@ public:
 	static const int fractionsInWhole = 100;
 	//Constructors
 	Currency();
-	Currency(std::string note, std::string notePlural, std::string coin, std::string coinPlural, int whole, int fractional) : currencyNote(note), currencyNotePlural(notePlural), currencyCoin(coin), currencyCoinPlural(coinPlural), wholeParts(whole), fractionalParts(fractional) {};
+	Currency(std::string abbr, std::string note, std::string notePlural, std::string coin, std::string coinPlural, int whole, int fractional) : abbreviation(abbr), currencyNote(note), currencyNotePlural(notePlural), currencyCoin(coin), currencyCoinPlural(coinPlural), wholeParts(whole), fractionalParts(fractional) {};
 	//Virtual destructor since Currency is a base class
 	virtual ~Currency();
 	//Helper functions
@@ -44,10 +45,12 @@ public:
 	void addWhole(const double a);
 	void addFractional(const int a);
 	//Get & Set functions: Note that setting whole or fractional parts to negative values will throw an exception.
+	std::string getCurrencyAbbreviation() const;
 	std::string getCurrencyNote() const;
 	std::string getCurrencyNotePlural() const;
 	std::string getCurrencyCoin() const;
 	std::string getCurrencyCoinPlural() const;
+	void setCurrencyAbbreviation(const std::string abbr);
 	void setCurrencyNote(const std::string note);
 	void setCurrencyNotePlural(const std::string notePlural);
 	void setCurrencyCoin(const std::string coin);

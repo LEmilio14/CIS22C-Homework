@@ -5,8 +5,8 @@
 #include "Currency.h"
 #include "Dollar.h"
 #include "Euro.h"
-#include "Rupee.h"
 #include "Yen.h"
+#include "Rupee.h"
 #include "Yuan.h"
 #include "Wallet.h"
 
@@ -45,8 +45,61 @@ int main()
 	int inputMain;
 
 	//Objects.
-	Wallet *wallet;
+	Wallet wallet(1, 2, 3, 4, 0);
 
+	//HOW TO PRINT OUT EVERYTHING IN THE WALLET
+	//You can also do:
+	//cout << "this many dollars: " << wallet[0].getWholeParts << " and this many cents: " << wallet[0].getFractionalParts
+	//Prints out "this many dollars: 5 and this many cents: 41"
+	//Or you can also do:
+	//cout << "$" << wallet[0].getTotalWholeParts
+	//Prints out "$5.41"
+	cout << "Wallet contains:" << endl;
+	cout << wallet[0] << endl;
+	cout << wallet[1] << endl;
+	cout << wallet[2] << endl;
+	cout << wallet[3] << endl;
+	cout << wallet[4] << endl << endl;
+
+	//How to add and remove currency
+	//You can either give the index (0-4) or the abbreviation (USD, EUR, JPY, INR, CNY)
+	cout << "Remove 2 rupees" << endl;
+	wallet.removeCurrency(3, 2); //Using currency indexes
+	cout << wallet[3] << endl << endl;
+
+	cout << "Add 5 dollars" << endl;
+	wallet.addCurrency("USD", 5); //Using currency abbreviations
+	cout << wallet[0] << endl << endl;
+
+	//How to get number of non-zero currency
+	cout << "This many currencies ARE NOT zero" << endl;
+	cout << wallet.getNumNonZeroCurrency() << endl << endl;
+
+	//How to set a currency to 0, without having to do math or anything
+	cout << "Empty out dollars" << endl;
+	wallet.emptyCurrency(0);
+	cout << wallet[0] << endl << endl;
+
+	cout << "This many currencies ARE NOT zero" << endl;
+	cout << wallet.getNumNonZeroCurrency() << endl << endl;
+
+	//How to empty out every currency
+	cout << "Empty out everything" << endl << endl;
+	wallet.emptyAllCurrency();
+	
+	//How to get number of zero currency
+	cout << "This many currencies ARE zero" << endl;
+	cout << wallet.getNumZeroCurrency() << endl << endl;
+
+	//How to check if a specific currency is 0
+	cout << "Are yen empty?" << endl;
+	cout << wallet.isCurrencyEmpty("JPY") << endl << endl;
+
+	//How to check if wallet is empty
+	cout << "Is wallet empty?" << endl;
+	cout << wallet.isWalletEmpty() << endl << endl;
+
+	/************************
 	do
 	{
 		displayMainMenu();
@@ -153,7 +206,6 @@ int main()
 			} while (subMenuInput != UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 			break;
 		case UI::MAIN_MENU_OPTIONS::MAIN_EMPTY:
-			wallet->zeroAllCurrency();
 			system("pause");
 			break;
 			
@@ -162,7 +214,7 @@ int main()
 		}
 
 	} while (inputMain != UI::MAIN_MENU_OPTIONS::MAIN_EXIT);
-	
+	************************/
 
 
 	system("pause");

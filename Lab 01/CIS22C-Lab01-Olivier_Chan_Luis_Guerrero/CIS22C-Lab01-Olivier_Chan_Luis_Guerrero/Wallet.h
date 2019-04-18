@@ -1,42 +1,36 @@
 #pragma once
-#include<string>
-#include"Currency.h"
-#include"Wallet.h"
+#include <string>
+#include "Currency.h"
 
 class Wallet
 {
 private:
-	Currency wallet;
-	Currency walletList[5] = {Currency("Dollar", "Dollars", "Cent", "Cents", wallet.getWholeParts() , wallet.getFractionalParts()),
-							Currency("Euro", "Euros", "Cent", "Cents", wallet.getWholeParts(),wallet.getFractionalParts()),
-							Currency("Yen", "Yen", "Sen", "Sen", wallet.getWholeParts(),wallet.getFractionalParts()),
-							Currency("Rupee", "Rupees", "Paisa", "Paise", wallet.getWholeParts(),wallet.getFractionalParts()),
-							Currency("Yuan", "Yuan", "Fen", "Fens", wallet.getWholeParts(),wallet.getFractionalParts()) };
-	Currency *dollar;
-	Currency *euro;
-	Currency *yen;
-	Currency *rupee;
-	Currency *yuan;
-	double numb;
+	Currency* dollar;
+	Currency* euro;
+	Currency* yen;
+	Currency* rupee;
+	Currency* yuan;
 public:
-
 	//CONSTRUCTORS
-	Wallet(double dol, double eu, double ye, double rup, double yu);
-
-
-	//FUNCTIONS
-	int getNumbOfNonZeroCur();
-
-
-	void addCurrency(Currency *currencyName, double amount);
-	void removeCurrency(Currency *currencyName, double amount);
-	void zeroAllCurrency();
-
-	bool walletIsEmpty();
-	bool isCurrencyNonZero(Currency *currencyName);
+	Wallet(double dol, double eu, double ye, double ru, double yu);
+	~Wallet();
 	
+	//FUNCTIONS
+	int getNumZeroCurrency();
+	int getNumNonZeroCurrency();
+	void emptyCurrency(int index);
+	void emptyCurrency(std::string abbr);
+	void emptyAllCurrency();
+	bool isCurrencyEmpty(int index);
+	bool isCurrencyEmpty(std::string abbr);
 
+	void addCurrency(int index, double amount);
+	void addCurrency(std::string abbr, double amount);
+	void removeCurrency(int index, double amount);
+	void removeCurrency(std::string abbr, double amount);
+	
+	bool isWalletEmpty();
+	
 	//OVERLOADS
 	Currency& operator[](const int index);
-
 };

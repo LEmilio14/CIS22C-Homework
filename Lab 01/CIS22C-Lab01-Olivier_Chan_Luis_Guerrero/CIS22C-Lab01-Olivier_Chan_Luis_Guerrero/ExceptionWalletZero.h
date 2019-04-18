@@ -1,5 +1,5 @@
 #pragma once
-#include<exception>
+#include <exception>
 
 class ExceptionWalletZero : public std::exception
 {

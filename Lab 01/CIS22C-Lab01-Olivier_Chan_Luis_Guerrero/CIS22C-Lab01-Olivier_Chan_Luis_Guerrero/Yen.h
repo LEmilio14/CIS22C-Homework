@@ -4,6 +4,6 @@
 class Yen : public Currency
 {
 public:
-	Yen(int whole, int fractional) : Currency("Yen", "Yen", "Sen", "Sen", whole, fractional) {};
+	Yen(int whole, int fractional) : Currency("JPY", "Yen", "Yen", "Sen", "Sen", whole, fractional) {};
 	~Yen();
 };

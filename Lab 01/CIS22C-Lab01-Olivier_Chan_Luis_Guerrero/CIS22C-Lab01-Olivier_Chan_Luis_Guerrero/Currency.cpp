@@ -2,6 +2,7 @@
 
 Currency::Currency()
 {
+	abbreviation = "";
 	currencyNote = "";
 	currencyNotePlural = "";
 	currencyCoin = "";
@@ -66,6 +67,11 @@ void Currency::addFractional(const int a)
 	}
 }
 
+std::string Currency::getCurrencyAbbreviation() const
+{
+	return abbreviation;
+}
+
 std::string Currency::getCurrencyNote() const
 {
 	return currencyNote;
@@ -84,6 +90,11 @@ std::string Currency::getCurrencyCoin() const
 std::string Currency::getCurrencyCoinPlural() const
 {
 	return currencyCoinPlural;
+}
+
+void Currency::setCurrencyAbbreviation(const std::string abbr)
+{
+	abbreviation = abbr;
 }
 
 void Currency::setCurrencyNote(const std::string note)

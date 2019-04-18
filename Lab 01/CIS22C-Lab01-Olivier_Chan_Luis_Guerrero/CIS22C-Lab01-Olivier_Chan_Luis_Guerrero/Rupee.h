@@ -4,6 +4,6 @@
 class Rupee : public Currency
 {
 public:
-	Rupee(int whole, int fractional) : Currency("Rupee", "Rupees", "Paisa", "Paise", whole, fractional) {};
+	Rupee(int whole, int fractional) : Currency("INR", "Rupee", "Rupees", "Paisa", "Paise", whole, fractional) {};
 	~Rupee();
 };
