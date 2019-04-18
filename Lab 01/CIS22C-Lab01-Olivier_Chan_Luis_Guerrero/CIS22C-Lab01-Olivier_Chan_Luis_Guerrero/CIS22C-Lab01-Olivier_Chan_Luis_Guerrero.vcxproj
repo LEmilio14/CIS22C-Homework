@@ -120,6 +120,7 @@
     <ClCompile Include="Euro.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Rupee.cpp" />
+    <ClCompile Include="Wallet.cpp" />
     <ClCompile Include="Yen.cpp" />
     <ClCompile Include="Yuan.cpp" />
   </ItemGroup>
@@ -130,6 +131,7 @@
     <ClInclude Include="ExceptionCurrencyMismatch.h" />
     <ClInclude Include="ExceptionCurrencyNegative.h" />
     <ClInclude Include="Rupee.h" />
+    <ClInclude Include="Wallet.h" />
     <ClInclude Include="Yen.h" />
     <ClInclude Include="Yuan.h" />
   </ItemGroup>

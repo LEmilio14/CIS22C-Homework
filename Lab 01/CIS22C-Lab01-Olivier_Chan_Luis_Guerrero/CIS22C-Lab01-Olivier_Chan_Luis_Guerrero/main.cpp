@@ -1,9 +1,14 @@
-#include<iostream>
-#include<string>
-#include<iomanip>
+#include <iostream>
+#include <string>
+#include <iomanip>
 
-#include"Currency.h"
-#include"Wallet.h"
+#include "Currency.h"
+#include "Dollar.h"
+#include "Euro.h"
+#include "Rupee.h"
+#include "Yen.h"
+#include "Yuan.h"
+#include "Wallet.h"
 
 using namespace std;
 

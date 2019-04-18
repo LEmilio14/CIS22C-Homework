@@ -1,6 +1,6 @@
-#include"Wallet.h"
-#include"Currency.h"
-#include"ExceptionWalletZero.cpp"
+#include "Wallet.h"
+#include "Currency.h"
+#include "ExceptionWalletZero.cpp"
 
 Wallet::Wallet(double dol, double eu, double ye, double rup, double yu)
 {
