@@ -4,7 +4,7 @@
 * Notes:
 * - Any operation (set, add, etc.) that would result in negative currency will throw an exception. The operation will not be performed.
 * - Arithmetic operations can be performed between: [A] Currency and a number [B] Currency and Currency (same type)
-* - Operations involving two Currency objects must be between two Currency objects of the same type (Dollars cannot be compared to Euros).
+* - Any operations involving two Currency objects must be between Currency objects of the same type (Dollars cannot be added or compared to Euros).
 *		An operation between two Currency objects of different types will throw an exception.
 *
 * Assumptions:
@@ -31,14 +31,15 @@ protected:
 public:
 	//Constants
 	static const int fractionsInWhole = 100;
-	//Constructor
+	//Constructors
 	Currency();
-	Currency(std::string cNote, std::string cNotePlural, std::string cCoin, std::string cCoinPlural, int, int);
+	Currency(std::string note, std::string notePlural, std::string coin, std::string coinPlural, int whole, int fractional) : currencyNote(note), currencyNotePlural(notePlural), currencyCoin(coin), currencyCoinPlural(coinPlural), wholeParts(whole), fractionalParts(fractional) {};
 	//Virtual destructor since Currency is a base class
 	virtual ~Currency();
 	//Helper functions
 	void empty();
 	bool isEmpty();
+	bool isSameType(const Currency currency) const;
 	//Add functions: Add negative numbers to subtract. Note that setting whole or fractional parts to negative values will throw an exception.
 	void addWhole(const double a);
 	void addFractional(const int a);
@@ -47,6 +48,10 @@ public:
 	std::string getCurrencyNotePlural() const;
 	std::string getCurrencyCoin() const;
 	std::string getCurrencyCoinPlural() const;
+	void setCurrencyNote(const std::string note);
+	void setCurrencyNotePlural(const std::string notePlural);
+	void setCurrencyCoin(const std::string coin);
+	void setCurrencyCoinPlural(const std::string coinPlural);
 	int getWholeParts() const;
 	int getFractionalParts() const;
 	double getTotalWholeParts() const;

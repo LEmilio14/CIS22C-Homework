@@ -117,13 +117,21 @@
   <ItemGroup>
     <ClCompile Include="Currency.cpp" />
     <ClCompile Include="Dollar.cpp" />
+    <ClCompile Include="Euro.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Rupee.cpp" />
+    <ClCompile Include="Yen.cpp" />
+    <ClCompile Include="Yuan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Currency.h" />
     <ClInclude Include="Dollar.h" />
+    <ClInclude Include="Euro.h" />
     <ClInclude Include="ExceptionCurrencyMismatch.h" />
     <ClInclude Include="ExceptionCurrencyNegative.h" />
+    <ClInclude Include="Rupee.h" />
+    <ClInclude Include="Yen.h" />
+    <ClInclude Include="Yuan.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

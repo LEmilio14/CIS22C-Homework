@@ -1,4 +1,3 @@
-//#include<string>
 #include "Currency.h"
 
 Currency::Currency()
@@ -11,9 +10,6 @@ Currency::Currency()
 	int fractionalParts = 0;
 }
 
-Currency::Currency(std::string cNote, std::string cNotePlural, std::string cCoin, std::string cCoinPlural, int whole, int fractional) :
-	currencyNote(cNote), currencyNotePlural(cNotePlural), currencyCoin(cCoin), currencyCoinPlural(currencyCoinPlural), wholeParts(whole), fractionalParts(fractional) {}
-
 void Currency::empty()
 {
 	wholeParts = 0;
@@ -23,6 +19,21 @@ void Currency::empty()
 bool Currency::isEmpty()
 {
 	if (wholeParts == 0 && fractionalParts == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool Currency::isSameType(const Currency currency) const
+{
+	if (currencyNote == currency.currencyNote &&
+		currencyNotePlural == currency.currencyNotePlural &&
+		currencyCoin == currency.currencyCoin &&
+		currencyCoinPlural == currency.currencyCoinPlural)
 	{
 		return true;
 	}
@@ -75,6 +86,26 @@ std::string Currency::getCurrencyCoinPlural() const
 	return currencyCoinPlural;
 }
 
+void Currency::setCurrencyNote(const std::string note)
+{
+	currencyNote = note;
+}
+
+void Currency::setCurrencyNotePlural(const std::string notePlural)
+{
+	currencyNotePlural = notePlural;
+}
+
+void Currency::setCurrencyCoin(const std::string coin)
+{
+	currencyCoin = coin;
+}
+
+void Currency::setCurrencyCoinPlural(const std::string coinPlural)
+{
+	currencyNote = coinPlural;
+}
+
 int Currency::getWholeParts() const
 {
 	return wholeParts;
@@ -96,7 +127,7 @@ int Currency::getTotalFractionalParts() const
 }
 
 void Currency::setWholeParts(const int whole)
-{
+{	
 	if (whole < 0)
 	{
 		throw (ExceptionCurrencyNegative());
@@ -151,7 +182,7 @@ void Currency::setTotalWholeParts(const double totalWhole)
 Currency Currency::operator+(const double a) const
 {
 	Currency temp = *this;
-
+	
 	temp.addWhole(a);
 
 	return temp;
@@ -184,9 +215,9 @@ Currency Currency::operator+(const Currency& currency) const
 {
 	Currency temp = *this;
 
-	if (temp != currency)
+	if (!temp.isSameType(currency))
 	{
-		throw(ExceptionCurrencyMismatch());
+		throw (ExceptionCurrencyMismatch());
 	}
 	else
 	{
@@ -199,9 +230,9 @@ Currency Currency::operator-(const Currency& currency) const
 {
 	Currency temp = *this;
 
-	if (temp != currency)
+	if (!temp.isSameType(currency))
 	{
-		throw(ExceptionCurrencyMismatch());
+		throw (ExceptionCurrencyMismatch());
 	}
 	else
 	{
@@ -212,9 +243,9 @@ Currency Currency::operator-(const Currency& currency) const
 
 Currency& Currency::operator+=(const Currency& currency)
 {
-	if (*this != currency)
+	if (!this->isSameType(currency))
 	{
-		throw(ExceptionCurrencyMismatch());
+		throw (ExceptionCurrencyMismatch());
 	}
 	else
 	{
@@ -225,9 +256,9 @@ Currency& Currency::operator+=(const Currency& currency)
 
 Currency& Currency::operator-=(const Currency& currency)
 {
-	if (*this != currency)
+	if (!this->isSameType(currency))
 	{
-		throw(ExceptionCurrencyMismatch());
+		throw (ExceptionCurrencyMismatch());
 	}
 	else
 	{
@@ -238,10 +269,12 @@ Currency& Currency::operator-=(const Currency& currency)
 
 bool operator==(const Currency& left, const Currency& right)
 {
-	if (left.currencyNote == right.currencyNote &&
-		left.currencyNotePlural == right.currencyNotePlural &&
-		left.currencyCoin == right.currencyCoin &&
-		left.currencyCoinPlural == right.currencyCoinPlural)
+	if (!left.isSameType(right))
+	{
+		throw (ExceptionCurrencyMismatch());
+	}
+
+	if (left.getTotalFractionalParts() == right.getTotalFractionalParts())
 	{
 		return true;
 	}
@@ -253,10 +286,12 @@ bool operator==(const Currency& left, const Currency& right)
 
 bool operator!=(const Currency& left, const Currency& right)
 {
-	if (left.currencyNote != right.currencyNote ||
-		left.currencyNotePlural != right.currencyNotePlural ||
-		left.currencyCoin != right.currencyCoin ||
-		left.currencyCoinPlural != right.currencyCoinPlural)
+	if (!left.isSameType(right))
+	{
+		throw (ExceptionCurrencyMismatch());
+	}
+	
+	if (left.getTotalFractionalParts() != right.getTotalFractionalParts())
 	{
 		return true;
 	}
@@ -268,7 +303,7 @@ bool operator!=(const Currency& left, const Currency& right)
 
 bool operator<(const Currency& left, const Currency& right)
 {
-	if (left != right)
+	if (!left.isSameType(right))
 	{
 		throw (ExceptionCurrencyMismatch());
 	}
@@ -285,7 +320,7 @@ bool operator<(const Currency& left, const Currency& right)
 
 bool operator>(const Currency& left, const Currency& right)
 {
-	if (left != right)
+	if (!left.isSameType(right))
 	{
 		throw (ExceptionCurrencyMismatch());
 	}
@@ -302,7 +337,7 @@ bool operator>(const Currency& left, const Currency& right)
 
 bool operator<=(const Currency& left, const Currency& right)
 {
-	if (left != right)
+	if (!left.isSameType(right))
 	{
 		throw (ExceptionCurrencyMismatch());
 	}
@@ -319,7 +354,7 @@ bool operator<=(const Currency& left, const Currency& right)
 
 bool operator>=(const Currency& left, const Currency& right)
 {
-	if (left != right)
+	if (!left.isSameType(right))
 	{
 		throw (ExceptionCurrencyMismatch());
 	}
@@ -337,7 +372,7 @@ bool operator>=(const Currency& left, const Currency& right)
 std::istream& operator>>(std::istream& is, Currency& currency)
 {
 	double input;
-
+	
 	is >> input;
 
 	currency.setTotalWholeParts(input);
@@ -349,7 +384,7 @@ std::ostream& operator<<(std::ostream& os, const Currency& currency)
 {
 	std::string note = (currency.wholeParts == 1 ? currency.currencyNote : currency.currencyNotePlural);
 	std::string coin = (currency.fractionalParts == 1 ? currency.currencyCoin : currency.currencyCoinPlural);
-
+	
 	os << currency.wholeParts << " " << note << " and " << currency.fractionalParts << " " << coin;
 
 	return os;

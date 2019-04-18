@@ -24,6 +24,18 @@
     <ClCompile Include="Dollar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Euro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rupee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Yen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Yuan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Currency.h">
@@ -36,6 +48,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ExceptionCurrencyNegative.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Euro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rupee.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Yen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Yuan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
