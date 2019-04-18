@@ -33,6 +33,7 @@ public:
 	static const int fractionsInWhole = 100;
 	//Constructor
 	Currency();
+	Currency(std::string cNote, std::string cNotePlural, std::string cCoin, std::string cCoinPlural, int, int);
 	//Virtual destructor since Currency is a base class
 	virtual ~Currency();
 	//Helper functions

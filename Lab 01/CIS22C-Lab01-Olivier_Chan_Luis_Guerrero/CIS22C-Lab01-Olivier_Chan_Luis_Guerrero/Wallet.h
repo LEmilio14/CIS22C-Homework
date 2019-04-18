@@ -28,16 +28,15 @@ public:
 	int getNumbOfNonZeroCur();
 
 
-	void addCurrency(std::string currencyName, double amount);
-	void removeCurrency(std::string currencyName, double amount);
+	void addCurrency(Currency *currencyName, double amount);
+	void removeCurrency(Currency *currencyName, double amount);
 	void zeroAllCurrency();
 
-	bool isEmpty();
-	bool isCurrencyNonZero(std::string currencyName);
+	bool walletIsEmpty();
+	bool isCurrencyNonZero(Currency *currencyName);
+	
 
 	//OVERLOADS
 	Currency& operator[](const int index);
-
-	Wallet(double & dol, double & eu, double & ye, double & rup, double & yu);
 
 };
