@@ -1,0 +1,99 @@
+class Currency
+	private:
+		//DATA
+		string currencyNote; //Ex. Dollar, Euro, Yen
+		string currencyNotePlural;
+		string currencyCoin; //Ex. Cent, Sen, Paise
+		string currencyCoinPlural;
+		int wholeParts; //Ex. Dollars. 1 whole = 100 fractions
+		int fractionalParts; //Ex. Cents. 1 cent = 0.01 wholes.
+	public:
+		//CONSTRUCTOR
+		Currency(string curNote, string curCoin, int whole, int fraction)
+			:currencyNote(curNote), currencyCoin(curCoin), wholeParts(whole), fractionalParts(fraction);
+			//We have to use constructor initialization lists
+		//OPERATOR OVERLOADS
+		//We use doubles here, so adding 1 should add 1 dollar. Adding 0.50 should add 50 cents.
+		//Also, these operators should roll over fractional parts into whole parts(150 fractions should instead do 1 whole and 50 fractions.)
+		Currency operator+(const double a);
+		Currency operator-(const double a);
+		Currency operator+=(const double a);
+		Currency operator-=(const double a);
+		//Remember, for all comparison operators, make sure BOTH currencies are the SAME! Dollar and yen can't be compared!
+		//That applies for ==, >, <, everything. We should throw an exception if there is an invalid comparison.
+		bool operator==(const Currency& left, const Currency& right);
+		bool operator!=(const Currency& left, const Currency& right);
+		bool operator<(const Currency& left, const Currency& right);
+		bool operator>(const Currency& left, const Currency& right);
+		bool operator<=(const Currency& left, const Currency& right);
+		bool operator>=(const Currency& left, const Currency& right);
+		friend ostream& operator<<(ostream& os, const Currency& cur); //Print the value of the currency
+		friend istream& operator>>(ostream& is, const Currency& cur); //Accept (Add) currency
+		//Getters and setters
+		(get and set for every data member here)
+		//Add and subtract functions
+		void addWhole(int)
+		void addFractional(int)
+		void subtractWhole(int)
+		void subtractFractional(int)
+
+class Dollar : public Currency
+	currencyNote = "Dollar";
+	currencyCoin = "Cent";
+
+class Euro : public Currency
+	currencyNote = "Euro";
+	currencyCoin = "Cent";
+
+class Yen : public Currency
+	currencyNote = "Yen";
+	currencyCoin = "Sen";
+
+class Rupee : public Currency
+	currencyNote = "Rupee";
+	currencyCoin = "Paise";
+
+class Yuan : public Currency
+	currencyNote = "Yuan";
+	currencyCoin = "Fen";
+
+class Wallet
+	private:
+		//DATA
+		Currency dollar;
+		Currency euro;
+		Currency yen;
+		Currency rupee;
+		Currency yuan;
+	public:
+		//CONSTRUCTOR
+		Wallet(double dollars, double euros, double yen, double rupees, double yuan); //Initalize the currencies with new, use polymorphism
+		//FUNCTIONS
+		int getNumberNonZeroCurrencies();
+		bool isCurrencyNonZero(string currencyName);
+		void addCurrency(string currencyName, double amount); //Remember, adding 1.5 is adding 1 dollar and 50 cents.
+		void removeCurrency(string currencyName, double amount); //Make sure that the currency doesn't go below 0.
+		void zeroAllCurrency(); //Sets everything to 0.
+		bool isEmpty();
+		//OVERLOADS
+		Currency& operator[](const int index);
+		
+main
+	initalize wallet with 0 currencies
+	pick an option:
+		add currency
+		subtract currency
+		output total value of specific currency by name
+		empty the wallet
+	add currency
+		pick the currency between 1-5 (1 is dollar, 2 is euro, etc.)
+		add
+	subtract currency
+		pick the currency between 1-5 (1 is dollar, 2 is euro, etc.)
+		subtract
+	output currency
+		pick the currency between 1-5 (1 is dollar, 2 is euro, etc.)
+		output total value (Ex. The wallet contains 5 dollars and 98 cents)
+	empty wallet
+		empty wallet
+		print out how much currency got removed
