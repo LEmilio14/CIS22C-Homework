@@ -2,7 +2,7 @@
 
 #include <string>
 #include <iomanip>
-
+#include <limits>
 
 #include "Currency.h"
 #include "Dollar.h"
@@ -15,10 +15,10 @@
 using namespace std;
 
 string generateBars(int number);
-int getUserInputInt(const int& min, const int& max);
-double getUserInputDouble(const double& min, const double& max);
+int getUserInputInt(const int& min = INT_MIN, const int& max = INT_MAX);
+double getUserInputDouble(const double& min = DBL_MAX, const double& max = DBL_MAX);
 
-//void printWallet();
+void printWallet(Wallet& wallet);
 void displayMainMenu();
 void displayAddMenu();
 void displayRemoveMenu();
@@ -61,11 +61,8 @@ int main()
 		
 		displayMainMenu();
 		cout << "\t\t\t  [ YOUR WALLET ]" << endl << endl;
-		cout << "\t\t\t" << wallet[0] << endl;
-		cout << "\t\t\t" << wallet[1] << endl;
-		cout << "\t\t\t" << wallet[2] << endl;
-		cout << "\t\t\t" << wallet[3] << endl;
-		cout << "\t\t\t" << wallet[4] << endl;
+		printWallet(wallet);
+		cout << endl;
 		cout << UI::PROMPT_OPTION;
 		inputMain = getUserInputInt(UI::MAIN_MENU_OPTIONS::MAIN_ADD, UI::MAIN_MENU_OPTIONS::MAIN_EXIT);
 
@@ -93,7 +90,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Dollars you want to add to your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 1000);
+						addRemoveInput = getUserInputDouble(0);
 					
 						wallet.addCurrency("USD", addRemoveInput);
 					}
@@ -111,7 +108,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Euros you want to add to your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 						wallet.addCurrency("EUR", addRemoveInput);
 					}
@@ -129,7 +126,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Yen you want to add to your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 						wallet.addCurrency("JPY", addRemoveInput);
 					}
@@ -147,7 +144,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Rupees you want to add to your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 						wallet.addCurrency("INR", addRemoveInput);
 					}
@@ -165,7 +162,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Yuan you want to add to your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 						wallet.addCurrency("JPY", addRemoveInput);
 					}
@@ -207,7 +204,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Dollars you want to delete of your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 						wallet.removeCurrency("USD", addRemoveInput);
 					}
@@ -225,7 +222,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Euros you want to delete of your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 
 						wallet.addCurrency("EUR", addRemoveInput);
@@ -243,7 +240,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Yen you want to delete of your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 
 						wallet.addCurrency("JPY", addRemoveInput);
@@ -261,7 +258,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Rupees you want to delete of your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 
 						wallet.addCurrency("INR", addRemoveInput);
@@ -279,7 +276,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Yuan you want to delete of your wallet?" << endl;
-						addRemoveInput = getUserInputDouble(0, 10000);
+						addRemoveInput = getUserInputDouble(0);
 
 
 						wallet.addCurrency("CNY", addRemoveInput);
@@ -514,8 +511,6 @@ int main()
 		}
 
 	} while (inputMain != UI::MAIN_MENU_OPTIONS::MAIN_EXIT);
-
-
 
 	system("pause");
 	return 0;
@@ -810,4 +805,13 @@ string getUserInputString()
 	getline(cin, input);
 
 	return input;
+}
+
+void printWallet(Wallet& wallet)
+{
+	cout << wallet[0] << endl;
+	cout << wallet[1] << endl;
+	cout << wallet[2] << endl;
+	cout << wallet[3] << endl;
+	cout << wallet[4] << endl;
 }
