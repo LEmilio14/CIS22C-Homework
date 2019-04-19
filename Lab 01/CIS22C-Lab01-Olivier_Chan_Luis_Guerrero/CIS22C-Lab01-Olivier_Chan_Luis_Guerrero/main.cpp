@@ -17,7 +17,7 @@ using namespace std;
 string generateBars(int number);
 int getUserInputInt(const int& min, const int& max);
 
-void printWallet();
+//void printWallet();
 void displayMainMenu();
 void displayAddMenu();
 void displayRemoveMenu();
@@ -27,8 +27,8 @@ void displayEmptyMenu();
 
 namespace UI
 {
-	const int TERMINAL_WIDTH = 70;
-	const int TERMINAL_HEIGHT = 25;
+	const int TERMINAL_WIDTH = 60;
+	const int TERMINAL_HEIGHT = 30;
 
 	const string BARS = "=";
 
@@ -114,6 +114,12 @@ int main()
 	{
 		
 		displayMainMenu();
+		cout << "\t\t\t  [ YOUR WALLET ]" << endl << endl;
+		cout << "\t\t\t" << "Dollars " << wallet[0].getWholeParts() << " and " << wallet[0].getFractionalParts() << " Cents" << endl;
+		cout << "\t\t\t" << "Euros " << wallet[1].getWholeParts() << " and " << wallet[1].getFractionalParts() << " Cents" << endl;
+		cout << "\t\t\t" << "Yen " << wallet[2].getWholeParts() << " and " << wallet[2].getFractionalParts() << " Sen" << endl;
+		cout << "\t\t\t" << "Rupee " << wallet[3].getWholeParts() << " and " << wallet[3].getFractionalParts() << " Paise" << endl;
+		cout << "\t\t\t" << "Yuan " << wallet[4].getWholeParts() << " and " << wallet[4].getFractionalParts() << " Fens" << endl << endl;
 		cout << UI::PROMPT_OPTION;
 		inputMain = getUserInputInt(UI::MAIN_MENU_OPTIONS::MAIN_ADD, UI::MAIN_MENU_OPTIONS::MAIN_EXIT);
 
@@ -125,6 +131,12 @@ int main()
 			do
 			{
 				displayAddMenu();
+				cout << "\t\t\t  [ YOUR WALLET ]" << endl << endl;
+				cout << "\t\t\t" << "Dollars " << wallet[0].getWholeParts() << " and " << wallet[0].getFractionalParts() << " Cents" << endl;
+				cout << "\t\t\t" << "Euros " << wallet[1].getWholeParts() << " and " << wallet[1].getFractionalParts() << " Cents" << endl;
+				cout << "\t\t\t" << "Yen " << wallet[2].getWholeParts() << " and " << wallet[2].getFractionalParts() << " Sen" << endl;
+				cout << "\t\t\t" << "Rupee " << wallet[3].getWholeParts() << " and " << wallet[3].getFractionalParts() << " Paise" << endl;
+				cout << "\t\t\t" << "Yuan " << wallet[4].getWholeParts() << " and " << wallet[4].getFractionalParts() << " Fens" << endl << endl;
 				cout << UI::PROMPT_OPTION;
 				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 
@@ -233,6 +245,12 @@ int main()
 			do
 			{
 				displayRemoveMenu();
+				cout << "\t\t\t  [ YOUR WALLET ]" << endl << endl;
+				cout << "\t\t\t" << "Dollars " << wallet[0].getWholeParts() << " and " << wallet[0].getFractionalParts() << " Cents" << endl;
+				cout << "\t\t\t" << "Euros " << wallet[1].getWholeParts() << " and " << wallet[1].getFractionalParts() << " Cents" << endl;
+				cout << "\t\t\t" << "Yen " << wallet[2].getWholeParts() << " and " << wallet[2].getFractionalParts() << " Sen" << endl;
+				cout << "\t\t\t" << "Rupee " << wallet[3].getWholeParts() << " and " << wallet[3].getFractionalParts() << " Paise" << endl;
+				cout << "\t\t\t" << "Yuan " << wallet[4].getWholeParts() << " and " << wallet[4].getFractionalParts() << " Fens" << endl << endl;
 				cout << UI::PROMPT_OPTION;
 				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 
@@ -350,7 +368,7 @@ int main()
 					system("pause");
 					break;
 				case UI::TOTAL_CURRENCY_OPTIONS::TOTAL_OF_ZERO:
-					cout << endl << "This many currencies ARE zero: " << wallet.getNumNonZeroCurrency() << endl << endl;
+					cout << endl << "This many currencies ARE zero: " << wallet.getNumZeroCurrency() << endl << endl;
 					system("pause");
 					break;
 				case UI::TOTAL_CURRENCY_OPTIONS::TOTAL_INDIVIDUAL:
@@ -528,11 +546,12 @@ int main()
 				case UI::EMPTY_OPTIONS::EMPTY_ALL:
 			
 					cout << endl << "Are you sure you want to empty all currency? [1]YES [2]NO : ";
+					cout << UI::PROMPT_OPTION;
 					cin >> userInt;
 					if (userInt == 1)
 					{
 						wallet.emptyAllCurrency();
-						cout << endl << "All currency was set equal to zero" << endl;
+						cout << endl << "All currency was set equal to zero..." << endl << endl;
 						system("pause");
 					}
 					else
@@ -556,22 +575,6 @@ int main()
 	return 0;
 }
 
-void printWallet()
-{
-	system("CLS");
-
-	Wallet wallet(0, 0, 0, 0, 0);
-
-	cout << endl << endl << "\t\t\t  [ YOUR WALLET ]" << endl << endl;
-	cout << "\t\t\t" << "Dollars " << wallet[0].getWholeParts() << " and " << wallet[0].getFractionalParts() << " Cents" << endl;
-	cout << "\t\t\t" << "Euros " << wallet[1].getWholeParts() << " and " << wallet[1].getFractionalParts() << " Cents" << endl;
-	cout << "\t\t\t" << "Yen " << wallet[2].getWholeParts() << " and " << wallet[2].getFractionalParts() << " Sen" << endl;
-	cout << "\t\t\t" << "Rupee " << wallet[3].getWholeParts() << " and " << wallet[3].getFractionalParts() << " Paise" << endl;
-	cout << "\t\t\t" << "Yuan " << wallet[4].getWholeParts() << " and " << wallet[4].getFractionalParts() << " Fens" << endl << endl;
-
-
-	return;
-}
 
 void displayMainMenu()
 {
@@ -588,7 +591,7 @@ void displayMainMenu()
 	const size_t titleMargin = (UI::TERMINAL_WIDTH + walletText.length()) / 2;
 	const size_t optionMargin = (titleMargin - walletText.length());
 
-	printWallet();
+
 	cout << right << bars << endl  << setw(titleMargin) << endl  << walletText << endl << endl;
 
 	cout << setw(optionMargin + addText.length()) << addText << endl << endl
@@ -696,8 +699,8 @@ void displayTotalMenu()
 
 	const string bars = generateBars(UI::TERMINAL_WIDTH);
 	const string totalText = "[ TOTAL ]";
-	const string totalNonText = "[ 1 ] TOTAL NON-ZERO CURRENCIES";
-	const string totalZeroText = "[ 2 ] TOTAL CURRENCIES AS ZERO";
+	const string totalNonText = "[ 1 ] TOTAL NON-ZERO CURRENCY";
+	const string totalZeroText = "[ 2 ] TOTAL ZERO CURRENCY";
 	const string totalByNameText = "[ 3 ] TOTAL CURRENCY BY NAME";
 	const string backText = "[ 4 ] BACK";
 
