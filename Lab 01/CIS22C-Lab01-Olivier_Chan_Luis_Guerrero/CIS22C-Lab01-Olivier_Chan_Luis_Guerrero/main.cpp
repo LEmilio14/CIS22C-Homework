@@ -19,8 +19,11 @@ int getUserInputInt(const int& min, const int& max);
 
 void printWallet();
 void displayMainMenu();
-void displayAddRemoveTotalMenu();
+void displayAddMenu();
+void displayRemoveMenu();
+void displayCurrencyMenu();
 void displayTotalMenu();
+void displayEmptyMenu();
 
 namespace UI
 {
@@ -37,9 +40,9 @@ namespace UI
 	const string ERR_INVALID_OPTION_RANGE = "ERROR: Invalid option, option must be between ";
 
 	enum MAIN_MENU_OPTIONS { MAIN_NONE, MAIN_ADD, MAIN_SUBSTRACT, MAIN_TOTAL, MAIN_EMPTY, MAIN_EXIT };
-	enum PICK_CURRENCY_OPTIONS { CURRENCY_DOLLARS, CURRENCY_EUROS, CURRENCY_YEN, CURRENCY_RUPEE, CURRENCY_YUAN, CURRENCY_BACK};
-	enum TOTAL_CURRENCY_OPTIONS { TOTAL_NONE, TOTAL_NON_ZERO, TOTAL_OF_ZERO, TOTAL_INDIVIDUAL};
-	enum EMPTY_OPTIONS { EMPTY_NONE, EMPTY_CHECK_CURRENCY, EMPTY_CHECK_WALLET, EMPTY_BY_NAME, EMPTY_ALL};
+	enum PICK_CURRENCY_OPTIONS { CURRENCY_NONE, CURRENCY_DOLLARS, CURRENCY_EUROS, CURRENCY_YEN, CURRENCY_RUPEE, CURRENCY_YUAN, CURRENCY_BACK};
+	enum TOTAL_CURRENCY_OPTIONS { TOTAL_NONE, TOTAL_NON_ZERO, TOTAL_OF_ZERO, TOTAL_INDIVIDUAL, TOTAL_BACK};
+	enum EMPTY_OPTIONS { EMPTY_NONE, EMPTY_CHECK_CURRENCY, EMPTY_CHECK_WALLET, EMPTY_BY_NAME, EMPTY_ALL, EMPTY_BACK};
 
 }
 
@@ -116,11 +119,12 @@ int main()
 
 		switch (inputMain)
 		{
-			int subMenuInput, userWhole, userFractional;
+			int subMenuInput;
+			double addRemoveInput;
 		case UI::MAIN_MENU_OPTIONS::MAIN_ADD:
 			do
 			{
-				displayAddRemoveTotalMenu();
+				displayAddMenu();
 				cout << UI::PROMPT_OPTION;
 				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 
@@ -131,13 +135,9 @@ int main()
 					try
 					{
 						cout << endl << "How many Dollars you want to add to your wallet?" << endl;
-						cin >> userWhole;
+						cin >> addRemoveInput;
 					
-						cout << endl << "How many Cents you want to add to your wallet?" << endl;
-						cin >> userFractional;
-					
-					
-						wallet.addCurrency("USD", userWhole, userFractional);
+						wallet.addCurrency("USD", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e) {
 						cout << endl << e.what() << endl;
@@ -153,12 +153,9 @@ int main()
 					try
 					{
 						cout << endl << "How many Euros you want to add to your wallet?" << endl;
-						userWhole = getUserInputInt(1, 1000000);
+						cin >> addRemoveInput;
 
-						cout << endl << "How many Cents you want to add to your wallet?" << endl;
-						userFractional = getUserInputInt(1, 100000);
-
-						wallet.addCurrency("EUR", userWhole, userFractional);
+						wallet.addCurrency("EUR", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e) 
 					{
@@ -174,12 +171,9 @@ int main()
 					try
 					{
 						cout << endl << "How many Yen you want to add to your wallet?" << endl;
-						userWhole = getUserInputInt(1, 1000000);
+						cin >> addRemoveInput;
 
-						cout << endl << "How many Sen you want to add to your wallet?" << endl;
-						userFractional = getUserInputInt(1, 100000);
-
-						wallet.addCurrency("JPY", userWhole, userFractional);
+						wallet.addCurrency("JPY", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e)
 					{
@@ -195,12 +189,9 @@ int main()
 					try
 					{
 						cout << endl << "How many Rupees you want to add to your wallet?" << endl;
-						userWhole = getUserInputInt(1, 1000000);
+						cin >> addRemoveInput;
 
-						cout << endl << "How many Paise you want to add to your wallet?" << endl;
-						userFractional = getUserInputInt(1, 100000);
-
-						wallet.addCurrency("INR", userWhole, userFractional);
+						wallet.addCurrency("INR", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e)
 					{
@@ -216,12 +207,9 @@ int main()
 					try
 					{
 						cout << endl << "How many Yuan you want to add to your wallet?" << endl;
-						userWhole = getUserInputInt(1, 1000000);
+						cin >> addRemoveInput;
 
-						cout << endl << "How many Fens you want to add to your wallet?" << endl;
-						userFractional = getUserInputInt(1, 100000);
-
-						wallet.addCurrency("JPY", userWhole, userFractional);
+						wallet.addCurrency("JPY", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e)
 					{
@@ -234,6 +222,7 @@ int main()
 					break;
 				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK:
 					break;
+
 				default:
 					break;
 				}
@@ -243,7 +232,7 @@ int main()
 		case UI::MAIN_MENU_OPTIONS::MAIN_SUBSTRACT:
 			do
 			{
-				displayAddRemoveTotalMenu();
+				displayRemoveMenu();
 				cout << UI::PROMPT_OPTION;
 				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 
@@ -254,13 +243,9 @@ int main()
 					try
 					{
 						cout << endl << "How many Dollars you want to delete of your wallet?" << endl;
-						cin >> userWhole;
+						cin >> addRemoveInput;
 
-						cout << endl << "How many Cents you want to delete of your wallet?" << endl;
-						cin >> userFractional;
-
-
-						wallet.removeCurrency("USD", userWhole, userFractional);
+						wallet.removeCurrency("USD", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e) {
 						cout << endl << e.what() << endl;
@@ -268,6 +253,7 @@ int main()
 
 					cout << endl << endl;
 					cout << wallet[0] << endl << endl;
+
 					system("pause");
 					break;
 				case UI::PICK_CURRENCY_OPTIONS::CURRENCY_EUROS:
@@ -275,13 +261,10 @@ int main()
 					try
 					{
 						cout << endl << "How many Euros you want to delete of your wallet?" << endl;
-						cin >> userWhole;
-
-						cout << endl << "How many Cents you want to delete of your wallet?" << endl;
-						cin >> userFractional;
+						cin >> addRemoveInput;
 
 
-						wallet.addCurrency("EUR", userWhole, userFractional);
+						wallet.addCurrency("EUR", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e) {
 						cout << endl << e.what() << endl;
@@ -296,13 +279,10 @@ int main()
 					try
 					{
 						cout << endl << "How many Yen you want to delete of your wallet?" << endl;
-						cin >> userWhole;
-
-						cout << endl << "How many Sen you want to delete of your wallet?" << endl;
-						cin >> userFractional;
+						cin >> addRemoveInput;
 
 
-						wallet.addCurrency("JPY", userWhole, userFractional);
+						wallet.addCurrency("JPY", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e) {
 						cout << endl << e.what() << endl;
@@ -317,13 +297,10 @@ int main()
 					try
 					{
 						cout << endl << "How many Rupees you want to delete of your wallet?" << endl;
-						cin >> userWhole;
-
-						cout << endl << "How many Paise you want delete of your wallet?" << endl;
-						cin >> userFractional;
+						cin >> addRemoveInput;
 
 
-						wallet.addCurrency("INR", userWhole, userFractional);
+						wallet.addCurrency("INR", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e) {
 						cout << endl << e.what() << endl;
@@ -338,13 +315,10 @@ int main()
 					try
 					{
 						cout << endl << "How many Yuan you want to delete of your wallet?" << endl;
-						cin >> userWhole;
-
-						cout << endl << "How many Fens you want to delete of your wallet?" << endl;
-						cin >> userFractional;
+						cin >> addRemoveInput;
 
 
-						wallet.addCurrency("CNY", userWhole, userFractional);
+						wallet.addCurrency("CNY", addRemoveInput);
 					}
 					catch (ExceptionCurrencyNegative& e) {
 						cout << endl << e.what() << endl;
@@ -367,64 +341,209 @@ int main()
 			{
 				displayTotalMenu();
 				cout << UI::PROMPT_OPTION;
-				subMenuInput = getUserInputInt(UI::TOTAL_CURRENCY_OPTIONS::TOTAL_NON_ZERO, UI::TOTAL_CURRENCY_OPTIONS::TOTAL_INDIVIDUAL);
+				subMenuInput = getUserInputInt(UI::TOTAL_CURRENCY_OPTIONS::TOTAL_NON_ZERO, UI::TOTAL_CURRENCY_OPTIONS::TOTAL_BACK);
 
 				switch (subMenuInput)
 				{
 				case UI::TOTAL_CURRENCY_OPTIONS::TOTAL_NON_ZERO:
 					cout << endl << "This many currencies ARE NOT zero: " << wallet.getNumNonZeroCurrency() << endl << endl;
+					system("pause");
 					break;
 				case UI::TOTAL_CURRENCY_OPTIONS::TOTAL_OF_ZERO:
 					cout << endl << "This many currencies ARE zero: " << wallet.getNumNonZeroCurrency() << endl << endl;
+					system("pause");
 					break;
 				case UI::TOTAL_CURRENCY_OPTIONS::TOTAL_INDIVIDUAL:
-					displayAddRemoveTotalMenu();
-					cout << UI::PROMPT_OPTION;
-					subsubMenu = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
-					switch (subsubMenu)
+					do
 					{
-					case UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS:
-						cout << endl << "The total number of Dollars is: " << "$" << wallet[0].getTotalWholeParts() << endl << endl;
-						break;
-					case UI::PICK_CURRENCY_OPTIONS::CURRENCY_EUROS:
-						cout << endl << "The total number of Euros is: " << "" << wallet[1].getTotalWholeParts() << endl << endl;
-						break;
-					case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YEN:
-						cout << endl << "The total number of Yen are: " << "" << wallet[2].getTotalWholeParts() << endl << endl;
-						break;
-					case UI::PICK_CURRENCY_OPTIONS::CURRENCY_RUPEE:
-						cout << endl << "The total number of Rupee are: " << "" << wallet[3].getTotalWholeParts() << endl << endl;
-						break;
-					case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YUAN:
-						cout << endl << "The total number of Yuan are: " << "" << wallet[4].getTotalWholeParts() << endl << endl;
-						break;
-					case UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK:
+						displayCurrencyMenu();
+						cout << UI::PROMPT_OPTION;
+						subsubMenu = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+						switch (subsubMenu)
+						{
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS:
+							cout << endl << "The total number of Dollars is: " << wallet[0].getTotalWholeParts() << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_EUROS:
+							cout << endl << "The total number of Euros is: " << wallet[1].getTotalWholeParts() << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YEN:
+							cout << endl << "The total number of Yen are: " << wallet[2].getTotalWholeParts() << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_RUPEE:
+							cout << endl << "The total number of Rupee are: " << wallet[3].getTotalWholeParts() << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YUAN:
+							cout << endl << "The total number of Yuan are: " << wallet[4].getTotalWholeParts() << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK:
 
-					default:
-						break;
-					}
+						default:
+							break;
+						}
+					} while (subsubMenu != UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+				case UI::TOTAL_CURRENCY_OPTIONS::TOTAL_BACK:
+					break;
 				default:
 					break;
 				}
 
-			} while (subMenuInput != UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+			} while (subMenuInput != UI::TOTAL_CURRENCY_OPTIONS::TOTAL_BACK);
 			break;
 		case UI::MAIN_MENU_OPTIONS::MAIN_EMPTY:
-			
-			system("CLS");
-			int userInt;
-
-			cout << endl << "Are you sure you want to empty all currency? [1]YES [2]NO : ";
-			cin >> userInt;
-			if (userInt == 1)
+			do
 			{
-				wallet.emptyAllCurrency();
-				cout << endl << "All currency was set equal to zero" << endl;
-				system("pause");
-			}else
-				system("pause");
-			break;
+				system("CLS");
+				int userInt;
+
+				displayEmptyMenu();
+				cout << UI::PROMPT_OPTION;
+				subMenuInput = getUserInputInt(UI::EMPTY_OPTIONS::EMPTY_CHECK_CURRENCY, UI::EMPTY_OPTIONS::EMPTY_BACK);
+				switch (subMenuInput)
+				{
+				case UI::EMPTY_OPTIONS::EMPTY_CHECK_CURRENCY:
+					do
+					{
+						displayCurrencyMenu();
+						cout << UI::PROMPT_OPTION;
+						subsubMenu = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+						switch (subsubMenu)
+						{
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS:
+							if (wallet.isCurrencyEmpty(0) == 1)
+							{
+								cout << endl << endl << "Dollars are not empty" << endl;
+								system("pause");
+							}
+							else
+								cout << endl << endl << "Dollars are empty" << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_EUROS:
+							if (wallet.isCurrencyEmpty(1) == 1)
+							{
+								cout << endl << endl << "Euros are not empty" << endl;
+								system("pause");
+							}
+							else
+								cout << endl << endl << "Euros are empty" << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YEN:
+							if (wallet.isCurrencyEmpty(2) == 1)
+							{
+								cout << endl << endl << "Yen are not empty" << endl;
+								system("pause");
+							}
+							else
+								cout << endl << endl << "Yen are empty" << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_RUPEE:
+							if (wallet.isCurrencyEmpty(3) == 1)
+							{
+								cout << endl << endl << "Rupee are not empty" << endl;
+								system("pause");
+							}
+							else
+								cout << endl << endl << "Rupee are empty" << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YUAN:
+							if (wallet.isCurrencyEmpty(4) == 1)
+							{
+								cout << endl << endl << "Yuan are not empty" << endl;
+								system("pause");
+							}
+							else
+								cout << endl << endl << "Yuan are empty" << endl;
+							system("pause");
+							break;
+						default:
+							break;
+						}
+					} while (subsubMenu != UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+					break;
+
+				case UI::EMPTY_OPTIONS::EMPTY_CHECK_WALLET:
+					if (wallet.isWalletEmpty() == 1)
+					{
+						cout << endl << endl << "Wallet is empty..." << endl;
+						system("pause");
+					}
+					else
+						cout << endl << endl << "Wallet is not empty..." << endl;
+					system("pause");
+					break;
+				case UI::EMPTY_OPTIONS::EMPTY_BY_NAME:
+					do
+					{
+						displayCurrencyMenu();
+						cout << UI::PROMPT_OPTION;
+						subsubMenu = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+						switch (subsubMenu)
+						{
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS:
+							wallet.emptyCurrency(0);
+							cout << endl << "Emptying Dollars... " << endl;
+							cout << wallet[0].getTotalWholeParts() << " Dollars" << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_EUROS:
+							wallet.emptyCurrency(1);
+							cout << endl << "Emptying Euros... " << endl;
+							cout << wallet[1].getTotalWholeParts() << " Euros" << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YEN:
+							wallet.emptyCurrency(2);
+							cout << endl << "Emptying Yen... " << endl;
+							cout << wallet[2].getTotalWholeParts() << " Yen" << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_RUPEE:
+							wallet.emptyCurrency(3);
+							cout << endl << "Emptying Rupee.. " << endl;
+							cout << wallet[3].getTotalWholeParts() << "Rupee" << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_YUAN:
+							wallet.emptyCurrency(4);
+							cout << endl << "Emptying Yuan... " << endl;
+							cout << wallet[4].getTotalWholeParts() << "Yuan" << endl << endl;
+							system("pause");
+							break;
+						case UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK:
+							break;
+						default:
+							break;
+						}
+					} while (subsubMenu != UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
+					break;
+				case UI::EMPTY_OPTIONS::EMPTY_ALL:
 			
+					cout << endl << "Are you sure you want to empty all currency? [1]YES [2]NO : ";
+					cin >> userInt;
+					if (userInt == 1)
+					{
+						wallet.emptyAllCurrency();
+						cout << endl << "All currency was set equal to zero" << endl;
+						system("pause");
+					}
+					else
+					system("pause");
+					break;
+
+				default:
+					break;
+				}
+			} while (subMenuInput != UI::EMPTY_OPTIONS::EMPTY_BACK);
+			break;
 		default:
 			break;
 		}
@@ -483,18 +602,18 @@ void displayMainMenu()
 	return;
 }
 
-void displayAddRemoveTotalMenu()
+void displayAddMenu()
 {
 	system("CLS");
 
 	const string bars = generateBars(UI::TERMINAL_WIDTH);
-	const string currencyText = "[ CURRENCY ]";
-	const string dollarText = "[ 0 ] DOLLAR";
-	const string eurosText = "[ 1 ] EURO";
-	const string yenText = "[ 2 ] YEN";
-	const string rupeeText = "[ 3 ] RUPEE";
-	const string yuanText = "[ 4 ] YUAN";
-	const string backText = "[ 5 ] BACK";
+	const string currencyText = "[ ADD ]";
+	const string dollarText = "[ 1 ] DOLLAR";
+	const string eurosText = "[ 2 ] EURO";
+	const string yenText = "[ 3 ] YEN";
+	const string rupeeText = "[ 4 ] RUPEE";
+	const string yuanText = "[ 5 ] YUAN";
+	const string backText = "[ 6 ] BACK";
 
 	const size_t titleMargin = (UI::TERMINAL_WIDTH + currencyText.length()) / 2;
 	const size_t optionMargin = titleMargin - currencyText.length();
@@ -508,8 +627,68 @@ void displayAddRemoveTotalMenu()
 		<< setw(optionMargin + yuanText.length()) << yuanText << endl << endl
 		<< setw(optionMargin + backText.length()) << backText << endl << endl
 		<< bars << endl << endl;
+
+	return;
 }
 
+void displayRemoveMenu()
+{
+	system("CLS");
+
+	const string bars = generateBars(UI::TERMINAL_WIDTH);
+	const string currencyText = "[ REMOVE ]";
+	const string dollarText = "[ 1 ] DOLLAR";
+	const string eurosText = "[ 2 ] EURO";
+	const string yenText = "[ 3 ] YEN";
+	const string rupeeText = "[ 4 ] RUPEE";
+	const string yuanText = "[ 5 ] YUAN";
+	const string backText = "[ 6 ] BACK";
+
+	const size_t titleMargin = (UI::TERMINAL_WIDTH + currencyText.length()) / 2;
+	const size_t optionMargin = titleMargin - currencyText.length();
+
+	cout << right << setw(titleMargin) << endl << currencyText << endl << endl << bars << endl << endl;
+
+	cout << setw(optionMargin + dollarText.length()) << dollarText << endl << endl
+		<< setw(optionMargin + eurosText.length()) << eurosText << endl << endl
+		<< setw(optionMargin + yenText.length()) << yenText << endl << endl
+		<< setw(optionMargin + rupeeText.length()) << rupeeText << endl << endl
+		<< setw(optionMargin + yuanText.length()) << yuanText << endl << endl
+		<< setw(optionMargin + backText.length()) << backText << endl << endl
+		<< bars << endl << endl;
+
+	return;
+}
+
+
+void displayCurrencyMenu()
+{
+	system("CLS");
+
+	const string bars = generateBars(UI::TERMINAL_WIDTH);
+	const string currencyText = "[ CURRENCY ]";
+	const string dollarText = "[ 1 ] DOLLAR";
+	const string eurosText = "[ 2 ] EURO";
+	const string yenText = "[ 3 ] YEN";
+	const string rupeeText = "[ 4 ] RUPEE";
+	const string yuanText = "[ 5 ] YUAN";
+	const string backText = "[ 6 ] BACK";
+
+	const size_t titleMargin = (UI::TERMINAL_WIDTH + currencyText.length()) / 2;
+	const size_t optionMargin = titleMargin - currencyText.length();
+
+	cout << right << setw(titleMargin) << endl << currencyText << endl << endl << bars << endl << endl;
+
+	cout << setw(optionMargin + dollarText.length()) << dollarText << endl << endl
+		<< setw(optionMargin + eurosText.length()) << eurosText << endl << endl
+		<< setw(optionMargin + yenText.length()) << yenText << endl << endl
+		<< setw(optionMargin + rupeeText.length()) << rupeeText << endl << endl
+		<< setw(optionMargin + yuanText.length()) << yuanText << endl << endl
+		<< setw(optionMargin + backText.length()) << backText << endl << endl
+		<< bars << endl << endl;
+
+	return;
+}
 
 void displayTotalMenu()
 {
@@ -517,8 +696,8 @@ void displayTotalMenu()
 
 	const string bars = generateBars(UI::TERMINAL_WIDTH);
 	const string totalText = "[ TOTAL ]";
-	const string totalNonText = "[ 1 ] TOTAL NUMBER OF NON-ZERO CURRENCIES";
-	const string totalZeroText = "[ 2 ] TOTAL NUMBER OF CURRENCIES AS ZERO";
+	const string totalNonText = "[ 1 ] TOTAL NON-ZERO CURRENCIES";
+	const string totalZeroText = "[ 2 ] TOTAL CURRENCIES AS ZERO";
 	const string totalByNameText = "[ 3 ] TOTAL CURRENCY BY NAME";
 	const string backText = "[ 4 ] BACK";
 

@@ -66,14 +66,13 @@ void Wallet::addCurrency(int index, double amount)
 }
 
 //Adds currency to the wallet class with currency functions
-void Wallet::addCurrency(std::string abbr, double amount, double amount2)
+void Wallet::addCurrency(std::string abbr, double amount)
 {
 	for (int i = 0; i < 5; i++)
 	{
 		if ((*this)[i].getCurrencyAbbreviation() == abbr)
 		{
 			(*this)[i].addWhole(amount);
-			(*this)[i].addFractional(amount2);
 		}
 	}
 }
@@ -85,14 +84,13 @@ void Wallet::removeCurrency(int index, double amount)
 }
 
 //Removes the quantity of the desire currency
-void Wallet::removeCurrency(std::string abbr, double amount, double amount2)
+void Wallet::removeCurrency(std::string abbr, double amount)
 {
 	for (int i = 0; i < 5; i++)
 	{
 		if ((*this)[i].getCurrencyAbbreviation() == abbr)
 		{
 			(*this)[i].addWhole(-amount);
-			(*this)[i].addWhole(-amount2);
 		}
 	}
 }

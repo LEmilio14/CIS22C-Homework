@@ -28,9 +28,9 @@ public:
 
 	void addCurrency(int index, double amount);
 	//Added amount2 for the fractional part
-	void addCurrency(std::string abbr, double amount, double amount2);
+	void addCurrency(std::string abbr, double amount);
 	void removeCurrency(int index, double amount);
-	void removeCurrency(std::string abbr, double amount, double amount2);
+	void removeCurrency(std::string abbr, double amount);
 	
 	bool isWalletEmpty();
 	
