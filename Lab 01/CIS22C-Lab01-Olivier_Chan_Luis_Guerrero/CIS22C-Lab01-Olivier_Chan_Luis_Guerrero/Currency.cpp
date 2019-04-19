@@ -56,7 +56,8 @@ void Currency::addFractional(const int a)
 	int quotient = totalFractionalParts / Currency::fractionsInWhole;
 	int remainder = totalFractionalParts % Currency::fractionsInWhole;
 
-	if (quotient < 0 || remainder < 0)
+	//added a < 0
+	if (quotient < 0 || remainder < 0 || a < 0)
 	{
 		throw (ExceptionCurrencyNegative());
 	}

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Currency.h"
+#include"ExceptionWalletZero.h"
 
 class Wallet
 {
@@ -12,6 +13,7 @@ private:
 	Currency* yuan;
 public:
 	//CONSTRUCTORS
+	Wallet();
 	Wallet(double dol, double eu, double ye, double ru, double yu);
 	~Wallet();
 	
@@ -25,9 +27,10 @@ public:
 	bool isCurrencyEmpty(std::string abbr);
 
 	void addCurrency(int index, double amount);
-	void addCurrency(std::string abbr, double amount);
+	//Added amount2 for the fractional part
+	void addCurrency(std::string abbr, double amount, double amount2);
 	void removeCurrency(int index, double amount);
-	void removeCurrency(std::string abbr, double amount);
+	void removeCurrency(std::string abbr, double amount, double amount2);
 	
 	bool isWalletEmpty();
 	

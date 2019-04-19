@@ -8,6 +8,8 @@
 #include "Rupee.h"
 #include "Yuan.h"
 
+Wallet::Wallet() {};
+
 Wallet::Wallet(double dol, double eu, double ye, double ru, double yu)
 {
 	dollar = new Dollar(static_cast<int>(dol), static_cast<int>((dol - static_cast<int>(dol)) * 100));
@@ -63,31 +65,34 @@ void Wallet::addCurrency(int index, double amount)
 	(*this)[index].addWhole(amount);
 }
 
-//Removes currency to the wallet class with currency functions
-void Wallet::addCurrency(std::string abbr, double amount)
+//Adds currency to the wallet class with currency functions
+void Wallet::addCurrency(std::string abbr, double amount, double amount2)
 {
 	for (int i = 0; i < 5; i++)
 	{
 		if ((*this)[i].getCurrencyAbbreviation() == abbr)
 		{
 			(*this)[i].addWhole(amount);
+			(*this)[i].addFractional(amount2);
 		}
 	}
 }
 
-//Removes currency from the wallet class with currency functions
+//Remove function
 void Wallet::removeCurrency(int index, double amount)
 {
 	(*this)[index].addWhole(-amount);
 }
 
-void Wallet::removeCurrency(std::string abbr, double amount)
+//Removes the quantity of the desire currency
+void Wallet::removeCurrency(std::string abbr, double amount, double amount2)
 {
 	for (int i = 0; i < 5; i++)
 	{
 		if ((*this)[i].getCurrencyAbbreviation() == abbr)
 		{
 			(*this)[i].addWhole(-amount);
+			(*this)[i].addWhole(-amount2);
 		}
 	}
 }
