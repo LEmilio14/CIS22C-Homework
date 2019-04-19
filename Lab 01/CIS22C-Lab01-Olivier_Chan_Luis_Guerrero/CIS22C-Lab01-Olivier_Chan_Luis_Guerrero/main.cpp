@@ -16,6 +16,7 @@ using namespace std;
 
 string generateBars(int number);
 int getUserInputInt(const int& min, const int& max);
+double getUserInputDouble(const double& min, const double& max);
 
 //void printWallet();
 void displayMainMenu();
@@ -27,7 +28,7 @@ void displayEmptyMenu();
 
 namespace UI
 {
-	const int TERMINAL_WIDTH = 60;
+	const int TERMINAL_WIDTH = 65;
 	const int TERMINAL_HEIGHT = 30;
 
 	const string BARS = "=";
@@ -54,72 +55,17 @@ int main()
 
 	//Objects.
 	Wallet wallet(0, 0, 0, 0, 0);
-	Currency currency;
-
-	/*
-	//HOW TO PRINT OUT EVERYTHING IN THE WALLET
-	//You can also do:
-	//cout << "this many dollars: " << wallet[0].getWholeParts << " and this many cents: " << wallet[0].getFractionalParts
-	//Prints out "this many dollars: 5 and this many cents: 41"
-	//Or you can also do:
-	//cout << "$" << wallet[0].getTotalWholeParts
-	//Prints out "$5.41"
-	cout << "Wallet contains:" << endl;
-	cout << wallet[0] << endl;
-	cout << wallet[1] << endl;
-	cout << wallet[2] << endl;
-	cout << wallet[3] << endl;
-	cout << wallet[4] << endl << endl;
-
-	//How to add and remove currency
-	//You can either give the index (0-4) or the abbreviation (USD, EUR, JPY, INR, CNY)
-	cout << "Remove 2 rupees" << endl;
-	wallet.removeCurrency(3, 2); //Using currency indexes
-	cout << wallet[3] << endl << endl;
-
-	cout << "Add 5 dollars" << endl;
-	wallet.addCurrency("USD", 5); //Using currency abbreviations
-	cout << wallet[0] << endl << endl;
-
-	//How to get number of non-zero currency
-	cout << "This many currencies ARE NOT zero" << endl;
-	cout << wallet.getNumNonZeroCurrency() << endl << endl;
-
-	//How to set a currency to 0, without having to do math or anything
-	cout << "Empty out dollars" << endl;
-	wallet.emptyCurrency(0);
-	cout << wallet[0] << endl << endl;
-
-	cout << "This many currencies ARE NOT zero" << endl;
-	cout << wallet.getNumNonZeroCurrency() << endl << endl;
-
-	//How to empty out every currency
-	cout << "Empty out everything" << endl << endl;
-	wallet.emptyAllCurrency();
-	
-	//How to get number of zero currency
-	cout << "This many currencies ARE zero" << endl;
-	cout << wallet.getNumZeroCurrency() << endl << endl;
-
-	//How to check if a specific currency is 0
-	cout << "Are yen empty?" << endl;
-	cout << wallet.isCurrencyEmpty("JPY") << endl << endl;
-
-	//How to check if wallet is empty
-	cout << "Is wallet empty?" << endl;
-	cout << wallet.isWalletEmpty() << endl << endl;
-	*/
 	
 	do
 	{
 		
 		displayMainMenu();
 		cout << "\t\t\t  [ YOUR WALLET ]" << endl << endl;
-		cout << "\t\t\t" << "Dollars " << wallet[0].getWholeParts() << " and " << wallet[0].getFractionalParts() << " Cents" << endl;
-		cout << "\t\t\t" << "Euros " << wallet[1].getWholeParts() << " and " << wallet[1].getFractionalParts() << " Cents" << endl;
-		cout << "\t\t\t" << "Yen " << wallet[2].getWholeParts() << " and " << wallet[2].getFractionalParts() << " Sen" << endl;
-		cout << "\t\t\t" << "Rupee " << wallet[3].getWholeParts() << " and " << wallet[3].getFractionalParts() << " Paise" << endl;
-		cout << "\t\t\t" << "Yuan " << wallet[4].getWholeParts() << " and " << wallet[4].getFractionalParts() << " Fens" << endl << endl;
+		cout << "\t\t\t" << wallet[0] << endl;
+		cout << "\t\t\t" << wallet[1] << endl;
+		cout << "\t\t\t" << wallet[2] << endl;
+		cout << "\t\t\t" << wallet[3] << endl;
+		cout << "\t\t\t" << wallet[4] << endl;
 		cout << UI::PROMPT_OPTION;
 		inputMain = getUserInputInt(UI::MAIN_MENU_OPTIONS::MAIN_ADD, UI::MAIN_MENU_OPTIONS::MAIN_EXIT);
 
@@ -132,11 +78,11 @@ int main()
 			{
 				displayAddMenu();
 				cout << "\t\t\t  [ YOUR WALLET ]" << endl << endl;
-				cout << "\t\t\t" << "Dollars " << wallet[0].getWholeParts() << " and " << wallet[0].getFractionalParts() << " Cents" << endl;
-				cout << "\t\t\t" << "Euros " << wallet[1].getWholeParts() << " and " << wallet[1].getFractionalParts() << " Cents" << endl;
-				cout << "\t\t\t" << "Yen " << wallet[2].getWholeParts() << " and " << wallet[2].getFractionalParts() << " Sen" << endl;
-				cout << "\t\t\t" << "Rupee " << wallet[3].getWholeParts() << " and " << wallet[3].getFractionalParts() << " Paise" << endl;
-				cout << "\t\t\t" << "Yuan " << wallet[4].getWholeParts() << " and " << wallet[4].getFractionalParts() << " Fens" << endl << endl;
+				cout << "\t\t\t" << wallet[0] << endl;
+				cout << "\t\t\t" << wallet[1] << endl;
+				cout << "\t\t\t" << wallet[2] << endl;
+				cout << "\t\t\t" << wallet[3] << endl;
+				cout << "\t\t\t" << wallet[4] << endl;
 				cout << UI::PROMPT_OPTION;
 				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 
@@ -147,7 +93,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Dollars you want to add to your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 1000);
 					
 						wallet.addCurrency("USD", addRemoveInput);
 					}
@@ -165,7 +111,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Euros you want to add to your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 						wallet.addCurrency("EUR", addRemoveInput);
 					}
@@ -183,7 +129,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Yen you want to add to your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 						wallet.addCurrency("JPY", addRemoveInput);
 					}
@@ -201,7 +147,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Rupees you want to add to your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 						wallet.addCurrency("INR", addRemoveInput);
 					}
@@ -219,7 +165,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Yuan you want to add to your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 						wallet.addCurrency("JPY", addRemoveInput);
 					}
@@ -246,11 +192,11 @@ int main()
 			{
 				displayRemoveMenu();
 				cout << "\t\t\t  [ YOUR WALLET ]" << endl << endl;
-				cout << "\t\t\t" << "Dollars " << wallet[0].getWholeParts() << " and " << wallet[0].getFractionalParts() << " Cents" << endl;
-				cout << "\t\t\t" << "Euros " << wallet[1].getWholeParts() << " and " << wallet[1].getFractionalParts() << " Cents" << endl;
-				cout << "\t\t\t" << "Yen " << wallet[2].getWholeParts() << " and " << wallet[2].getFractionalParts() << " Sen" << endl;
-				cout << "\t\t\t" << "Rupee " << wallet[3].getWholeParts() << " and " << wallet[3].getFractionalParts() << " Paise" << endl;
-				cout << "\t\t\t" << "Yuan " << wallet[4].getWholeParts() << " and " << wallet[4].getFractionalParts() << " Fens" << endl << endl;
+				cout << "\t\t\t" << wallet[0] << endl;
+				cout << "\t\t\t" << wallet[1] << endl;
+				cout << "\t\t\t" << wallet[2] << endl;
+				cout << "\t\t\t" << wallet[3] << endl;
+				cout << "\t\t\t" << wallet[4] << endl;
 				cout << UI::PROMPT_OPTION;
 				subMenuInput = getUserInputInt(UI::PICK_CURRENCY_OPTIONS::CURRENCY_DOLLARS, UI::PICK_CURRENCY_OPTIONS::CURRENCY_BACK);
 
@@ -261,7 +207,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Dollars you want to delete of your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 						wallet.removeCurrency("USD", addRemoveInput);
 					}
@@ -279,7 +225,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Euros you want to delete of your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 
 						wallet.addCurrency("EUR", addRemoveInput);
@@ -297,7 +243,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Yen you want to delete of your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 
 						wallet.addCurrency("JPY", addRemoveInput);
@@ -315,7 +261,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Rupees you want to delete of your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 
 						wallet.addCurrency("INR", addRemoveInput);
@@ -333,7 +279,7 @@ int main()
 					try
 					{
 						cout << endl << "How many Yuan you want to delete of your wallet?" << endl;
-						cin >> addRemoveInput;
+						addRemoveInput = getUserInputDouble(0, 10000);
 
 
 						wallet.addCurrency("CNY", addRemoveInput);
@@ -810,4 +756,58 @@ int getUserInputInt(const int& min, const int& max)
 	} while (err || !cin);
 
 	return inputInt;
+}
+
+double getUserInputDouble(const double& min, const double& max)
+{
+	string input;
+	double inputDouble;
+	bool err;
+
+	do
+	{
+		err = false;
+
+		getline(cin, input);
+
+		//Exception handling
+		try
+		{
+			inputDouble = stod(input);
+
+			//Input must be between min and max
+			if (inputDouble < min || inputDouble > max)
+			{
+				cerr << UI::ERR_INVALID_OPTION_RANGE << min << " and " << max << " inclusive." << endl;
+				err = true;
+			}
+		}
+		catch (invalid_argument&)
+		{
+			cerr << UI::ERR_EXCEPTION_INVALID_ARGUMENT << endl;
+			err = true;
+		}
+		catch (out_of_range&)
+		{
+			cerr << UI::ERR_EXCEPTION_OUT_OF_RANGE << endl;
+			err = true;
+		}
+		catch (...)
+		{
+			cerr << UI::ERR_EXCEPTION_GENERIC << endl;
+			err = true;
+		}
+
+	} while (err || !cin);
+
+	return inputDouble;
+}
+
+string getUserInputString()
+{
+	string input;
+
+	getline(cin, input);
+
+	return input;
 }
