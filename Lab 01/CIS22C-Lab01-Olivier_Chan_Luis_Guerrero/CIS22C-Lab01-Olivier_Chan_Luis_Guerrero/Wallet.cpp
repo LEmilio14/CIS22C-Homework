@@ -72,7 +72,7 @@ void Wallet::addCurrency(int index, double amount)
 	(*this)[index].addWhole(amount);
 }
 
-void Wallet::addCurrency(int index, int whole = 0, int fractional = 0)
+void Wallet::addCurrency(int index, int whole, int fractional)
 {
 	(*this)[index].addWhole(whole);
 	(*this)[index].addFractional(fractional);
@@ -89,7 +89,7 @@ void Wallet::addCurrency(std::string abbr, double amount)
 	}
 }
 
-void Wallet::addCurrency(std::string abbr, int whole = 0, int fractional = 0)
+void Wallet::addCurrency(std::string abbr, int whole, int fractional)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -107,7 +107,7 @@ void Wallet::removeCurrency(int index, double amount)
 	(*this)[index].addWhole(-amount);
 }
 
-void Wallet::removeCurrency(int index, int whole = 0, int fractional = 0)
+void Wallet::removeCurrency(int index, int whole, int fractional)
 {
 	(*this)[index].addWhole(-whole);
 	(*this)[index].addFractional(-fractional);
@@ -124,7 +124,7 @@ void Wallet::removeCurrency(std::string abbr, double amount)
 	}
 }
 
-void Wallet::removeCurrency(std::string abbr, int whole = 0, int fractional = 0)
+void Wallet::removeCurrency(std::string abbr, int whole, int fractional)
 {
 	for (int i = 0; i < 5; i++)
 	{
