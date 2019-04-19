@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "Currency.h"
-#include"ExceptionWalletZero.h"
+#include "ExceptionWalletZero.h"
 
 class Wallet
 {

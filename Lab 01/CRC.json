@@ -1,0 +1,149 @@
+[
+  {
+    "name": "Currency",
+    "superclasses": "Dollar, Euro, Yen, Rupee, Yuan",
+    "subclasses": "",
+    "type": 2,
+    "responsibilities": [
+      "Store currency whole parts",
+      "Store currency fractional parts",
+      "Store currency names",
+      "Operator overloads (Arithmetic, Comparison)",
+      "Get/Set data members",
+      "Prevent operations that would set currency to negative values",
+      "Prevent operations that would perform operations between two Currency objects of different types"
+    ],
+    "collaborators": [
+      "ExceptionCurrencyNegative",
+      "ExceptionCurrencyMismatch"
+    ]
+  },
+  {
+    "name": "Dollar",
+    "superclasses": "",
+    "subclasses": "Currency",
+    "type": 1,
+    "responsibilities": [
+      "Set currency names"
+    ],
+    "collaborators": [
+      "Currency"
+    ]
+  },
+  {
+    "name": "Euro",
+    "superclasses": "",
+    "subclasses": "Currency",
+    "type": 1,
+    "responsibilities": [
+      "Set currency names"
+    ],
+    "collaborators": [
+      "Currency"
+    ]
+  },
+  {
+    "name": "Yen",
+    "superclasses": "",
+    "subclasses": "Currency",
+    "type": 1,
+    "responsibilities": [
+      "Set currency names"
+    ],
+    "collaborators": [
+      "Currency"
+    ]
+  },
+  {
+    "name": "Rupee",
+    "superclasses": "",
+    "subclasses": "Currency",
+    "type": 1,
+    "responsibilities": [
+      "Set currency names"
+    ],
+    "collaborators": [
+      "Currency"
+    ]
+  },
+  {
+    "name": "Yuan",
+    "superclasses": "",
+    "subclasses": "Currency",
+    "type": 1,
+    "responsibilities": [
+      "Set currency names"
+    ],
+    "collaborators": [
+      "Currency"
+    ]
+  },
+  {
+    "name": "Wallet",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Contain five currencies",
+      "Overload subscript operator to access 5 currencies",
+      "Add and remove currencies",
+      "Empty (zero) all and specific currencies",
+      "Get number of all and specific empty (zero) currencies",
+      "Prevent remove operations on empty currencies",
+      "Prevent subscript operator from accessing data outside the 5 allocated currencies"
+    ],
+    "collaborators": [
+      "Currency",
+      "ExceptionWalletZero",
+      "ExceptionWalletOutOfBounds"
+    ]
+  },
+  {
+    "name": "ExceptionCurrencyNegative",
+    "superclasses": "",
+    "subclasses": "std::exception",
+    "type": 1,
+    "responsibilities": [
+      "Signal when currency would become negative"
+    ],
+    "collaborators": [
+      "std::exception"
+    ]
+  },
+  {
+    "name": "ExceptionCurrencyMismatch",
+    "superclasses": "",
+    "subclasses": "std::exception",
+    "type": 1,
+    "responsibilities": [
+      "Signal when currencies of different types get used in the same operation"
+    ],
+    "collaborators": [
+      "std::exception"
+    ]
+  },
+  {
+    "name": "ExceptionWalletZero",
+    "superclasses": "",
+    "subclasses": "std::exception",
+    "type": 1,
+    "responsibilities": [
+      "Signal when a remove operation is preformed on an empty currency in the Wallet"
+    ],
+    "collaborators": [
+      "std::exception"
+    ]
+  },
+  {
+    "name": "ExceptionWalletOutOfBounds",
+    "superclasses": "",
+    "subclasses": "std::exception",
+    "type": 1,
+    "responsibilities": [
+      "Signal when the Wallet subscript operator is passed a value outside accepted values (0-4)"
+    ],
+    "collaborators": [
+      "std::exception"
+    ]
+  }
+]
