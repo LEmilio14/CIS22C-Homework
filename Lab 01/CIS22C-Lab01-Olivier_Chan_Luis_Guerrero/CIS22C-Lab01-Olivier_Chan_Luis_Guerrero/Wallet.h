@@ -27,10 +27,13 @@ public:
 	bool isCurrencyEmpty(std::string abbr);
 
 	void addCurrency(int index, double amount);
-	//Added amount2 for the fractional part
+	void addCurrency(int index, int whole = 0, int fractional = 0);
 	void addCurrency(std::string abbr, double amount);
+	void addCurrency(std::string abbr, int whole = 0, int fractional = 0);
 	void removeCurrency(int index, double amount);
+	void removeCurrency(int index, int whole = 0, int fractional = 0);
 	void removeCurrency(std::string abbr, double amount);
+	void removeCurrency(std::string abbr, int whole = 0, int fractional = 0);
 	
 	bool isWalletEmpty();
 	

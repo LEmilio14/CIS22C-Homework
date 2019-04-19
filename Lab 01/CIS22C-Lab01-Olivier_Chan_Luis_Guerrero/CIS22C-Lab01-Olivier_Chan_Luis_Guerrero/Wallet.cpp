@@ -8,7 +8,14 @@
 #include "Rupee.h"
 #include "Yuan.h"
 
-Wallet::Wallet() {};
+Wallet::Wallet()
+{
+	dollar = new Dollar(0, 0);
+	euro = new Euro(0, 0);
+	yen = new Yen(0, 0);
+	rupee = new Rupee(0, 0);
+	yuan = new Yuan(0, 0);
+};
 
 Wallet::Wallet(double dol, double eu, double ye, double ru, double yu)
 {
@@ -65,7 +72,12 @@ void Wallet::addCurrency(int index, double amount)
 	(*this)[index].addWhole(amount);
 }
 
-//Adds currency to the wallet class with currency functions
+void Wallet::addCurrency(int index, int whole = 0, int fractional = 0)
+{
+	(*this)[index].addWhole(whole);
+	(*this)[index].addFractional(fractional);
+}
+
 void Wallet::addCurrency(std::string abbr, double amount)
 {
 	for (int i = 0; i < 5; i++)
@@ -77,13 +89,30 @@ void Wallet::addCurrency(std::string abbr, double amount)
 	}
 }
 
+void Wallet::addCurrency(std::string abbr, int whole = 0, int fractional = 0)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if ((*this)[i].getCurrencyAbbreviation() == abbr)
+		{
+			(*this)[i].addWhole(whole);
+			(*this)[i].addFractional(fractional);
+		}
+	}
+}
+
 //Remove function
 void Wallet::removeCurrency(int index, double amount)
 {
 	(*this)[index].addWhole(-amount);
 }
 
-//Removes the quantity of the desire currency
+void Wallet::removeCurrency(int index, int whole = 0, int fractional = 0)
+{
+	(*this)[index].addWhole(-whole);
+	(*this)[index].addFractional(-fractional);
+}
+
 void Wallet::removeCurrency(std::string abbr, double amount)
 {
 	for (int i = 0; i < 5; i++)
@@ -91,6 +120,18 @@ void Wallet::removeCurrency(std::string abbr, double amount)
 		if ((*this)[i].getCurrencyAbbreviation() == abbr)
 		{
 			(*this)[i].addWhole(-amount);
+		}
+	}
+}
+
+void Wallet::removeCurrency(std::string abbr, int whole = 0, int fractional = 0)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if ((*this)[i].getCurrencyAbbreviation() == abbr)
+		{
+			(*this)[i].addWhole(-whole);
+			(*this)[i].addFractional(-fractional);
 		}
 	}
 }
