@@ -53,11 +53,14 @@ List<T>::~List()
 	
 }
 
-/*Checks if the link-list is empty
-@pre The count of the link-list
-@post None
-@param None
-return true if count is 0, otherwise false.
+/*
+Checks if the link-list is empty
+
+@pre None
+
+@post Checks if list is empty.
+
+@return true if count is 0, otherwise false.
 */
 template <typename T>
 bool List<T>::isEmpty()
@@ -72,11 +75,14 @@ bool List<T>::isEmpty()
 	}
 }
 
-/*Gets the count of the link-list
+/*
+Gets the count of the link-list
+
 @pre None
+
 @post None
-@param None
-return count.
+
+@return count.
 */
 template <typename T>
 int List<T>::getCount()
@@ -84,12 +90,14 @@ int List<T>::getCount()
 	return count;
 }
 
-/*Insert data into the list
-@pre Position has to be less than 0 or greater than count
-@post None
-@param The new data
-@param The position
-return .
+/*
+Insert data into the list
+
+@pre new reference data / position of the data
+
+@post Checks if data can be entered / inserts data to the list
+
+@return N/A.
 */
 template <typename T>
 void List<T>::insert(T& newData, int pos)
@@ -124,11 +132,13 @@ void List<T>::insert(T& newData, int pos)
 	return;
 }
 
-/*Inserts data in the first position of the list
+/*
+Inserts data in the first position of the list
 @pre New data that need to be inserted
-@post None
-@param new data
-return.
+
+@post Inserts the data to the first place
+
+@return.
 */
 template <typename T>
 void List<T>::insertFirst(T& newData)
@@ -137,11 +147,14 @@ void List<T>::insertFirst(T& newData)
 	return;
 }
 
-/*Inserts data at the last position of the list
+/*
+Inserts data at the last position of the list
+
 @pre New data that needs to be added
-@post None
-@param new data
-return.
+
+@post Insert the data in the last position
+
+@return.
 */
 template <typename T>
 void List<T>::insertLast(T& newData)
@@ -150,11 +163,14 @@ void List<T>::insertLast(T& newData)
 	return;
 }
 
-/*Remove data from the list
+/*
+Remove data from the list
+
 @pre Position has to be less than 0 or greater than count -1.
-@post None
-@param position
-return.
+
+@post Cheks if data can be remove / remove the data from the position entered
+
+@return.
 */
 template <typename T>
 void List<T>::remove(int pos)
@@ -201,11 +217,14 @@ void List<T>::remove(int pos)
 	return;
 }
 
-/*Removes the first element of the list
-@pre Remove the first element
-@post None
-@param None
-return.
+/*
+Removes the first element of the list
+
+@pre None
+
+@post Remove the first element
+
+@return.
 */
 template <typename T>
 void List<T>::removeFirst()
@@ -214,11 +233,14 @@ void List<T>::removeFirst()
 	return;
 }
 
-/*Removes the last element
-@pre Removes the last elemnt, count -1.
-@post None
-@param None
-return.
+/*
+Removes the last element
+
+@pre None.
+
+@post Remove the last elemnt of the list
+
+@return.
 */
 template <typename T>
 void List<T>::removeLast()
@@ -227,11 +249,14 @@ void List<T>::removeLast()
 	return;
 }
 
-/*Removes all the list
-@pre Head pointer is null pointer
-@post None
-@param None
-return.
+/*
+Removes all the list
+
+@pre None.
+
+@post Checks if list is empty / removes all the list
+
+@return.
 */
 template <typename T>
 void List<T>::removeAll()
@@ -260,11 +285,14 @@ void List<T>::removeAll()
 	return;
 }
 
-/*Gets data from the list
-@pre Position less than 0 or greater than count -1 or head ptr is a null ptr
-@post None
-@param position
-return ptr of the current data.
+/*
+Gets data from the list
+
+@pre Position
+
+@post Gets the data from the position entered.
+
+@return ptr of the current data.
 */
 template <typename T>
 T& List<T>::getData(int pos)
@@ -283,18 +311,45 @@ T& List<T>::getData(int pos)
 	return *(currentNode->data);
 }
 
+/*
+Gets data from the first element.
+
+@pre None.
+
+@post Gets the first element.
+
+@return The data from the first element on the list.
+*/
 template <typename T>
 T& List<T>::getFirstData()
 {
 	return getData(0);
 }
 
+/*
+Gets data from the last element.
+
+@pre None.
+
+@post Gets the last element.
+
+@return The data from the last element on the list.
+*/
 template <typename T>
 T& List<T>::getLastData()
 {
 	return getData(count - 1);
 }
 
+/*
+Sets data in the list.
+
+@pre New Data / position.
+
+@post Checks if data can be eneter / sets the new data to position.
+
+@return.
+*/
 template <typename T>
 void List<T>::setData(T& newData, int pos)
 {
@@ -313,6 +368,15 @@ void List<T>::setData(T& newData, int pos)
 	return;
 }
 
+/*
+Sets data of the first element.
+
+@pre New data.
+
+@post Changes the fist element.
+
+@return.
+*/
 template <typename T>
 void List<T>::setFirstData(T& newData)
 {
@@ -320,6 +384,15 @@ void List<T>::setFirstData(T& newData)
 	return;
 }
 
+/*
+Sets data of the last element.
+
+@pre New data.
+
+@post Changes the last element.
+
+@return.
+*/
 template <typename T>
 void List<T>::setLastData(T& newData)
 {
