@@ -1,3 +1,11 @@
+/*
+CIS 22C
+Lab 02: Implement a link-based Stack ADT to the Currency class.	
+Group Members:
+Oliver Chan Sion Moy
+Luis Guerrero
+*/
+
 #include <iostream>
 #include <string>
 #include "List.h"
@@ -6,7 +14,7 @@
 
 using namespace std;
 
-template <typename T>
+template <typename T>	
 void printList(List<T> list)
 {
 	cout << "Printing List:" << endl;

@@ -41,6 +41,12 @@ List<T>::~List()
 	
 }
 
+/*Checks if the link-list is empty
+@pre The count of the link-list
+@post None
+@param None
+return true if count is 0, otherwise false.
+*/
 template <typename T>
 bool List<T>::isEmpty()
 {
@@ -54,12 +60,25 @@ bool List<T>::isEmpty()
 	}
 }
 
+/*Gets the count of the link-list
+@pre None
+@post None
+@param None
+return count.
+*/
 template <typename T>
 int List<T>::getCount()
 {
 	return count;
 }
 
+/*Insert data into the list
+@pre Position has to be less than 0 or greater than count
+@post None
+@param The new data
+@param The position
+return .
+*/
 template <typename T>
 void List<T>::insert(T& newData, int pos)
 {
@@ -93,6 +112,12 @@ void List<T>::insert(T& newData, int pos)
 	return;
 }
 
+/*Inserts data in the first position of the list
+@pre New data that need to be inserted
+@post None
+@param new data
+return.
+*/
 template <typename T>
 void List<T>::insertFirst(T& newData)
 {
@@ -100,6 +125,12 @@ void List<T>::insertFirst(T& newData)
 	return;
 }
 
+/*Inserts data at the last position of the list
+@pre New data that needs to be added
+@post None
+@param new data
+return.
+*/
 template <typename T>
 void List<T>::insertLast(T& newData)
 {
@@ -107,6 +138,12 @@ void List<T>::insertLast(T& newData)
 	return;
 }
 
+/*Remove data from the list
+@pre Position has to be less than 0 or greater than count -1.
+@post None
+@param position
+return.
+*/
 template <typename T>
 void List<T>::remove(int pos)
 {
@@ -152,6 +189,12 @@ void List<T>::remove(int pos)
 	return;
 }
 
+/*Removes the first element of the list
+@pre Remove the first element
+@post None
+@param None
+return.
+*/
 template <typename T>
 void List<T>::removeFirst()
 {
@@ -159,6 +202,12 @@ void List<T>::removeFirst()
 	return;
 }
 
+/*Removes the last element
+@pre Removes the last elemnt, count -1.
+@post None
+@param None
+return.
+*/
 template <typename T>
 void List<T>::removeLast()
 {
@@ -166,6 +215,12 @@ void List<T>::removeLast()
 	return;
 }
 
+/*Removes all the list
+@pre Head pointer is null pointer
+@post None
+@param None
+return.
+*/
 template <typename T>
 void List<T>::removeAll()
 {
@@ -193,6 +248,12 @@ void List<T>::removeAll()
 	return;
 }
 
+/*Gets data from the list
+@pre Position less than 0 or greater than count -1 or head ptr is a null ptr
+@post None
+@param position
+return ptr of the current data.
+*/
 template <typename T>
 T& List<T>::getData(int pos)
 {
