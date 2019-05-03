@@ -3,7 +3,15 @@
 
 template <typename U> class List;
 template <typename U>
-friend std::ostream& operator<<(std::ostream&, List<U>&);
+std::ostream& operator<<(std::ostream& os, List<U> list)
+{
+	for (int i = 0; i < list.getCount(); i++)
+	{
+		os << list.getData(i) << std::endl;
+	}
+
+	return os;
+}
 
 template <typename T>
 class List
@@ -317,15 +325,4 @@ void List<T>::setLastData(T& newData)
 {
 	setData(newData, count - 1);
 	return;
-}
-
-template <typename T>
-std::ostream& operator<<(std::ostream& os, List<T> list)
-{
-	for (int i = 0; i < list.count; i++)
-	{
-		os << list.getData() << std::endl;
-	}
-
-	return os;
 }

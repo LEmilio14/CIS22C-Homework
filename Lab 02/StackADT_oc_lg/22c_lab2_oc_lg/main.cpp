@@ -14,19 +14,6 @@ Luis Guerrero
 
 using namespace std;
 
-template <typename T>	
-void printList(List<T> list)
-{
-	cout << "Printing List:" << endl;
-
-	for (int i = 0; i < list.getCount(); i++)
-	{
-		cout << list.getData(i) << endl;
-	}
-
-	cout << endl;
-}
-
 int main()
 {
 	//Demonstrate Lists with int and string
@@ -49,29 +36,32 @@ int main()
 	cout << "Insert integer 6 into index 1" << endl;
 	int i6 = 6;
 	intList.insert(i6, 1);
-	printList(intList);
+	cout << intList;
 	//List Removal
 	cout << "Remove first element" << endl;
 	intList.removeFirst();
-	printList(intList);
+	cout << intList;
 	//List Removal
 	cout << "Remove last element" << endl;
 	intList.removeLast();
-	printList(intList);
+	cout << intList;
 	//String List Creation
 	cout << "Creating a list {\"Hello\",\"World\"}" << endl;
 	string s1 = "Hello";
 	string s2 = "World";
 	stringList.insertLast(s1);
 	stringList.insertLast(s2);
-	printList(stringList);
+	cout << stringList;
+	//List Search
 	cout << "Finding second element" << endl;
 	cout << stringList.getData(1) << endl;
+	//List Count
 	cout << "Finding count of elements" << endl;
 	cout << stringList.getCount() << endl;
+	//List Empty
 	cout << "Empty the list" << endl;
 	stringList.removeAll();
-	printList(stringList);
+	cout << stringList;
 	//Stack of Currency (Dollar) Creation
 	cout << "Creating a stack of dollar currencies" << endl;
 	Stack<Currency> stack;
