@@ -44,7 +44,7 @@ int main()
 	intList.insertLast(i3);
 	intList.insertLast(i4);
 	intList.insertLast(i5);
-	printList(intList);
+	cout << intList;
 	//List Insertion
 	cout << "Insert integer 6 into index 1" << endl;
 	int i6 = 6;

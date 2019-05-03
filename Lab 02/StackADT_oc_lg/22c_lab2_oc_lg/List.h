@@ -1,6 +1,10 @@
 #pragma once
 #include "Node.h"
 
+template <typename U> class List;
+template <typename U>
+friend std::ostream& operator<<(std::ostream&, List<U>&);
+
 template <typename T>
 class List
 {
@@ -313,4 +317,15 @@ void List<T>::setLastData(T& newData)
 {
 	setData(newData, count - 1);
 	return;
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, List<T> list)
+{
+	for (int i = 0; i < list.count; i++)
+	{
+		os << list.getData() << std::endl;
+	}
+
+	return os;
 }
