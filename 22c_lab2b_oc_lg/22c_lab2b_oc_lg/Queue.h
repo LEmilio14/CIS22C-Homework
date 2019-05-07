@@ -1,56 +1,96 @@
 #pragma once
 #include"List.h"
 
-template <typename U> class Queue;
-template <typename U>
-std::ostream& operator<<(std::ostream& os, Queue<U> list)
-{
-	for (int i = 0; i < list.getCount(); i++)
-	{
-		os << list.getData(i) << std::endl;
-	}
-
-	return os;
-}
-
 template<typename T>
-class Queue : public List<T>
+class Queue : protected List<T>
 {
+private:
+	Node<T>* front;
+	Node<T>* rear;
 public:
+	Queue();
+	~Queue();
+
 	void enqueue(T&);
 	void dequeue();
-	void queueFront(T&);
-	void queueRear(T&);
+	//T& front();
+	//T& rear();
 	void emptyQueue();
 	void countQueue();
 	//bool queueFull();
 	bool isEmpty();
-
+	void display();
 };
+
+template<typename T>
+Queue<T>::Queue() 
+{
+	front = nullptr;
+	rear = nullptr;
+}
+
+template<typename T>
+Queue<T>::~Queue()
+{
+
+}
 
 template<typename T>
 void Queue<T>::enqueue(T& newData)
 {
-	this->insertFirst(newData);
+	Node<T>* temp = front;
+	front = this->insertFirst(newData);
+	temp->next = nullptr;
+	if (front == nullptr)
+	{
+		front = new Node<T>(newData);
+		rear = new Node<T>(newData);
+	}
+	else
+	{
+		rear->next = temp;
+		rear = temp;
+	}
 }
 
 template<typename T>
 void Queue<T>::dequeue()
 {
-	this->removeFirst(0);
+	if(isEmpty())
+	{
+		return;
+	}
+	else
+	{
+		if (front == rear) 
+		{
+			this->removeFirst();
+			front = nullptr;
+			rear = nullptr;
+		}
+		else
+		{
+			Node<T>* temp = front;
+			front = front->data;
+			this->removeFirst();
+		}
+	}
+	this->removeFirst();	
+}
+
+/*
+template<typename T>
+T& Queue<T>::front()
+{
+	return this->getFirstData();
 }
 
 template<typename T>
-void Queue<T>::queueFront(T& newData)
+T& Queue<T>::rear()
 {
-	this->insert(newData, 0);
+	return this->getLastData();
 }
-
-template<typename T>
-void Queue<T>::queueRear(T& newData)
-{
-	this->insertFirst(newData, this->count);
-}
+*/
 
 template<typename T>
 void Queue<T>::emptyQueue()
@@ -75,10 +115,28 @@ bool Queue<T>::queueFull()
 template<typename T>
 bool Queue<T>::isEmpty()
 {
-	if (this->count == 0)
+	if (front == nullptr && rear == nullptr)
 	{
 		return true;
 	}
 	else
 		return false;
+}
+
+template<typename T>
+void Queue<T>::display() 
+{
+	if(isEmpty())
+	{
+		return;
+	}
+	else
+	{
+		Node<T>* temp = front;
+		while (temp != nullptr)
+		{
+			std::cout << temp->data << std::endl;
+			temp = temp->next;
+		}
+	}
 }
