@@ -16,14 +16,17 @@ int main()
 	int five = 5;
 	int six = 6;
 
-	myQueue.enqueue(six);
-	myQueue.enqueue(five);
-	myQueue.enqueue(four);
-	myQueue.enqueue(three);
-	myQueue.enqueue(two);
 	myQueue.enqueue(one);
+	myQueue.enqueue(two);
+	myQueue.enqueue(three);
+	myQueue.enqueue(four);
+	myQueue.enqueue(five);
+	myQueue.enqueue(six);
 
-	myQueue.display();
+	cout << myQueue.front() << endl;
+	cout << myQueue.rear() << endl;
+
+	myQueue.display1();
 
 	
 

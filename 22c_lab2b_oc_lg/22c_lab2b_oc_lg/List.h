@@ -1,6 +1,7 @@
 #pragma once
 #include "Node.h"
 
+
 template <typename U> class List;
 template <typename U>
 std::ostream& operator<<(std::ostream& os, List<U> list)
@@ -19,6 +20,8 @@ class List
 private:
 	int count;
 	Node<T>* head;
+	Node<T>* front;
+	Node<T>* rear;	
 public:
 	List();
 	~List();
@@ -38,6 +41,7 @@ public:
 	void setData(T&, int); //An invalid index will fail silently!
 	void setFirstData(T&);
 	void setLastData(T&);
+	void display();
 };
 
 template <typename T>
@@ -45,6 +49,8 @@ List<T>::List()
 {
 	count = 0;
 	head = nullptr;
+	front = nullptr;
+	rear = nullptr;
 }
 
 template <typename T>
@@ -62,14 +68,12 @@ Checks if the link-list is empty
 template <typename T>
 bool List<T>::isEmpty()
 {
-	if (count == 0)
+	if (front == nullptr && rear == nullptr)
 	{
 		return true;
 	}
 	else
-	{
 		return false;
-	}
 }
 
 /*
@@ -104,21 +108,22 @@ void List<T>::insert(T& newData, int pos)
 	}
 	else if (pos == 0) //Replacing head
 	{
-		Node<T>* temp = head;
-		head = new Node<T>(newData, temp);
+		Node<T>* temp = front;
+		front = new Node<T>(newData, temp);
+		rear = temp->next;
 	}
 	else
 	{
-		Node<T>* currentNode = head;
+		Node<T>* currentNode = front;
 		for (int i = 0; i < pos - 1; i++)
 		{
 			currentNode = currentNode->next;
 		}
 
-		Node<T>* temp = currentNode->next;
-		currentNode->next = new Node<T>(newData, temp);
+		Node<T>* temp = rear;
+		rear = new Node<T>(newData, temp);
 	}
-
+	
 	count++;
 	return;
 }
@@ -169,31 +174,39 @@ void List<T>::remove(int pos)
 	}
 	else
 	{
-		if (pos == 0)
+		if (front == rear)
 		{
-			Node<T>* nextNode = head->next;
+			delete front;
+			front = nullptr;
+			rear = nullptr;
 
-			delete head;
-			head = nextNode;
 		}
 		else
 		{
-			Node<T>* previousNode = nullptr;
-			Node<T>* currentNode = head;
+			Node<T>* ptr = front;
+			front = front->next;
+			delete(ptr);
+		}
+		else
+		{
+			//Node<T>* previousNode = nullptr;
+			Node<T>* currentNode = front;
 			for (int i = 0; i < pos; i++)
 			{
-				previousNode = currentNode;
+				//previousNode = currentNode;
 				currentNode = currentNode->next;
+				delete (currentNode);
 			}
 
 			if (currentNode->next != nullptr)
 			{
 				Node<T>* temp = currentNode->next;
-				previousNode->next = temp;
+				//previousNode->next = temp;
 			}
 
 			delete currentNode;
 		}
+		*/
 	}
 
 	count--;
@@ -273,13 +286,15 @@ T& List<T>::getData(int pos)
 		throw "Invalid index";
 	}
 
-	Node<T>* currentNode = head;
+	Node<T>* currentNode = front;
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;
+		currentNode->next = rear;
+
 	}
 
-	return *(currentNode->data);
+	return *(rear->data);
 }
 
 /*
@@ -355,3 +370,17 @@ void List<T>::setLastData(T& newData)
 	setData(newData, count - 1);
 	return;
 }
+
+/*
+template<typename T>
+void List<T>::display()
+{
+	Node<T>* temp = front;
+	while (temp != nullptr)
+	{
+		std::cout << temp->data << std::endl;
+		temp = temp->next;
+	}
+
+}
+*/
