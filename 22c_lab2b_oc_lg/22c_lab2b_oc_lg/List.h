@@ -1,7 +1,6 @@
 #pragma once
 #include "Node.h"
 
-
 template <typename U> class List;
 template <typename U>
 std::ostream& operator<<(std::ostream& os, List<U> list)
@@ -20,17 +19,15 @@ class List
 private:
 	int count;
 	Node<T>* head;
-	Node<T>* front;
-	Node<T>* rear;	
 public:
 	List();
 	~List();
 
 	bool isEmpty();
 	int getCount();
-	void insert(T&, int); //A number outside the range 0-count will fail silently! Insertion pushes both the element in the desired position and all elements after that element to the right.
-	void insertFirst(T&);
-	void insertLast(T&);
+	Node<T>& insert(T&, int); //A number outside the range 0-count will fail silently! Insertion pushes both the element in the desired position and all elements after that element to the right.
+	Node<T>& insertFirst(T&);
+	Node<T>& insertLast(T&);
 	void remove(int); //A number outside the range 0-(count - 1) will fail silently!
 	void removeFirst();
 	void removeLast();
@@ -41,7 +38,6 @@ public:
 	void setData(T&, int); //An invalid index will fail silently!
 	void setFirstData(T&);
 	void setLastData(T&);
-	void display();
 };
 
 template <typename T>
@@ -49,8 +45,6 @@ List<T>::List()
 {
 	count = 0;
 	head = nullptr;
-	front = nullptr;
-	rear = nullptr;
 }
 
 template <typename T>
@@ -68,12 +62,14 @@ Checks if the link-list is empty
 template <typename T>
 bool List<T>::isEmpty()
 {
-	if (front == nullptr && rear == nullptr)
+	if (count == 0)
 	{
 		return true;
 	}
 	else
+	{
 		return false;
+	}
 }
 
 /*
@@ -95,7 +91,7 @@ Insert data into the list
 @return N/A.
 */
 template <typename T>
-void List<T>::insert(T& newData, int pos)
+Node<T>& List<T>::insert(T& newData, int pos)
 {
 	if (pos < 0 || pos > count)
 	{
@@ -108,24 +104,23 @@ void List<T>::insert(T& newData, int pos)
 	}
 	else if (pos == 0) //Replacing head
 	{
-		Node<T>* temp = front;
-		front = new Node<T>(newData, temp);
-		rear = temp->next;
+		Node<T>* temp = head;
+		head = new Node<T>(newData, temp);
 	}
 	else
 	{
-		Node<T>* currentNode = front;
+		Node<T>* currentNode = head;
 		for (int i = 0; i < pos - 1; i++)
 		{
 			currentNode = currentNode->next;
 		}
 
-		Node<T>* temp = rear;
-		rear = new Node<T>(newData, temp);
+		Node<T>* temp = currentNode->next;
+		currentNode->next = new Node<T>(newData, temp);
 	}
-	
+
 	count++;
-	return;
+	return *(head->data);
 }
 
 /*
@@ -135,10 +130,9 @@ Inserts data in the first position of the list
 @return.
 */
 template <typename T>
-void List<T>::insertFirst(T& newData)
+Node<T>& List<T>::insertFirst(T& newData)
 {
-	insert(newData, 0);
-	return;
+	return *(insert(newData, 0));
 }
 
 /*
@@ -148,10 +142,9 @@ Inserts data at the last position of the list
 @return.
 */
 template <typename T>
-void List<T>::insertLast(T& newData)
+Node<T>& List<T>::insertLast(T& newData)
 {
-	insert(newData, count);
-	return;
+	return *(insert(newData, count));
 }
 
 /*
@@ -174,39 +167,31 @@ void List<T>::remove(int pos)
 	}
 	else
 	{
-		if (front == rear)
+		if (pos == 0)
 		{
-			delete front;
-			front = nullptr;
-			rear = nullptr;
+			Node<T>* nextNode = head->next;
 
+			delete head;
+			head = nextNode;
 		}
 		else
 		{
-			Node<T>* ptr = front;
-			front = front->next;
-			delete(ptr);
-		}
-		else
-		{
-			//Node<T>* previousNode = nullptr;
-			Node<T>* currentNode = front;
+			Node<T>* previousNode = nullptr;
+			Node<T>* currentNode = head;
 			for (int i = 0; i < pos; i++)
 			{
-				//previousNode = currentNode;
+				previousNode = currentNode;
 				currentNode = currentNode->next;
-				delete (currentNode);
 			}
 
 			if (currentNode->next != nullptr)
 			{
 				Node<T>* temp = currentNode->next;
-				//previousNode->next = temp;
+				previousNode->next = temp;
 			}
 
 			delete currentNode;
 		}
-		*/
 	}
 
 	count--;
@@ -286,15 +271,13 @@ T& List<T>::getData(int pos)
 		throw "Invalid index";
 	}
 
-	Node<T>* currentNode = front;
+	Node<T>* currentNode = head;
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;
-		currentNode->next = rear;
-
 	}
 
-	return *(rear->data);
+	return *(currentNode->data);
 }
 
 /*
@@ -370,17 +353,3 @@ void List<T>::setLastData(T& newData)
 	setData(newData, count - 1);
 	return;
 }
-
-/*
-template<typename T>
-void List<T>::display()
-{
-	Node<T>* temp = front;
-	while (temp != nullptr)
-	{
-		std::cout << temp->data << std::endl;
-		temp = temp->next;
-	}
-
-}
-*/

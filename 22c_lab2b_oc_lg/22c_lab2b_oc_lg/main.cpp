@@ -23,9 +23,6 @@ int main()
 	myQueue.enqueue(five);
 	myQueue.enqueue(six);
 
-	cout << myQueue.front() << endl;
-	cout << myQueue.rear() << endl;
-
 	myQueue.display1();
 
 	
