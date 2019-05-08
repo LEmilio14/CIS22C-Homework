@@ -99,14 +99,14 @@ void Queue<T>::dequeue()
 
 	if (front == rear)
 	{
-		this->removeLast();
+		this->removeFirst();
 		front = nullptr;
 		rear = nullptr;
 	}
 	else
 	{
 		Node<T>* next = front->next;
-		this->removeLast();
+		this->removeFirst();
 		front = next;
 	}
 }

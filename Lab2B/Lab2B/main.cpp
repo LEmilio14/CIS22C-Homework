@@ -74,7 +74,6 @@ int main()
 	myQueue.dequeue();
 	cout << "The new first element of the queue" << endl;
 	cout << "Front element: " << myQueue.getFront() << endl;
-	cout << "Last element: " << myQueue.getRear() << endl;
 
 	system("pause");
 	return 0;
