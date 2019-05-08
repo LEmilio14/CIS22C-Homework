@@ -76,8 +76,6 @@ int main()
 	cout << "Front element: " << myQueue.getFront() << endl;
 	cout << "Last element: " << myQueue.getRear() << endl;
 
-	//TEST
-
 	system("pause");
 	return 0;
 }
