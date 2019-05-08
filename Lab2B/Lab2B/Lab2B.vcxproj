@@ -111,11 +111,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Currency.h" />
+    <ClInclude Include="Dollar.h" />
+    <ClInclude Include="ExceptionCurrencyMismatch.h" />
+    <ClInclude Include="ExceptionCurrencyNegative.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Queue.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Currency.cpp" />
+    <ClCompile Include="Dollar.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

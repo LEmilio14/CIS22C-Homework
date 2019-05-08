@@ -99,8 +99,9 @@ void Queue<T>::dequeue()
 
 	if (front == rear)
 	{
-		this->removeFirst();
-		front == rear == nullptr;
+		this->removeLast();
+		front = nullptr;
+		rear = nullptr;
 	}
 	else
 	{

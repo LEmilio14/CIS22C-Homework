@@ -277,7 +277,7 @@ T& List<T>::getData(int pos)
 	{
 		throw "Invalid index";
 	}
-	
+
 	Node<T>* currentNode = head;
 	for (int i = 0; i < pos; i++)
 	{
