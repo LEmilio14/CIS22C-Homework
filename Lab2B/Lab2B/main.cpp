@@ -72,7 +72,7 @@ int main()
 	cout << "Last element: " << myQueue.getRear() << endl;
 	cout << "Dequeue" << endl;
 	myQueue.dequeue();
-	cout << "The new last element of the queue" << endl;
+	cout << "The new first element of the queue" << endl;
 	cout << "Front element: " << myQueue.getFront() << endl;
 	cout << "Last element: " << myQueue.getRear() << endl;
 
