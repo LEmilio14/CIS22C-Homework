@@ -16,7 +16,7 @@ std::ostream& operator<<(std::ostream& os, List<U> list)
 template <typename T>
 class List
 {
-private:
+protected:
 	int count;
 	Node<T>* head;
 public:
@@ -25,7 +25,7 @@ public:
 
 	bool isEmpty();
 	int getCount();
-	Node<T>* insert(T&, int); //A number outside the range 0-count will fail silently! Insertion pushes both the element in the desired position and all elements after that element to the right.
+	Node<T>* insert(T&, int); //A number outside the range 0-count will return nullptr! Insertion pushes both the element in the desired position and all elements after that element to the right.
 	Node<T>* insertFirst(T&);
 	Node<T>* insertLast(T&);
 	void remove(int); //A number outside the range 0-(count - 1) will fail silently!

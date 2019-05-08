@@ -1,12 +1,37 @@
+/********************************************************************************
+************************************ Queue **************************************
+*********************************************************************************
+* This class is an Abstract Data Structure, modeling the functionality of a queue.
+* As this class is template based, it can be used with almost any type of data.
+* This data structure follows a First In, First Out pattern.
+* A real world analogy is the line of customers at a supermarket.
+* Using Queue functions, you can:
+*	- Add to the back of the queue
+*	- Remove from the front of the queue
+*	- View the front and back of the queue
+*	- Get the count of elements in the queue
+*	- Empty the queue
+*	- Find out whether the queue is empty
+*****************
+***** USAGE *****
+*****************
+* Declare an object of type Queue, using template initialization.
+* You may then call Queue functions on the new Queue object.
+* Keep in mind:
+*	- The Queue class is not designed to handle deletion of its elements, only
+*		keep track of them.
+*		Therefore, Queue does not delete its elements after Queue itself is deleted.
+*********************************************************************************/
+
 #pragma once
-#include"List.h"
+#include "List.h"
 
 template<typename T>
 class Queue : protected List<T>
 {
 private:
-	Node<T>* front;
-	Node<T>* rear;
+	Node<T>* front; //The node in the front of the queue
+	Node<T>* rear; //The node in the back of the queue
 
 public:
 	Queue();
@@ -16,10 +41,9 @@ public:
 	void dequeue();
 	T& getFront();
 	T& getRear();
+	int getCount();
 	void emptyQueue();
-	void countQueue();
 	bool isEmpty();
-	void display1();
 };
 
 template<typename T>
@@ -34,6 +58,15 @@ Queue<T>::~Queue()
 {
 
 }
+
+/**
+* enqueue
+*
+* @brief Adds the passed data to the front of the queue.
+*
+* @param newData The data to add to the front of the queue.
+*/
+
 
 template<typename T>
 void Queue<T>::enqueue(T& newData)
@@ -50,6 +83,12 @@ void Queue<T>::enqueue(T& newData)
 	}
 }
 
+/**
+* dequeue
+*
+* @brief Removes the data at the end of the queue. Note that this doesn't actually delete the data itself.
+*/
+
 template<typename T>
 void Queue<T>::dequeue()
 {
@@ -57,17 +96,27 @@ void Queue<T>::dequeue()
 	{
 		throw "Queue empty";
 	}
+
 	if (front == rear)
 	{
-		this->removeLast();
+		this->removeFirst();
 		front == rear == nullptr;
-	}else
+	}
+	else
 	{
-		Node<T>* ptr = front;
-		front = this->getFront();
-		this->remove(ptr);
+		Node<T>* next = front->next;
+		this->removeFirst();
+		front = next;
 	}
 }
+
+/**
+* getFront
+*
+* @brief Returns the data in the front of the queue.
+*
+* @return The data in the front of the queue.
+*/
 
 template<typename T>
 T& Queue<T>::getFront()
@@ -75,11 +124,25 @@ T& Queue<T>::getFront()
 	return this->getFirstData();
 }
 
+/**
+* getRear
+*
+* @brief Returns the data in the rear of the queue.
+*
+* @return The data in the rear of the queue.
+*/
+
 template<typename T>
 T& Queue<T>::getRear()
 {
 	return this->getLastData();
 }
+
+/**
+* emptyQueue
+*
+* @brief Removes all elements from the queue.
+*/
 
 template<typename T>
 void Queue<T>::emptyQueue()
@@ -87,28 +150,37 @@ void Queue<T>::emptyQueue()
 	this->removeAll();
 }
 
+/**
+* getCount
+*
+* @brief Returns the number of elements in the queue.
+*
+* @return The number of elements in the queue.
+*/
+
 template<typename T>
-void Queue<T>::countQueue()
+int Queue<T>::getCount()
 {
 	return this->count;
 }
 
+/**
+* isEmpty
+*
+* @brief Returns whether the queue is empty or not.
+*
+* @return TRUE if the queue is empty, otherwise FALSE
+*/
+
 template<typename T>
 bool Queue<T>::isEmpty()
 {
-	if (front == nullptr && rear == nullptr)
+	if (this->count == 0)
 	{
 		return true;
 	}
 	else
-		return false;
-}
-
-template<typename T>
-void Queue<T>::display1()
-{
-	for (int i = 0; i < 6; i++)
 	{
-		std::cout << this->getData(i) << std::endl;
+		return false;
 	}
 }
