@@ -5,8 +5,8 @@ template<typename T>
 class Queue : protected List<T>
 {
 private:
-	T* front;
-	T* rear;
+	Node<T>* front;
+	Node<T>* rear;
 
 public:
 	Queue();
@@ -38,19 +38,16 @@ Queue<T>::~Queue()
 template<typename T>
 void Queue<T>::enqueue(T& newData)
 {
-	this->rear = this->insertLast(newData);
-/*
+	Node<T>* temp = (this->insertLast(newData));
 	if (front == nullptr)
 	{
-		this->front = this->insertLast(newData);
-		this->rear = this->insertLast(newData);
+		this->front = temp;
+		this->rear = temp;
 	}
 	else
 	{
-		this->rear = this->insertLast(newData);
-		this->front = head;
+		this->rear = temp ;
 	}
-	*/
 }
 
 template<typename T>
