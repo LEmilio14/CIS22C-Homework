@@ -1,7 +1,7 @@
-#include<iostream>
-#include"List.h"
-#include"Dollar.h"
-#include"Queue.h"
+#include <iostream>
+#include "List.h"
+#include "Dollar.h"
+#include "Queue.h"
 
 using namespace std;
 
