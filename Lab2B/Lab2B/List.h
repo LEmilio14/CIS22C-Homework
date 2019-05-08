@@ -25,9 +25,9 @@ public:
 
 	bool isEmpty();
 	int getCount();
-	void insert(T&, int); //A number outside the range 0-count will fail silently! Insertion pushes both the element in the desired position and all elements after that element to the right.
-	void insertFirst(T&);
-	void insertLast(T&);
+	Node<T>& insert(T&, int); //A number outside the range 0-count will fail silently! Insertion pushes both the element in the desired position and all elements after that element to the right.
+	Node<T>& insertFirst(T&);
+	Node<T>& insertLast(T&);
 	void remove(int); //A number outside the range 0-(count - 1) will fail silently!
 	void removeFirst();
 	void removeLast();
@@ -91,7 +91,7 @@ Insert data into the list
 @return N/A.
 */
 template <typename T>
-void List<T>::insert(T& newData, int pos)
+Node<T>& List<T>::insert(T& newData, int pos)
 {
 	if (pos < 0 || pos > count)
 	{
@@ -101,11 +101,17 @@ void List<T>::insert(T& newData, int pos)
 	if (head == nullptr) //The list is empty
 	{
 		head = new Node<T>(newData);
+
+		cout++;
+		return &head;
 	}
 	else if (pos == 0) //Replacing head
 	{
 		Node<T>* temp = head;
 		head = new Node<T>(newData, temp);
+
+		count++;
+		return &head;
 	}
 	else
 	{
@@ -117,10 +123,11 @@ void List<T>::insert(T& newData, int pos)
 
 		Node<T>* temp = currentNode->next;
 		currentNode->next = new Node<T>(newData, temp);
+
+		cout++;
+		return currentNode->next;
 	}
 
-	count++;
-	return;
 }
 
 /*
@@ -130,10 +137,9 @@ Inserts data in the first position of the list
 @return.
 */
 template <typename T>
-void List<T>::insertFirst(T& newData)
+Node<T>& List<T>::insertFirst(T& newData)
 {
-	insert(newData, 0);
-	return;
+	return insert(newData, 0);
 }
 
 /*
@@ -143,10 +149,9 @@ Inserts data at the last position of the list
 @return.
 */
 template <typename T>
-void List<T>::insertLast(T& newData)
+Node<T>& List<T>::insertLast(T& newData)
 {
-	insert(newData, count);
-	return;
+	return insert(newData, count);
 }
 
 /*
@@ -272,8 +277,8 @@ T& List<T>::getData(int pos)
 	{
 		throw "Invalid index";
 	}
-
-	Node<T>* currentNode = head;
+	
+	Node<T>* currentNode;
 	for (int i = 0; i < pos; i++)
 	{
 		currentNode = currentNode->next;

@@ -38,20 +38,19 @@ Queue<T>::~Queue()
 template<typename T>
 void Queue<T>::enqueue(T& newData)
 {
-	Node<T> *ptr = new Node<T>();
-	ptr->data = newData;
-	ptr->next = nullptr;
-
+	this->rear = this->insertLast(newData);
+/*
 	if (front == nullptr)
 	{
-		this->front = ptr;
-		this->rear = ptr;
+		this->front = this->insertLast(newData);
+		this->rear = this->insertLast(newData);
 	}
 	else
 	{
 		this->rear = this->insertLast(newData);
-		rear = ptr;
+		this->front = head;
 	}
+	*/
 }
 
 template<typename T>

@@ -14,7 +14,8 @@ int main()
 	int two = 2;
 	int three = 3;
 
-	myQueue.display1();
+	cout << myQueue.getFront() << endl;
+	cout << myQueue.getRear() << endl;
 
 
 	system("pause");
