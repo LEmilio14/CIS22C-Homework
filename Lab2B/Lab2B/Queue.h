@@ -79,7 +79,7 @@ void Queue<T>::enqueue(T& newData)
 	}
 	else
 	{
-		this->rear = temp ;
+		this->rear = temp;
 	}
 }
 
