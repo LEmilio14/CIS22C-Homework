@@ -7,11 +7,16 @@ Luis Guerrero
 */
 
 #include <iostream>
+#include "Calculator.h"
 
 using namespace std;
 
 int main()
 {
+	Calculator calc;
+
+	cout << calc.getNext("1 + 456");
+	
 	cin.get();
 	return 0;
 }
