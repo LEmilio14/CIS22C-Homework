@@ -25,10 +25,19 @@ int main()
 	}
 	cout << endl << endl;
 
-	calc.reverseString(calc.splitString(s), s.length());
+	calc.expressionToPostFix1(stringArr, calc.getNumberOfTokens(s));
 	for (int i = 0; i < calc.getNumberOfTokens(s); i++)
 	{
 		cout << stringArr[i];
+	}
+	cout << endl << endl;
+
+	unique_ptr<string[]> string2 = calc.splitString(s);
+	calc.reverseString(string2, calc.getNumberOfTokens(s));
+
+	for (int i = 0; i < calc.getNumberOfTokens(s); i++)
+	{
+		cout << string2[i];
 	}
 	
 	//cout << calc.getNext("123 - 1123 + 456");

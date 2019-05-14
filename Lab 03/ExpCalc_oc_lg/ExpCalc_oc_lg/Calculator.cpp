@@ -36,17 +36,77 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 	return stringArray;
 }
 
+/*
+std::string Calculator::expressionToPostFix1(std::unique_ptr<std::string[]> &tokenArray, int tokenArraySize)
+{
+	Stack<std::string> expressionStack;
+	//Stack<std::string> operatorStack;
+	std::string result;
+	//std::unique_ptr<std::string[]> expressionArray;
+	//auto expressionArray = std::make_unique<std::string[]>(tokenArraySize);
+
+		for (int i = 0; i < tokenArraySize; i++)
+		{
+			if (isOperand(tokenArray[i]))
+			{
+				result += tokenArray[i];
+			}
+			else if (isOperator(tokenArray[i]))
+			{
+				if (expressionStack.isEmpty() ||
+					expressionStack.peek() == "(" ||
+					getOperatorPrecedence(tokenArray[i]) > getOperatorPrecedence(expressionStack.peek()))
+				{
+					expressionStack.push(tokenArray[i]);
+				}
+				else
+				{
+					while (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(expressionStack.peek()))
+					{
+						result += expressionStack.peek();
+						//expressionStack.push(operatorStack.peek());
+						expressionStack.pop();
+					}
+					expressionStack.push(tokenArray[i]);
+				}
+			}
+			else if (tokenArray[i] == "(")
+			{
+				expressionStack.push(tokenArray[i]);
+			}
+			else if (tokenArray[i] == ")")
+			{
+				while (!expressionStack.isEmpty() && expressionStack.peek() != "(") {
+					result += expressionStack.peek();
+					expressionStack.pop();
+				}
+				expressionStack.pop();
+			}
+			else
+			{
+				throw ExceptionMalformedExpression();
+			}
+		}
+		while (!expressionStack.isEmpty()) {
+			result += expressionStack.peek();
+			expressionStack.pop();
+		}
+
+	return result;
+}
+*/
+
 /**
 * expressionToPostFix
 *
 * @brief 
 */
-
-/*
 std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
 {
 	Stack<std::string> expressionStack;
 	Stack<std::string> operatorStack;
+	std::unique_ptr<std::string[]> expressionArray;
+	auto expressionArray = std::make_unique<std::string[]>(tokenArraySize);
 
 	for (int i = 0; i < tokenArraySize; i++)
 	{
@@ -77,9 +137,8 @@ std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<s
 		}
 	}
 
-	return ;
+	return expressionArray;
 }
-*/
 
 /**
 * getNumberOfTokens
@@ -210,14 +269,20 @@ int Calculator::getOperatorPrecedence(std::string str)
 *
 * @return None.
 */
-void Calculator::reverseString(std::unique_ptr<std::string[]> stringReverse, int size)
+void Calculator::reverseString(std::unique_ptr<std::string[]> &stringReverse, int size)
 {
-	std::unique_ptr<std::string[]> temp;
 	int len = size / 2;
-	for (int i = 0; i < len; i++)
+	std::string temp;
+	if (size % 2 == 0)
 	{
-		swap(stringReverse[i], stringReverse[len - i - 1]);
+		for (int i = 0; i < len ; i++)
+		{
+			temp = stringReverse[size - 1 - i];
+			stringReverse[size - 1 - i] = stringReverse[i];
+			stringReverse[i] = temp;
+		}
 	}
+
 }
 
 Calculator::Calculator()

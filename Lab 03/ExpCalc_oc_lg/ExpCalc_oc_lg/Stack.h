@@ -24,6 +24,7 @@ public:
 	T& peek();
 	void empty();
 	void count();
+	bool isEmpty();
 };
 
 /*
@@ -99,4 +100,15 @@ template <typename T>
 void Stack<T>::count()
 {
 	return this->count;
+}
+
+template <typename T>
+bool Stack<T>::isEmpty()
+{
+	if (this->count == 0) 
+	{
+		return true;
+	}
+	else
+		return false;
 }
