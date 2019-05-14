@@ -35,6 +35,7 @@ public:
 	bool isOperator(std::string);
 	bool isOperand(std::string);
 	int getOperatorPrecedence(std::string);
+	std::unique_ptr<std::string[]> reverseString(std::unique_ptr<std::string[]>, int);
 	Calculator();
 	~Calculator();
 };

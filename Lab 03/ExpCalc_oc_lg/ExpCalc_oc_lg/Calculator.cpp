@@ -199,6 +199,28 @@ int Calculator::getOperatorPrecedence(std::string str)
 	}
 }
 
+/**
+* isOperator
+*
+* @brief Checks whether a given string is a valid operator, allowed characters: +, -, *, /, %, (, )
+*
+* @param str The string to check.
+*
+* @return Whether the string is a valid operator or not.
+*/
+std::unique_ptr<std::string[]> Calculator::reverseString(std::unique_ptr<std::string[]> stringReverse, int size)
+{
+	std::unique_ptr<std::string[]> temp;
+	for (int i = 0; i < size / 2; i++)
+	{
+		stringReverse[i] = temp[i];
+		temp[i] = stringReverse[size - i - 1];
+		stringReverse[size - i - 1] = stringReverse[i];
+		stringReverse[i] = temp[i];
+	}
+	return temp;
+}
+
 Calculator::Calculator()
 {
 

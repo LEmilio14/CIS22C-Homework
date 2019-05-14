@@ -23,7 +23,14 @@ int main()
 	{
 		cout << stringArr[i] << endl;
 	}
+	string s1 = "1 + 45 - 1 % ( 23 / 99 ) -42 + 65 + 0";
+	//unique_ptr<string[]> stringArr1 = calc.splitString(s1);
+	unique_ptr<string[]> result = calc.reverseString(calc.splitString(s1), s1.length());
 
+	for (int i = 0; i < calc.getNumberOfTokens(s1); i++)
+	{
+		cout << result[i];
+	}
 	//cout << calc.getNext("123 - 1123 + 456");
 	//cout << calc.getNumberOfTokens("1 2334- 34 - 32 /                  234  % 0 ( < 8 >");
 	
