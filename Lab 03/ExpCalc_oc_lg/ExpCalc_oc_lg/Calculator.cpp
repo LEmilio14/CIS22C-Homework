@@ -42,6 +42,7 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 * @brief 
 */
 
+/*
 std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
 {
 	Stack<std::string> expressionStack;
@@ -76,8 +77,9 @@ std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<s
 		}
 	}
 
-	return expressionArray;
+	return ;
 }
+*/
 
 /**
 * getNumberOfTokens
@@ -200,25 +202,22 @@ int Calculator::getOperatorPrecedence(std::string str)
 }
 
 /**
-* isOperator
+* reverseString
 *
-* @brief Checks whether a given string is a valid operator, allowed characters: +, -, *, /, %, (, )
+* @brief Reverse the string that was built from spliString function
 *
-* @param str The string to check.
+* @param the array string and the size
 *
-* @return Whether the string is a valid operator or not.
+* @return None.
 */
-std::unique_ptr<std::string[]> Calculator::reverseString(std::unique_ptr<std::string[]> stringReverse, int size)
+void Calculator::reverseString(std::unique_ptr<std::string[]> stringReverse, int size)
 {
 	std::unique_ptr<std::string[]> temp;
-	for (int i = 0; i < size / 2; i++)
+	int len = size / 2;
+	for (int i = 0; i < len; i++)
 	{
-		stringReverse[i] = temp[i];
-		temp[i] = stringReverse[size - i - 1];
-		stringReverse[size - i - 1] = stringReverse[i];
-		stringReverse[i] = temp[i];
+		swap(stringReverse[i], stringReverse[len - i - 1]);
 	}
-	return temp;
 }
 
 Calculator::Calculator()

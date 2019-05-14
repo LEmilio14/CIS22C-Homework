@@ -30,12 +30,12 @@ private:
 	
 public:
 	std::unique_ptr<std::string[]> splitString(std::string);
-	std::unique_ptr<std::string[]> expressionToPostFix(std::unique_ptr<std::string[]>, int);
+	//std::unique_ptr<std::string[]> expressionToPostFix(std::unique_ptr<std::string[]>, int);
 	int getNumberOfTokens(std::string);
 	bool isOperator(std::string);
 	bool isOperand(std::string);
 	int getOperatorPrecedence(std::string);
-	std::unique_ptr<std::string[]> reverseString(std::unique_ptr<std::string[]>, int);
+	void reverseString(std::unique_ptr<std::string[]>, int);
 	Calculator();
 	~Calculator();
 };
