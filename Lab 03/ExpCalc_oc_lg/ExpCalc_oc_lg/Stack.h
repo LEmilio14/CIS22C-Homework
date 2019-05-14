@@ -1,4 +1,18 @@
+/********************************************************************************
+************************************ Stack **************************************
+*********************************************************************************
+* This class is an Abstract Data Structure, modeling the functionality of a stack.
+* As this class is template based, it can be used with almost any type of data.
+* This data structure follows a First In, Last Out pattern.
+*****************
+***** USAGE *****
+*****************
+* Declare an object of type Stack, using template initialization.
+* You may then call Stack functions on the new Queue object.
+*********************************************************************************/
+
 #pragma once
+
 #include "List.h"
 
 template <typename T>
