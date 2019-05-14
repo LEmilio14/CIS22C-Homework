@@ -1,3 +1,11 @@
+/*
+CIS 22C
+Lab 02b: Implement a Queue ADT using inheritance from a List ADT.
+Authors:
+Olivier Chan Sion Moy
+Luis Guerrero
+*/
+
 #include <iostream>
 #include "List.h"
 #include "Dollar.h"
@@ -68,7 +76,7 @@ int main()
 	myQueue.enqueue(*four);
 	myQueue.enqueue(*five);
 	cout << "Getting the first and last element of the queue" << endl;
-	cout << "Front element: "<< myQueue.getFront() << endl;
+	cout << "Front element: " << myQueue.getFront() << endl;
 	cout << "Last element: " << myQueue.getRear() << endl;
 	cout << "Dequeue" << endl;
 	myQueue.dequeue();
