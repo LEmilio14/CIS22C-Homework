@@ -8,8 +8,6 @@ Luis Guerrero
 
 #include <iostream>
 #include "Calculator.h"
-#include "Stack.h"
-#include "Queue.h"
 
 using namespace std;
 

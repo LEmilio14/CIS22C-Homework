@@ -21,6 +21,8 @@
 #include <string>
 #include <memory>
 #include "ExceptionMalformedExpression.h"
+#include "Stack.h"
+#include "Queue.h"
 
 class Calculator
 {
@@ -28,9 +30,11 @@ private:
 	
 public:
 	std::unique_ptr<std::string[]> splitString(std::string);
+	std::unique_ptr<std::string[]> expressionToPostFix(std::unique_ptr<std::string[]>, int);
 	int getNumberOfTokens(std::string);
 	bool isOperator(std::string);
 	bool isOperand(std::string);
+	int getOperatorPrecedence(std::string);
 	Calculator();
 	~Calculator();
 };

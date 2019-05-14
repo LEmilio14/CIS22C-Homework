@@ -37,6 +37,49 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 }
 
 /**
+* expressionToPostFix
+*
+* @brief 
+*/
+
+std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
+{
+	Stack<std::string> expressionStack;
+	Stack<std::string> operatorStack;
+
+	for (int i = 0; i < tokenArraySize; i++)
+	{
+		if (isOperand(tokenArray[i]))
+		{
+			expressionStack.push(tokenArray[i]);
+		}
+		else if (isOperator(tokenArray[i]))
+		{
+			if (operatorStack.count == 0 ||
+				operatorStack.peek() == "(" ||
+				getOperatorPrecedence(tokenArray[i]) > getOperatorPrecedence(operatorStack.peek()))
+			{
+				operatorStack.push(tokenArray[i]);
+			}
+			else
+			{
+				while (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()))
+				{
+					expressionStack.push(operatorStack.peek());
+					operatorStack.pop();
+				}
+			}
+		}
+		else
+		{
+			throw ExceptionMalformedExpression();
+		}
+	}
+
+	return expressionArray;
+}
+
+/**
 * getNumberOfTokens
 *
 * @brief Returns the number of tokens in a given string, delimited by any number of spaces.
@@ -128,6 +171,32 @@ bool Calculator::isOperand(std::string str)
 	}
 
 	return true;
+}
+
+/**
+* getOperatorPrecedence
+*
+* @brief 
+*/
+
+int Calculator::getOperatorPrecedence(std::string str)
+{
+	if (str == "+" || str == "-")
+	{
+		return 1;
+	}
+	else if (str == "*" || str == "/" || str == "%")
+	{
+		return 2;
+	}
+	else if (str == "(" || str == ")")
+	{
+		return 3;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 Calculator::Calculator()
