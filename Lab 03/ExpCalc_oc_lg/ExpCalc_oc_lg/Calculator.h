@@ -18,6 +18,8 @@
 
 #pragma once
 
+#include <iostream>
+
 #include <string>
 #include <memory>
 #include "ExceptionMalformedExpression.h"
@@ -30,7 +32,7 @@ private:
 	
 public:
 	std::unique_ptr<std::string[]> splitString(std::string);
-	std::unique_ptr<std::string[]> expressionToPostFix(std::unique_ptr<std::string[]>, int);
+	void expressionToPostFix(std::unique_ptr<std::string[]>, int);
 	int getNumberOfTokens(std::string);
 	bool isOperator(std::string);
 	bool isOperand(std::string);

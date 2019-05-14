@@ -16,14 +16,15 @@
 #include "List.h"
 
 template <typename T>
-class Stack : protected List<T>
+class Stack : public List<T>
 {
 public:
 	void push(T&);
 	void pop();
 	T& peek();
 	void empty();
-	void count();
+	bool isEmpty();
+	int count();
 };
 
 /*
@@ -86,6 +87,27 @@ void Stack<T>::empty()
 	this->removeAll();
 }
 
+/**
+* isEmpty
+*
+* @brief Returns whether the stack is empty or not.
+*
+* @return TRUE if the stack is empty, otherwise FALSE
+*/
+
+template<typename T>
+bool Stack<T>::isEmpty()
+{
+	if (this->count == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 /*
 Counts data of stack.
 
@@ -96,7 +118,7 @@ Counts data of stack.
 @return Count of elements.
 */
 template <typename T>
-void Stack<T>::count()
+int Stack<T>::count()
 {
-	return this->count;
+	return this->getCount();
 }

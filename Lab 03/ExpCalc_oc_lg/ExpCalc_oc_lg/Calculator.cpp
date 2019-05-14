@@ -42,32 +42,48 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 * @brief 
 */
 
-std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
+void Calculator::expressionToPostFix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
 {
 	Stack<std::string> expressionStack;
 	Stack<std::string> operatorStack;
 
 	for (int i = 0; i < tokenArraySize; i++)
 	{
+		std::cout << i << std::endl;
+		std::cout << operatorStack;
+		//Push operands immediately
 		if (isOperand(tokenArray[i]))
 		{
 			expressionStack.push(tokenArray[i]);
 		}
 		else if (isOperator(tokenArray[i]))
 		{
-			if (operatorStack.count == 0 ||
+			//If operator is ")", pop operators until "("
+			if (tokenArray[i] == ")")
+			{
+				while (operatorStack.peek() != "(")
+				{
+					expressionStack.push(operatorStack.peek());
+					operatorStack.pop();
+				}
+				operatorStack.pop();
+			}
+			//If operator stack is empty, is "(", or is lower precedence, push new operator
+			else if (operatorStack.count() == 0 ||
 				operatorStack.peek() == "(" ||
 				getOperatorPrecedence(tokenArray[i]) > getOperatorPrecedence(operatorStack.peek()))
 			{
 				operatorStack.push(tokenArray[i]);
 			}
-			else
+			//If operator stack is equal or higher precedence, pop operators until it isn't, then push new operator
+			else if (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()))
 			{
-				while (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()))
+				while (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()) && operatorStack.count() > 0)
 				{
 					expressionStack.push(operatorStack.peek());
 					operatorStack.pop();
 				}
+				operatorStack.push(tokenArray[i]);
 			}
 		}
 		else
@@ -76,7 +92,20 @@ std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<s
 		}
 	}
 
-	return expressionArray;
+	//Pop remaining operators
+	while (operatorStack.count() > 0)
+	{
+		expressionStack.push(operatorStack.peek());
+		operatorStack.pop();
+	}
+
+	while (expressionStack.count() > 0)
+	{
+		std::cout << expressionStack.peek() << std::endl;
+		expressionStack.pop();
+	}
+
+	return;
 }
 
 /**
@@ -153,7 +182,7 @@ bool Calculator::isOperand(std::string str)
 		return false;
 	}
 	
-	for (int i = 0; i < str.size(); i++)
+	for (size_t i = 0; i < str.size(); i++)
 	{
 		if (str[i] != '1' &&
 			str[i] != '2' &&
