@@ -32,11 +32,13 @@ private:
 	
 public:
 	std::unique_ptr<std::string[]> splitString(std::string);
-	void expressionToPostFix(std::unique_ptr<std::string[]>, int);
+	std::unique_ptr<std::string[]> expressionToPostFix(std::unique_ptr<std::string[]>, int);
+	//std::string expressionToPostFix1(std::unique_ptr<std::string[]>&, int);
 	int getNumberOfTokens(std::string);
 	bool isOperator(std::string);
 	bool isOperand(std::string);
 	int getOperatorPrecedence(std::string);
+	void reverseString(std::unique_ptr<std::string[]>&, int);
 	Calculator();
 	~Calculator();
 };

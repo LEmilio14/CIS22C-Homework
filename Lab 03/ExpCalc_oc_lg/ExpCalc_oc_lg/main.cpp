@@ -19,6 +19,14 @@ int main()
 
 	calc.expressionToPostFix(calc.splitString(s), calc.getNumberOfTokens(s));
 
+	unique_ptr<string[]> string2 = calc.splitString(s);
+	calc.reverseString(string2, calc.getNumberOfTokens(s));
+
+	for (int i = 0; i < calc.getNumberOfTokens(s); i++)
+	{
+		cout << string2[i];
+	}
+	
 	//cout << calc.getNext("123 - 1123 + 456");
 	//cout << calc.getNumberOfTokens("1 2334- 34 - 32 /                  234  % 0 ( < 8 >");
 	
