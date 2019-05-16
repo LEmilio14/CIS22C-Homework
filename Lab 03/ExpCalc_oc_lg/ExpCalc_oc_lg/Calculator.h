@@ -43,8 +43,7 @@ public:
 	int getNumberOfTokens(std::string);
 	int getOperatorPrecedence(std::string);
 	std::string arrayToString(std::unique_ptr<std::string[]>);
-	void reverseString(std::unique_ptr<std::string[]>&, int);
-
+	std::string* reverseString(std::string);
 	Calculator();
 	~Calculator();
 };

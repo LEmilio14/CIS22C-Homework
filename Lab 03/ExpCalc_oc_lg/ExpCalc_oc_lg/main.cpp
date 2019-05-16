@@ -28,6 +28,16 @@ int main()
 		i++;
 	}
 
+	cout << endl;
+
+	string* reverse = calc.reverseString(expression);
+
+	for (int i = 0; i < 19; i++)
+	{
+		cout << reverse[i];
+	}
+	
+
 	cin.get();
 	return 0;
 }

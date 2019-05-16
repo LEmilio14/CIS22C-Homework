@@ -364,14 +364,15 @@ std::string arrayToString(std::unique_ptr<std::string[]>& expressionArray)
 * @return None.
 */
 
-void Calculator::reverseString(std::unique_ptr<std::string[]> &stringReverse, int size)
+std::string* Calculator::reverseString(std::string expressionString)
 {
-	int len = size / 2;
+	std::string *stringReverse = splitString(expressionString);
+	int len = getNumberOfTokens(expressionString);
 	std::string temp;
-	for (int i = 0; i < len ; i++)
+	for (int i = 0; i < len / 2 ; i++)
 	{
-		temp = stringReverse[size - 1 - i];
-		stringReverse[size - 1 - i] = stringReverse[i];
+		temp = stringReverse[len - 1 - i];
+		stringReverse[len - 1 - i] = stringReverse[i];
 		stringReverse[i] = temp;
 		if (stringReverse[i] == "(")
 		{
@@ -382,6 +383,7 @@ void Calculator::reverseString(std::unique_ptr<std::string[]> &stringReverse, in
 			stringReverse[i] = "(";
 		}
 	}
+	return stringReverse;
 }
 
 Calculator::Calculator()
