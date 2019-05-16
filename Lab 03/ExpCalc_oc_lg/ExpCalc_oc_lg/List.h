@@ -288,7 +288,7 @@ T& List<T>::getData(int pos)
 		currentNode = currentNode->next;
 	}
 
-	return currentNode->data;
+	return *(currentNode->data);
 }
 
 /*
