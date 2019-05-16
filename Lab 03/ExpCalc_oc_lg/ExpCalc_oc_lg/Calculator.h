@@ -33,7 +33,7 @@ private:
 public:
 	std::unique_ptr<std::string[]> splitString(std::string);
 	std::unique_ptr<std::string[]> expressionToPostFix(std::unique_ptr<std::string[]>, int);
-	//std::string expressionToPostFix1(std::unique_ptr<std::string[]>&, int);
+	std::unique_ptr<std::string[]> infixToPrefix(std::unique_ptr<std::string[]>&, int);
 	int getNumberOfTokens(std::string);
 	bool isOperator(std::string);
 	bool isOperand(std::string);
