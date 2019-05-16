@@ -21,11 +21,11 @@ int main()
 	string* postfix = calc.infixToPostfix(expression);
 	string* prefix = calc.infixToPrefix(expression);
 
-	cout << calc.arrayToString(postfix) << endl;
+	//cout << calc.arrayToString(postfix) << endl;
 	//cout << calc.resolvePostfix(postfix) << endl;
 
-	cout << calc.arrayToString(prefix) << endl;
-	cout << calc.resolvePrefix(prefix) << endl;
+	//cout << calc.arrayToString(prefix) << endl;
+	//cout << calc.resolvePrefix(prefix) << endl;
 
 	delete [] postfix;
 	delete[] prefix;

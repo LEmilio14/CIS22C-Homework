@@ -594,8 +594,6 @@ void Calculator::validateExpression(std::string expression)
 	//Ensure that all operators are followed by operands, and all operands are followed by operators.
 	for (int i = 0; i < expressionArraySize; i++)
 	{
-		std::cout << expressionArray[i] << std::endl;
-		
 		//If token is an operand
 		if (isOperand(expressionArray[i]))
 		{
