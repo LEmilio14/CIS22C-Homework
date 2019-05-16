@@ -135,7 +135,6 @@ std::string* Calculator::infixToPostfix(std::string infix)
 *
 * @return
 */
-
 std::string* Calculator::infixToPrefix(std::string expression)
 {
 	//Ensures the expression is right before proceding
@@ -316,9 +315,39 @@ int Calculator::resolvePostfix(std::string* postfixArray)
 	return result;
 }
 
-int Calculator::resolvePrefix(Stack<std::string> prefixStack, Queue<std::string> prefixQueue)
+int Calculator::resolvePrefix(std::string* prefixArray)
 {
+	Stack<std::string> operandStack;
+	int prefixArraySize = 0, i = 0;
 
+	while (prefixArray[i] != "\0")
+	{
+		prefixArraySize++;
+		i++;
+	}
+	prefixArraySize++;
+
+	std::string* tempArray = new std::string[prefixArraySize];
+	for (int i = 0; i < prefixArraySize; i++)
+	{
+		tempArray[i] = prefixArray[i];
+	}
+
+	int result;
+	{
+		int i = 0;
+		while (tempArray[i] != "\0")
+		{
+			if (isOperand(tempArray[i]))
+			{
+				if (isOperand(operandStack.peek()) == isOperand(tempArray[i]))
+				{
+
+				}
+			}
+		}
+	}
+	
 	return 0;
 }
 

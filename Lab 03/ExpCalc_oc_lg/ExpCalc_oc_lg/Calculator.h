@@ -32,15 +32,17 @@ private:
 public:
 	std::string* splitString(std::string);
 	std::string* reverseString(std::string);
-	bool isOperator(std::string);
-	bool isOperand(std::string);
-	int getNumberOfTokens(std::string);
-	int getOperatorPrecedence(std::string);
-	void validateExpression(std::string);
 	std::string* infixToPostfix(std::string);
 	std::string* infixToPrefix(std::string);
-	int resolvePostfix(std::string*);
-	int resolvePrefix(Stack<std::string>, Queue<std::string>);
 
+	bool isOperator(std::string);
+	bool isOperand(std::string);
+
+	int getNumberOfTokens(std::string);
+	int getOperatorPrecedence(std::string);
+	int resolvePostfix(std::string*);
+	int resolvePrefix(std::string*);
+
+	void validateExpression(std::string);
 	std::string arrayToString(std::string*);
 };
