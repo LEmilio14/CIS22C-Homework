@@ -29,7 +29,7 @@ int main()
 
 	string* reverse = calc.reverseString(expression);
 
-	for (int i = 0; i < 19; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		cout << reverse[i];
 	}
