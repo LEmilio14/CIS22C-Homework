@@ -213,17 +213,11 @@ std::string* Calculator::infixToPrefix(std::string expression)
 	//Set the last element of the array as a terminator
 	expressionArray[queueSize] = "\0";
 
-	std::string answer = arrayToString(expressionArray);
-	int len = getNumberOfTokens(answer);
-	std::string* temp2 = reverseString(answer);
-	std::string* reverseAnswer = new std::string[len + 1];
-	reverseAnswer = temp2;
+	//Emilio: At this point, expressionArray holds the prefix expression but reversed, and it also has "\0" at the end.
+	//You need to reverse expressionArray now, so that it is correct. But keep in mind that there is an extra "\0" at the end and that you shouldn't touch it when reversing!
+	//reverseArray(expressionArray);
 
-	delete[] expressionArray;
-
-	//reverseAnswer[queueSize] = "\0";
-
-	return reverseAnswer;
+	return expressionArray;
 }
 
 /**
