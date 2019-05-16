@@ -4,34 +4,24 @@ template <typename T>
 struct Node
 {
 public:
-	T* data;
+	T& data;
 	Node<T>* next;
 
-	Node();
 	Node(T&);
 	Node(T&, Node<T>*);
 	~Node();
 };
 
 template <typename T>
-Node<T>::Node()
+Node<T>::Node(T& d) : data(d)
 {
-	data = nullptr;
 	next = nullptr;
 }
 
 template <typename T>
-Node<T>::Node(T& d)
+Node<T>::Node(T& d, Node<T>* n) : data(d), next(n)
 {
-	data = &d;
-	next = nullptr;
-}
 
-template <typename T>
-Node<T>::Node(T& d, Node<T>* n)
-{
-	data = &d;
-	next = n;
 }
 
 template <typename T>

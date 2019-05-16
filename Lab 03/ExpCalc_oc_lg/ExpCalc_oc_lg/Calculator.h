@@ -31,7 +31,7 @@ private:
 	
 public:
 	std::unique_ptr<std::string[]> splitString(std::string);
-	std::unique_ptr<std::string[]> infixToPostfix(std::unique_ptr<std::string[]>, int);
+	std::unique_ptr<std::string[]> infixToPostfix(std::string);
 	std::unique_ptr<std::string[]> infixToPrefix(std::unique_ptr<std::string[]>&, int);
 	int resolvePrefix(Stack<std::string>, Queue<std::string>);
 	int getNumberOfTokens(std::string);

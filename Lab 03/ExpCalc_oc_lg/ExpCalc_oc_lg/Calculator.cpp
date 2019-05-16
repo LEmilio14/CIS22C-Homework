@@ -39,50 +39,60 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 /**
 * infixToPostfix
 *
-* @brief 
+* @brief Converts a string infix expression into an array of string tokens (operands and operators) in postfix order, terminated by "\0".
+*
+* @param infix A string infix expression, with all seperate operands and operators seperated by spaces.
+*
+* @return An array of tokens, terminated by the string "\0".
 */
 
-std::unique_ptr<std::string[]> Calculator::infixToPostfix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
+std::unique_ptr<std::string[]> Calculator::infixToPostfix(std::string infix)
 {
-	Stack<std::string> expressionStack;
+	std::unique_ptr<std::string[]> tokenArray = splitString(infix); //Convert the expression string into an array of tokens
+	int tokenArraySize = getNumberOfTokens(infix);
+	
 	Stack<std::string> operatorStack;
-	auto expressionArray = std::make_unique<std::string[]>(tokenArraySize);
+	Queue<std::string> expressionQueue;
+	int expressionQueueSize = 0;
 
 	for (int i = 0; i < tokenArraySize; i++)
 	{
-		std::cout << i << std::endl;
-		//Push operands immediately
+		//If token is an operand
 		if (isOperand(tokenArray[i]))
 		{
-			expressionStack.push(tokenArray[i]);
+			//Enqueue operands immediately
+			expressionQueue.enqueue(tokenArray[i]);
+			expressionQueueSize++;
 		}
+		//If token is an operator
 		else if (isOperator(tokenArray[i]))
 		{
-			//If operator is ")", pop operators until "("
-			if (tokenArray[i] == ")")
+			//While the stack isn't empty and the top of the stack is higher or equal precedence (exception: parentheses), pop and enqueue operators from the stack
+			while (!operatorStack.isEmpty() && operatorStack.peek() != "(" && operatorStack.peek() != ")" && getOperatorPrecedence(operatorStack.peek()) >= getOperatorPrecedence(tokenArray[i]))
 			{
-				while (operatorStack.peek() != "(")
-				{
-					expressionStack.push(operatorStack.peek());
-					operatorStack.pop();
-				}
-				operatorStack.pop();
+				expressionQueue.enqueue(operatorStack.pop());
+				expressionQueueSize++;
 			}
-			//If operator stack is empty, is "(", or is lower precedence, push new operator
-			else if (operatorStack.getCount() == 0 ||
-				operatorStack.peek() == "(" ||
-				getOperatorPrecedence(tokenArray[i]) > getOperatorPrecedence(operatorStack.peek()))
+
+			//If operator is ")", pop and enqueue operators until "("
+			if (!operatorStack.isEmpty() && tokenArray[i] == ")")
 			{
-				operatorStack.push(tokenArray[i]);
-			}
-			//If operator stack is equal or higher precedence, pop operators until it isn't, then push new operator
-			else if (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()))
-			{
-				while (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()) && operatorStack.getCount() > 0)
+				while (!operatorStack.isEmpty())
 				{
-					expressionStack.push(operatorStack.peek());
-					operatorStack.pop();
+					if (operatorStack.peek() == "(")
+					{
+						operatorStack.pop();
+						break;
+					}
+					else
+					{
+						expressionQueue.enqueue(operatorStack.pop());
+						expressionQueueSize++;
+					}
 				}
+			}
+			else
+			{
 				operatorStack.push(tokenArray[i]);
 			}
 		}
@@ -93,17 +103,23 @@ std::unique_ptr<std::string[]> Calculator::infixToPostfix(std::unique_ptr<std::s
 	}
 
 	//Pop remaining operators
-	while (operatorStack.getCount() > 0)
+	while (!operatorStack.isEmpty())
 	{
-		expressionStack.push(operatorStack.peek());
-		operatorStack.pop();
+		expressionQueue.enqueue(operatorStack.pop());
+		expressionQueueSize++;
 	}
 
-	while (expressionStack.getCount() > 0)
+	//Create the expression array with one extra space so a terminator can be added
+	auto expressionArray = std::make_unique<std::string[]>(expressionQueueSize + 1);
+
+	//Populate the expression array with the queue
+	for (int i = 0; i < expressionQueueSize; i++)
 	{
-		std::cout << expressionStack.peek() << std::endl;
-		expressionStack.pop();
+		expressionArray[i] = expressionQueue.dequeue();
 	}
+
+	//Set the last element of the array as a terminator
+	expressionArray[expressionQueueSize] = "\0";
 
 	return expressionArray;
 }

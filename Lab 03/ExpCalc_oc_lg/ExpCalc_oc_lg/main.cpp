@@ -14,39 +14,19 @@ using namespace std;
 
 int main()
 {
-	int a = 1;
-	int b = 2;
-	int c = 3;
-	
-	Stack<int> stack;
-
-	stack.push(a);
-	cout << stack.pop();
-	
-	/*
 	Calculator calc;
 
-	string s = "1 + 45 - 7 % ( 23 / 99 )";
+	string expression = "4 + ( 9 / 4 - 2 % 3 ) + ( 5 - 2 ) * 3";
 
-	//calc.expressionToPostFix(calc.splitString(s), calc.getNumberOfTokens(s));
+	auto postfix = calc.infixToPostfix(expression);
 
-	unique_ptr<string[]> string2 = calc.splitString(s);
-	calc.reverseString(string2, calc.getNumberOfTokens(s));
-	for (int i = 0; i < calc.getNumberOfTokens(s); i++)
-	{
-		cout << string2[i];
-	}
-
-	unique_ptr<string[]> test = calc.infixToPrefix(string2, calc.getNumberOfTokens(s));
-	for (int i = 0; i < calc.getNumberOfTokens(s); i++)
-	{
-		cout << test[i];
-	}
-
+	int i = 0;
 	
-	//cout << calc.getNext("123 - 1123 + 456");
-	//cout << calc.getNumberOfTokens("1 2334- 34 - 32 /                  234  % 0 ( < 8 >");
-	*/
+	while (postfix[i] != "\0")
+	{
+		cout << postfix[i] << endl;
+		i++;
+	}
 
 	cin.get();
 	return 0;
