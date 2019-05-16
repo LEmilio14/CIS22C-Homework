@@ -184,6 +184,12 @@ std::unique_ptr<std::string[]> Calculator::infixToPrefix(std::unique_ptr<std::st
 	return expressionArray;
 }
 
+int Calculator::resolvePrefix(Stack<std::string> prefixStack, Queue<std::string> prefixQueue)
+{
+
+	return 0;
+}
+
 /**
 * getNumberOfTokens
 *
