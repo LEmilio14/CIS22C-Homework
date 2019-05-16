@@ -37,7 +37,7 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 }
 
 /**
-* expressionToPostFix
+* infixToPostfix
 *
 * @brief 
 */
@@ -109,7 +109,7 @@ std::unique_ptr<std::string[]> Calculator::infixToPostfix(std::unique_ptr<std::s
 }
 
 /**
-* expressionToPostFix
+* infixToPrefix
 *
 * @brief
 *
