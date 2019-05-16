@@ -36,13 +36,14 @@ public:
 	std::string* infixToPostfix(std::string);
 	std::unique_ptr<std::string[]> infixToPrefix(std::unique_ptr<std::string[]>&, int);
 
+	int resolvePostfix(std::string*);
 	int resolvePrefix(Stack<std::string>, Queue<std::string>);
 	
 	bool isOperator(std::string);
 	bool isOperand(std::string);
 	int getNumberOfTokens(std::string);
 	int getOperatorPrecedence(std::string);
-	std::string arrayToString(std::unique_ptr<std::string[]>);
+	std::string arrayToString(std::string*);
 	void reverseString(std::unique_ptr<std::string[]>&, int);
 
 	Calculator();

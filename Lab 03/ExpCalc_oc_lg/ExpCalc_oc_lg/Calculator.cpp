@@ -43,7 +43,7 @@ std::string* Calculator::splitString(std::string str)
 *
 * @param infix A string infix expression, with all seperate operands and operators seperated by spaces.
 *
-* @return An array of tokens in postfix order. The array is terminated with the string "\0".
+* @return A dynamic array of tokens in postfix order. The array is terminated with the string "\0". This array must be properly deallocated.
 */
 
 std::string* Calculator::infixToPostfix(std::string infix)
@@ -204,6 +204,101 @@ std::unique_ptr<std::string[]> Calculator::infixToPrefix(std::unique_ptr<std::st
 	return expressionArray;
 }
 
+/**
+* resolvePostfix
+*
+* @brief Calculates the result of a postfix expression, given the postfix expression as an array of tokens.
+*
+* @param postfixArray The postfix expression as an array. This array should be created by infixToPostfix().
+*
+* @return The resulting evaluation of the postfix expression.
+*/
+
+int Calculator::resolvePostfix(std::string* postfixArray)
+{
+	Stack<std::string> operandStack;
+
+	int postfixArraySize = 0;
+
+	//Find the size of the array
+	{
+		int i = 0;
+		while (postfixArray[i] != "\0")
+		{
+			postfixArraySize++;
+			i++;
+		}
+		postfixArraySize++;
+	}
+
+	//Make a temporary copy of the array to allow overwriting values
+	std::string* tempArray = new std::string[postfixArraySize];
+	for (int i = 0; i < postfixArraySize; i++)
+	{
+		tempArray[i] = postfixArray[i];
+	}
+
+	//Calculate the result of the expression
+	int result;
+	{
+		int i = 0;
+		while (tempArray[i] != "\0")
+		{
+			//If token is an operand
+			if (isOperand(tempArray[i]))
+			{
+				operandStack.push(tempArray[i]);
+			}
+			//If token is an operator
+			else if (isOperator(tempArray[i]))
+			{
+				int right = std::stoi(operandStack.pop());
+				int left = std::stoi(operandStack.pop());
+
+				//Note: The operator is being replaced here so that we can keep the result in the stack after leaving scope
+				if (tempArray[i] == "+")
+				{
+					tempArray[i] = std::to_string(left + right);
+					operandStack.push(tempArray[i]);
+				}
+				else if (tempArray[i] == "-")
+				{
+					tempArray[i] = std::to_string(left - right);
+					operandStack.push(tempArray[i]);
+				}
+				else if (tempArray[i] == "*")
+				{
+					tempArray[i] = std::to_string(left * right);
+					operandStack.push(tempArray[i]);
+				}
+				else if (tempArray[i] == "/")
+				{
+					tempArray[i] = std::to_string(left / right);
+					operandStack.push(tempArray[i]);
+				}
+				else if (tempArray[i] == "%")
+				{
+					tempArray[i] = std::to_string(left % right);
+					operandStack.push(tempArray[i]);
+				}
+			}
+			else
+			{
+				throw ExceptionMalformedExpression();
+			}
+
+			i++;
+		}
+
+		//The remaining operand is the result
+		result = std::stoi(operandStack.pop());
+	}
+
+	delete [] tempArray;
+
+	return result;
+}
+
 int Calculator::resolvePrefix(Stack<std::string> prefixStack, Queue<std::string> prefixQueue)
 {
 
@@ -335,12 +430,12 @@ int Calculator::getOperatorPrecedence(std::string str)
 *
 * @brief Convert an expression array into a string representation.
 *
-* @param array The expression array to convert.
+* @param array The expression array to convert. This array should be created by infixToPostfix().
 *
 * @return The string representation of the expression array.
 */
 
-std::string arrayToString(std::unique_ptr<std::string[]>& expressionArray)
+std::string Calculator::arrayToString(std::string* expressionArray)
 {
 	std::string expressionString = std::string();
 
@@ -348,6 +443,10 @@ std::string arrayToString(std::unique_ptr<std::string[]>& expressionArray)
 	while (expressionArray[i] != "\0")
 	{
 		expressionString.append(expressionArray[i]);
+		if (expressionArray[i + 1] != "\0")
+		{
+			expressionString.append(" ");
+		}
 		i++;
 	}
 
