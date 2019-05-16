@@ -26,15 +26,10 @@ int main()
 
 	cout << calc.arrayToString(prefix) << endl;
 
-<<<<<<< HEAD
-
 	delete [] postfix;
 	delete[] prefix;
 
-	
 
-=======
->>>>>>> d516e691126c26c69573b1d2842851f363deb256
 	cin.get();
 	return 0;
 }
