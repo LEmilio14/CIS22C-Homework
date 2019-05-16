@@ -41,13 +41,16 @@ std::string* Calculator::splitString(std::string str)
 *
 * @brief Converts a string infix expression into an array of string tokens (operands and operators) in postfix order. The array is terminated with the string "\0".
 *
-* @param infix A string infix expression, with all seperate operands and operators seperated by spaces.
+* @param infix A string infix expression, with all separate operands and operators seperated by spaces. An invalid expression will cause an exception.
 *
 * @return A dynamic array of tokens in postfix order. The array is terminated with the string "\0". This array must be properly deallocated.
 */
 
 std::string* Calculator::infixToPostfix(std::string infix)
 {
+	//Ensure the expression is valid before doing anything. An invalid expression will throw an ExceptionMalformedExpression exception.
+	validateExpression(infix);
+	
 	Stack<std::string> operatorStack;
 	Queue<std::string> expressionQueue;
 	int expressionQueueSize = 0;
@@ -95,10 +98,6 @@ std::string* Calculator::infixToPostfix(std::string infix)
 			{
 				operatorStack.push(tokenArray[i]);
 			}
-		}
-		else
-		{
-			throw ExceptionMalformedExpression();
 		}
 	}
 
@@ -481,6 +480,76 @@ void Calculator::reverseString(std::unique_ptr<std::string[]> &stringReverse, in
 			stringReverse[i] = "(";
 		}
 	}
+}
+
+/**
+* validateExpression
+*
+* @brief Verifies that an expression is well formed. An invalid expression will throw an ExceptionMalformedExpression exception.
+*
+* @param expression The expression to verify.
+*/
+
+void Calculator::validateExpression(std::string expression)
+{
+	std::string* expressionArray = splitString(expression);
+	int expressionArraySize = getNumberOfTokens(expression);
+
+	Stack<std::string> expressionStack;
+	int openParentheses = 0;
+	int closeParentheses = 0;
+
+	//Ensure that all operators are followed by operands, and all operands are followed by operators.
+	for (int i = 0; i < expressionArraySize; i++)
+	{
+		//If token is an operand
+		if (isOperand(expressionArray[i]))
+		{
+			//Operands cannot follow other operands
+			if (!expressionStack.isEmpty() && isOperand(expressionStack.peek()))
+			{
+				throw ExceptionMalformedExpression();
+			}
+
+			expressionStack.push(expressionArray[i]);
+		}
+		//If token is an operator
+		else if (isOperator(expressionArray[i]))
+		{
+			//Operators cannot follow other operators, unless one of the operators in question is "(" or ")"
+			if (!expressionStack.isEmpty() && isOperator(expressionStack.peek()) &&
+				expressionArray[i] != "(" && expressionArray[i] != ")" &&
+				expressionStack.peek() != "(" && expressionStack.peek() != ")")
+			{
+				throw ExceptionMalformedExpression();
+			}
+
+			//Keep count of each type of parenthesis
+			if (expressionArray[i] == "(")
+			{
+				openParentheses++;
+			}
+			else if (expressionArray[i] == ")")
+			{
+				closeParentheses++;
+			}
+
+			expressionStack.push(expressionArray[i]);
+		}
+		//Token is neither an operand nor an operator
+		else
+		{
+			throw ExceptionMalformedExpression();
+		}
+	}
+
+	//Ensure that every parenthesis has a paired partner
+	if (openParentheses != closeParentheses)
+	{
+		throw ExceptionMalformedExpression();
+	}
+
+	delete [] expressionArray;
 }
 
 Calculator::Calculator()

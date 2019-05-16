@@ -45,6 +45,7 @@ public:
 	int getOperatorPrecedence(std::string);
 	std::string arrayToString(std::string*);
 	void reverseString(std::unique_ptr<std::string[]>&, int);
+	void validateExpression(std::string);
 
 	Calculator();
 	~Calculator();
