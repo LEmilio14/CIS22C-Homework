@@ -25,16 +25,6 @@ int main()
 
 	delete [] postfix;
 
-	cout << endl;
-
-	string* reverse = calc.reverseString(expression);
-
-	for (int i = 0; i < 3; i++)
-	{
-		cout << reverse[i];
-	}
-	
-
 	cin.get();
 	return 0;
 }

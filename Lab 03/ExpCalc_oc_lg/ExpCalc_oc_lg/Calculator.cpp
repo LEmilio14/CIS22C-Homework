@@ -41,7 +41,7 @@ std::string* Calculator::splitString(std::string str)
 *
 * @brief Converts a string infix expression into an array of string tokens (operands and operators) in postfix order. The array is terminated with the string "\0".
 *
-* @param infix A string infix expression, with all separate operands and operators seperated by spaces. An invalid expression will cause an exception.
+* @param infix A string infix expression, with all separate operands and operators separated by spaces. An invalid expression will cause an exception.
 *
 * @return A dynamic array of tokens in postfix order. The array is terminated with the string "\0". This array must be properly deallocated.
 */
@@ -429,7 +429,7 @@ int Calculator::getOperatorPrecedence(std::string str)
 *
 * @brief Convert an expression array into a string representation.
 *
-* @param array The expression array to convert. This array should be created by infixToPostfix().
+* @param array The expression array to convert. This array should be created by infixToPostfix() or infixToPrefix().
 *
 * @return The string representation of the expression array.
 */
@@ -560,14 +560,4 @@ void Calculator::validateExpression(std::string expression)
 	}
 
 	delete [] expressionArray;
-}
-
-Calculator::Calculator()
-{
-
-}
-
-Calculator::~Calculator()
-{
-
 }

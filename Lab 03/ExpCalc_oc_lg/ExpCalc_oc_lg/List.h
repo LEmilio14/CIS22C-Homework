@@ -24,7 +24,6 @@ protected:
 	Node<T>* head;
 public:
 	List();
-	~List();
 
 	bool isEmpty();
 	int getCount();
@@ -48,12 +47,6 @@ List<T>::List()
 {
 	count = 0;
 	head = nullptr;
-}
-
-template <typename T>
-List<T>::~List()
-{
-
 }
 
 /*

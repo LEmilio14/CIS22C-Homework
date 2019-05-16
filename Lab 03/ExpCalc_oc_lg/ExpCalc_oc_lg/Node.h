@@ -9,7 +9,6 @@ public:
 
 	Node(T&);
 	Node(T&, Node<T>*);
-	~Node();
 };
 
 template <typename T>
@@ -20,12 +19,6 @@ Node<T>::Node(T& d) : data(d)
 
 template <typename T>
 Node<T>::Node(T& d, Node<T>* n) : data(d), next(n)
-{
-
-}
-
-template <typename T>
-Node<T>::~Node()
 {
 
 }

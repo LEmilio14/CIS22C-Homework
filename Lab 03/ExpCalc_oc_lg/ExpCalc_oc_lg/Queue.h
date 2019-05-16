@@ -36,7 +36,6 @@ private:
 
 public:
 	Queue();
-	~Queue();
 
 	void enqueue(T&);
 	T& dequeue();
@@ -52,12 +51,6 @@ Queue<T>::Queue()
 {
 	front = nullptr;
 	rear = nullptr;
-}
-
-template<typename T>
-Queue<T>::~Queue()
-{
-
 }
 
 /**
