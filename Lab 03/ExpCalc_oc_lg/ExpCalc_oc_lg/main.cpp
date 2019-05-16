@@ -19,20 +19,17 @@ int main()
 	string expression = "4 + ( 9 / 4 - 2 % 3 ) + ( 5 - 2 ) * 3";
 
 	string* postfix = calc.infixToPostfix(expression);
+	string* prefix = calc.infixToPrefix(expression);
 
 	cout << calc.arrayToString(postfix) << endl;
 	cout << calc.resolvePostfix(postfix) << endl;
 
+	cout << calc.arrayToString(prefix) << endl;
+
+
 	delete [] postfix;
+	delete[] prefix;
 
-	cout << endl;
-
-	string* reverse = calc.reverseString(expression);
-
-	for (int i = 0; i < 19; i++)
-	{
-		cout << reverse[i];
-	}
 	
 
 	cin.get();

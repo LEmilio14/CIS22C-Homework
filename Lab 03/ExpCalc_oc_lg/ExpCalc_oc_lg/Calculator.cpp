@@ -136,71 +136,89 @@ std::string* Calculator::infixToPostfix(std::string infix)
 * @return
 */
 
-std::unique_ptr<std::string[]> Calculator::infixToPrefix(std::unique_ptr<std::string[]> &tokenArray, int arraySize)
+std::string* Calculator::infixToPrefix(std::string expression)
 {
-	Calculator c;
+	//Ensures the expression is right before proceding
+	validateExpression(expression);
+
 	Stack<std::string> operatorStack;
 	Queue<std::string> operandQueue;
-	std::unique_ptr<std::string[]> expressionArray;
+
+	std::string* reversedArray = reverseString(expression);
+	int arraySize = getNumberOfTokens(expression);
+	int queueSize = 0;
 
 	for (int i = 0; i < arraySize; i++)
 	{
-		if (c.isOperand(tokenArray[i]))
+		//If token is an operand
+		if (isOperand(reversedArray[i]))
 		{
-			operandQueue.enqueue(tokenArray[i]);
+			//Enqueue operands immediately
+			operandQueue.enqueue(reversedArray[i]);
+			queueSize++;
 		}
-		else if (c.isOperator(tokenArray[i]))
+		//If token is an operator
+		else if (isOperator(reversedArray[i]))
 		{
-			if (operatorStack.getCount() == 0 || c.getOperatorPrecedence(tokenArray[i]) >= c.getOperatorPrecedence(operatorStack.peek())
-				|| tokenArray[i] == "(")
+			//While the stack isn't empty and the top of the stack is higher or equal precedence (exception: parentheses), pop and enqueue operators from the stack
+			while (!operatorStack.isEmpty() && operatorStack.peek() != "(" && operatorStack.peek() != ")" && getOperatorPrecedence(operatorStack.peek()) > getOperatorPrecedence(reversedArray[i]))
 			{
-				operatorStack.push(tokenArray[i]);
+				operandQueue.enqueue(operatorStack.pop());
+				queueSize++;
 			}
-			else if (tokenArray[i] == ")")
-			{
-				while (operatorStack.peek() != "(")
-				{
-					operandQueue.enqueue(operatorStack.peek());
-					operatorStack.pop();
-				}
-				operatorStack.pop();
-			}
-			else if (c.getOperatorPrecedence(tokenArray[i]) < c.getOperatorPrecedence(operatorStack.peek()))
-			{
-				while (c.getOperatorPrecedence(operatorStack.peek()) < c.getOperatorPrecedence(tokenArray[i]) || operatorStack.getCount() >= 0)
-				{
-					operandQueue.enqueue(operatorStack.peek());
-					operatorStack.pop();
-				}
-				operatorStack.push(tokenArray[i]);
-			}
-		}
-		else
-		{
-			throw ExceptionMalformedExpression();
-		}
 
+			//If operator is ")", pop and enqueue operators until "("
+			if (!operatorStack.isEmpty() && reversedArray[i] == ")")
+			{
+				while (!operatorStack.isEmpty())
+				{
+					if (operatorStack.peek() == "(")
+					{
+						operatorStack.pop();
+						break;
+					}
+					else
+					{
+						operandQueue.enqueue(operatorStack.pop());
+						queueSize++;
+					}
+				}
+			}
+			else
+			{
+				operatorStack.push(reversedArray[i]);
+			}
+		}
 	}
-	
+
 	//Pop remaining operators
-	while (operatorStack.getCount() >= 0)
+	while (!operatorStack.isEmpty())
 	{
-		operandQueue.enqueue(operatorStack.peek());
-		operatorStack.pop();
+		operandQueue.enqueue(operatorStack.pop());
+		queueSize++;
 	}
 
-	while (operandQueue.isEmpty())
+	//Create the expression array with one extra space so a terminator can be added
+	std::string* expressionArray = new std::string[queueSize + 1];
+
+	//Populate the expression array with the queue
+	for (int i = 0; i < queueSize; i++)
 	{
-		std::cout << operandQueue.getFront() << std::endl;
-		operandQueue.dequeue();
+		expressionArray[i] = operandQueue.dequeue();
 	}
 
-	for (int j = 0; j > operandQueue.getCount(); j++)
-	{
-		expressionArray[j] = operandQueue.getFront();
-	}
-	
-	return expressionArray;
+	//Delete the token array since the queue and stack are no longer needed
+	delete[] reversedArray;
+
+	//Set the last element of the array as a terminator
+	//expressionArray[queueSize] = "\0";
+
+	std::string answer = arrayToString(expressionArray);
+	std::string* reverseAnswer = reverseString(answer);
+
+	reverseAnswer[queueSize] = "\0";
+
+	return reverseAnswer;
 }
 
 /**
@@ -472,13 +490,16 @@ std::string* Calculator::reverseString(std::string expressionString)
 		temp = stringReverse[len - 1 - i];
 		stringReverse[len - 1 - i] = stringReverse[i];
 		stringReverse[i] = temp;
-		if (stringReverse[i] == "(")
+	}
+	for (int j = 0; j < len ; j++)
+	{
+		if (stringReverse[j] == "(")
 		{
-			stringReverse[i] = ")";
+			stringReverse[j] = ")";
 		}
-		else if (stringReverse[i] == ")")
+		else if (stringReverse[j] == ")")
 		{
-			stringReverse[i] = "(";
+			stringReverse[j] = "(";
 		}
 	}
 	return stringReverse;

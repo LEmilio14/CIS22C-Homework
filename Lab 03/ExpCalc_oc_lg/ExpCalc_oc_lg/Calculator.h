@@ -34,7 +34,7 @@ private:
 public:
 	std::string* splitString(std::string);
 	std::string* infixToPostfix(std::string);
-	std::unique_ptr<std::string[]> infixToPrefix(std::unique_ptr<std::string[]>&, int);
+	std::string* infixToPrefix(std::string);
 
 	int resolvePostfix(std::string*);
 	int resolvePrefix(Stack<std::string>, Queue<std::string>);
