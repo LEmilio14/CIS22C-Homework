@@ -518,6 +518,12 @@ void Calculator::validateExpression(std::string expression)
 		//If token is an operator
 		else if (isOperator(expressionArray[i]))
 		{
+			//Operators cannot be first in the expression, with the exception of "("
+			if (expressionStack.isEmpty() && expressionArray[i] != "(")
+			{
+				throw ExceptionMalformedExpression();
+			}
+			
 			//Operators cannot follow other operators, unless one of the operators in question is "(" or ")"
 			if (!expressionStack.isEmpty() && isOperator(expressionStack.peek()) &&
 				expressionArray[i] != "(" && expressionArray[i] != ")" &&

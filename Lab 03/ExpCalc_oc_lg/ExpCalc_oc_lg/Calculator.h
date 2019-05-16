@@ -6,7 +6,7 @@
 *****************
 ***** USAGE *****
 *****************
-* Infix expressions should be strings, with operands and operators seperated by
+* Infix expressions should be strings, with operands and operators separated by
 * spaces. Allowed operators are +, -, *, /, %, (, ). Negation is not allowed.
 * Examples:
 * "1 + 2" (legal)
