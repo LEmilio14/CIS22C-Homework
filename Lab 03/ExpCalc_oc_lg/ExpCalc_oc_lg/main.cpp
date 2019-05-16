@@ -18,15 +18,12 @@ int main()
 
 	string expression = "4 + ( 9 / 4 - 2 % 3 ) + ( 5 - 2 ) * 3";
 
-	auto postfix = calc.infixToPostfix(expression);
+	string* postfix = calc.infixToPostfix(expression);
 
-	int i = 0;
-	
-	while (postfix[i] != "\0")
-	{
-		cout << postfix[i] << endl;
-		i++;
-	}
+	cout << calc.arrayToString(postfix) << endl;
+	cout << calc.resolvePostfix(postfix) << endl;
+
+	delete [] postfix;
 
 	cout << endl;
 
