@@ -3,18 +3,18 @@
 /**
 * splitString
 *
-* @brief Creates an array of substrings from a parent string, the substrings being tokens of the parent string seperated by spaces.
+* @brief Creates an array of substrings from a parent string, the substrings being tokens of the parent string separated by spaces.
 *
 * @param str The parent string to generate substrings from.
 *
 * @return An array of substrings generated from the parent string.
 */
 
-std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
+std::string* Calculator::splitString(std::string str)
 {
 	int numberOfTokens = getNumberOfTokens(str);
 
-	auto stringArray = std::make_unique<std::string[]>(numberOfTokens);
+	std::string* stringArray = new std::string[numberOfTokens];
 
 	size_t pos = 0;
 	size_t start = 0;
@@ -39,21 +39,21 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 /**
 * infixToPostfix
 *
-* @brief Converts a string infix expression into an array of string tokens (operands and operators) in postfix order, terminated by "\0".
+* @brief Converts a string infix expression into an array of string tokens (operands and operators) in postfix order. The array is terminated with the string "\0".
 *
 * @param infix A string infix expression, with all seperate operands and operators seperated by spaces.
 *
-* @return An array of tokens, terminated by the string "\0".
+* @return An array of tokens in postfix order. The array is terminated with the string "\0".
 */
 
-std::unique_ptr<std::string[]> Calculator::infixToPostfix(std::string infix)
+std::string* Calculator::infixToPostfix(std::string infix)
 {
-	std::unique_ptr<std::string[]> tokenArray = splitString(infix); //Convert the expression string into an array of tokens
-	int tokenArraySize = getNumberOfTokens(infix);
-	
 	Stack<std::string> operatorStack;
 	Queue<std::string> expressionQueue;
 	int expressionQueueSize = 0;
+
+	std::string* tokenArray = splitString(infix); //Convert the expression string into an array of tokens
+	int tokenArraySize = getNumberOfTokens(infix);
 
 	for (int i = 0; i < tokenArraySize; i++)
 	{
@@ -110,13 +110,16 @@ std::unique_ptr<std::string[]> Calculator::infixToPostfix(std::string infix)
 	}
 
 	//Create the expression array with one extra space so a terminator can be added
-	auto expressionArray = std::make_unique<std::string[]>(expressionQueueSize + 1);
+	std::string* expressionArray = new std::string[expressionQueueSize + 1];
 
 	//Populate the expression array with the queue
 	for (int i = 0; i < expressionQueueSize; i++)
 	{
 		expressionArray[i] = expressionQueue.dequeue();
 	}
+
+	//Delete the token array since the queue and stack are no longer needed
+	delete [] tokenArray;
 
 	//Set the last element of the array as a terminator
 	expressionArray[expressionQueueSize] = "\0";
@@ -325,6 +328,30 @@ int Calculator::getOperatorPrecedence(std::string str)
 	{
 		return 0;
 	}
+}
+
+/**
+* arrayToString
+*
+* @brief Convert an expression array into a string representation.
+*
+* @param array The expression array to convert.
+*
+* @return The string representation of the expression array.
+*/
+
+std::string arrayToString(std::unique_ptr<std::string[]>& expressionArray)
+{
+	std::string expressionString = std::string();
+
+	int i = 0;
+	while (expressionArray[i] != "\0")
+	{
+		expressionString.append(expressionArray[i]);
+		i++;
+	}
+
+	return expressionString;
 }
 
 /**

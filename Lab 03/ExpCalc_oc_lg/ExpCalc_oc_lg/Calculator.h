@@ -21,6 +21,8 @@
 #include <string>
 #include <memory>
 
+#include <iostream>
+
 #include "ExceptionMalformedExpression.h"
 #include "Stack.h"
 #include "Queue.h"
@@ -30,15 +32,19 @@ class Calculator
 private:
 	
 public:
-	std::unique_ptr<std::string[]> splitString(std::string);
-	std::unique_ptr<std::string[]> infixToPostfix(std::string);
+	std::string* splitString(std::string);
+	std::string* infixToPostfix(std::string);
 	std::unique_ptr<std::string[]> infixToPrefix(std::unique_ptr<std::string[]>&, int);
+
 	int resolvePrefix(Stack<std::string>, Queue<std::string>);
-	int getNumberOfTokens(std::string);
+	
 	bool isOperator(std::string);
 	bool isOperand(std::string);
+	int getNumberOfTokens(std::string);
 	int getOperatorPrecedence(std::string);
+	std::string arrayToString(std::unique_ptr<std::string[]>);
 	void reverseString(std::unique_ptr<std::string[]>&, int);
+
 	Calculator();
 	~Calculator();
 };
