@@ -7,12 +7,23 @@ Luis Guerrero
 */
 
 #include <iostream>
+
 #include "Calculator.h"
 
 using namespace std;
 
 int main()
 {
+	int a = 1;
+	int b = 2;
+	int c = 3;
+	
+	Stack<int> stack;
+
+	stack.push(a);
+	cout << stack.pop();
+	
+	/*
 	Calculator calc;
 
 	string s = "1 + 45 - 7 % ( 23 / 99 )";
@@ -29,7 +40,8 @@ int main()
 	
 	//cout << calc.getNext("123 - 1123 + 456");
 	//cout << calc.getNumberOfTokens("1 2334- 34 - 32 /                  234  % 0 ( < 8 >");
-	
+	*/
+
 	cin.get();
 	return 0;
 }

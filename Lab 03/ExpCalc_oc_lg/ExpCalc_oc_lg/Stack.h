@@ -16,14 +16,14 @@
 #include "List.h"
 
 template <typename T>
-class Stack : public List<T>
+class Stack : protected List<T>
 {
 public:
 	void push(T&);
-	void pop();
-	T& peek();
+	T pop();
+	T peek();
 	void empty();
-	int count();
+	int getCount();
 	bool isEmpty();
 };
 
@@ -52,9 +52,13 @@ Removes data from the stack.
 @return N/A.
 */
 template <typename T>
-void Stack<T>::pop()
+T Stack<T>::pop()
 {
+	T data = this->peek();
+	
 	this->removeFirst();
+
+	return data;
 }
 
 /*
@@ -67,7 +71,7 @@ Gets the first elemnt in the stack.
 @return First element in the stack.
 */
 template <typename T>
-T& Stack<T>::peek()
+T Stack<T>::peek()
 {
 	return this->getFirstData();
 }
@@ -81,11 +85,27 @@ Empties out the stack.
 
 @return N/A.
 */
+
 template <typename T>
 void Stack<T>::empty()
 {
 	this->removeAll();
 }
+
+/**
+* count
+*
+* @brief Returns the number of elements in the stack.
+*
+* @return The number of elements in the stack.
+*/
+
+template <typename T>
+int Stack<T>::getCount()
+{
+	return this->count;
+}
+
 
 /**
 * isEmpty
@@ -95,10 +115,10 @@ void Stack<T>::empty()
 * @return TRUE if the stack is empty, otherwise FALSE
 */
 
-template<typename T>
+template <typename T>
 bool Stack<T>::isEmpty()
 {
-	if (this->count == 0)
+	if (this->getCount() == 0)
 	{
 		return true;
 	}
@@ -106,30 +126,4 @@ bool Stack<T>::isEmpty()
 	{
 		return false;
 	}
-}
-
-/*
-Counts data of stack.
-
-@pre None.
-
-@post Gets the count of the elements in the stack.
-
-@return Count of elements.
-*/
-template <typename T>
-int Stack<T>::count()
-{
-	return this->getCount();
-}
-
-template <typename T>
-bool Stack<T>::isEmpty()
-{
-	if (this->count == 0) 
-	{
-		return true;
-	}
-	else
-		return false;
 }

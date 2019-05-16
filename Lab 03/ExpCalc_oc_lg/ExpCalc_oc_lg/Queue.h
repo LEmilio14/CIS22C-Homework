@@ -39,11 +39,11 @@ public:
 	~Queue();
 
 	void enqueue(T&);
-	void dequeue();
-	T& getFront();
-	T& getRear();
+	T dequeue();
+	T getFront();
+	T getRear();
 	int getCount();
-	void emptyQueue();
+	void empty();
 	bool isEmpty();
 };
 
@@ -73,7 +73,7 @@ template<typename T>
 void Queue<T>::enqueue(T& newData)
 {
 	Node<T>* temp = (this->insertLast(newData));
-	if (front == nullptr)
+	if (this->front == nullptr)
 	{
 		this->front = temp;
 		this->rear = temp;
@@ -91,25 +91,29 @@ void Queue<T>::enqueue(T& newData)
 */
 
 template<typename T>
-void Queue<T>::dequeue()
+T Queue<T>::dequeue()
 {
-	if (isEmpty())
+	if (this->isEmpty())
 	{
 		throw "Queue empty";
 	}
 
-	if (front == rear)
+	T data = this->getFirstData();
+	
+	if (this->front == this->rear)
 	{
 		this->removeFirst();
-		front = nullptr;
-		rear = nullptr;
+		this->front = nullptr;
+		this->rear = nullptr;
 	}
 	else
 	{
-		Node<T>* next = front->next;
+		Node<T>* next = this->front->next;
 		this->removeFirst();
-		front = next;
+		this->front = next;
 	}
+
+	return data;
 }
 
 /**
@@ -121,7 +125,7 @@ void Queue<T>::dequeue()
 */
 
 template<typename T>
-T& Queue<T>::getFront()
+T Queue<T>::getFront()
 {
 	return this->getFirstData();
 }
@@ -135,7 +139,7 @@ T& Queue<T>::getFront()
 */
 
 template<typename T>
-T& Queue<T>::getRear()
+T Queue<T>::getRear()
 {
 	return this->getLastData();
 }
@@ -147,7 +151,7 @@ T& Queue<T>::getRear()
 */
 
 template<typename T>
-void Queue<T>::emptyQueue()
+void Queue<T>::empty()
 {
 	this->removeAll();
 }
@@ -177,7 +181,7 @@ int Queue<T>::getCount()
 template<typename T>
 bool Queue<T>::isEmpty()
 {
-	if (this->count == 0)
+	if (this->getCount() == 0)
 	{
 		return true;
 	}

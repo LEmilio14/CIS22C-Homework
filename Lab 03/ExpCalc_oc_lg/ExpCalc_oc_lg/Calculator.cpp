@@ -93,14 +93,14 @@ std::string Calculator::expressionToPostFix1(std::unique_ptr<std::string[]> &tok
 		}
 
 	return result;
-}
-*/
+}*/
+
 
 /**
 * expressionToPostFix
 *
 * @brief 
-*/
+*//*
 std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
 {
 	Stack<std::string> expressionStack;
@@ -167,7 +167,7 @@ std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<s
 	}
 
 	return;
-}
+}*/
 
 /**
 * getNumberOfTokens
