@@ -39,80 +39,6 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 /**
 * expressionToPostFix
 *
-* @brief
-*/
-std::unique_ptr<std::string[]> infixToPrefix(std::unique_ptr<std::string[]> &tokenArray, int arraySize)
-{
-	Calculator c;
-	Stack<std::string> operatorStack;
-	Queue<std::string> operandQueue;
-	std::unique_ptr<std::string[]> expressionArray;
-
-	for (int i = 0; i < arraySize; i++)
-	{
-		if (c.isOperand(tokenArray[i]))
-		{
-			operandQueue.enqueue(tokenArray[i]);
-		}
-		else if (c.isOperator(tokenArray[i]))
-		{
-			if (operatorStack.count() == 0 || c.getOperatorPrecedence(tokenArray[i]) >= c.getOperatorPrecedence(operatorStack.peek())
-				|| tokenArray[i] == "(")
-			{
-				operatorStack.push(tokenArray[i]);
-			}
-			else if (tokenArray[i] == ")")
-			{
-				while (operatorStack.peek() != "(")
-				{
-					operandQueue.enqueue(operatorStack.peek());
-					operatorStack.pop();
-				}
-				operatorStack.pop();
-			}
-			else if (c.getOperatorPrecedence(tokenArray[i]) < c.getOperatorPrecedence(operatorStack.peek()))
-			{
-				while (c.getOperatorPrecedence(operatorStack.peek()) < c.getOperatorPrecedence(tokenArray[i]) || operatorStack.count() == 0)
-				{
-					operandQueue.enqueue(operatorStack.peek());
-					operatorStack.pop();
-				}
-				operatorStack.push(tokenArray[i]);
-			}
-		}
-		else
-		{
-			throw ExceptionMalformedExpression();
-		}
-	
-	}
-	/*
-	//Pop remaining operators
-	while (operatorStack.count() >= 0)
-	{
-		operandQueue.enqueue(operatorStack.peek());
-		operatorStack.pop();
-	}
-
-	while (operandQueue.isEmpty())
-	{
-		std::cout << operandQueue.getFront() << std::endl;
-		operandQueue.dequeue();
-	}
-
-	/*
-	for (int j = 0; j > operandQueue.getCount(); j++)
-	{
-		expressionArray[j] = operandQueue.getFront();
-	}
-	*/
-
-	return expressionArray;
-}
-
-/**
-* expressionToPostFix
-*
 * @brief 
 */
 std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
@@ -179,6 +105,82 @@ std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<s
 		expressionStack.pop();
 	}
 
+	return expressionArray;
+}
+
+/**
+* expressionToPostFix
+*
+* @brief
+*
+* @param
+*
+* @return
+*/
+std::unique_ptr<std::string[]> Calculator::infixToPrefix(std::unique_ptr<std::string[]> &tokenArray, int arraySize)
+{
+	Calculator c;
+	Stack<std::string> operatorStack;
+	Queue<std::string> operandQueue;
+	std::unique_ptr<std::string[]> expressionArray;
+
+	for (int i = 0; i < arraySize; i++)
+	{
+		if (c.isOperand(tokenArray[i]))
+		{
+			operandQueue.enqueue(tokenArray[i]);
+		}
+		else if (c.isOperator(tokenArray[i]))
+		{
+			if (operatorStack.count() == 0 || c.getOperatorPrecedence(tokenArray[i]) >= c.getOperatorPrecedence(operatorStack.peek())
+				|| tokenArray[i] == "(")
+			{
+				operatorStack.push(tokenArray[i]);
+			}
+			else if (tokenArray[i] == ")")
+			{
+				while (operatorStack.peek() != "(")
+				{
+					operandQueue.enqueue(operatorStack.peek());
+					operatorStack.pop();
+				}
+				operatorStack.pop();
+			}
+			else if (c.getOperatorPrecedence(tokenArray[i]) < c.getOperatorPrecedence(operatorStack.peek()))
+			{
+				while (c.getOperatorPrecedence(operatorStack.peek()) < c.getOperatorPrecedence(tokenArray[i]) || operatorStack.count() >= 0)
+				{
+					operandQueue.enqueue(operatorStack.peek());
+					operatorStack.pop();
+				}
+				operatorStack.push(tokenArray[i]);
+			}
+		}
+		else
+		{
+			throw ExceptionMalformedExpression();
+		}
+
+	}
+	
+	//Pop remaining operators
+	while (operatorStack.count() >= 0)
+	{
+		operandQueue.enqueue(operatorStack.peek());
+		operatorStack.pop();
+	}
+
+	while (operandQueue.isEmpty())
+	{
+		std::cout << operandQueue.getFront() << std::endl;
+		operandQueue.dequeue();
+	}
+
+	for (int j = 0; j > operandQueue.getCount(); j++)
+	{
+		expressionArray[j] = operandQueue.getFront();
+	}
+	
 	return expressionArray;
 }
 
