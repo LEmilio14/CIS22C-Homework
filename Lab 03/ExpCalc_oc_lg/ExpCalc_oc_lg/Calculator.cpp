@@ -212,7 +212,9 @@ std::string* Calculator::infixToPrefix(std::string expression)
 	std::string answer = arrayToString(expressionArray);
 	std::string* reverseAnswer = new std::string[queueSize + 1];
 	reverseAnswer =	reverseString(answer);
-	
+
+	delete[] expressionArray;
+
 	reverseAnswer[queueSize] = "\0";
 
 	return reverseAnswer;
