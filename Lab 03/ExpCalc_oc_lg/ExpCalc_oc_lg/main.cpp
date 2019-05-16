@@ -19,17 +19,20 @@ int main()
 	string expression = "4 + ( 9 / 4 - 2 % 3 ) + ( 5 - 2 ) * 3";
 
 	string* postfix = calc.infixToPostfix(expression);
-	string* prefix = calc.infixToPrefix(expression);
+	//string* prefix = calc.infixToPrefix(expression);
 
 	//cout << calc.arrayToString(postfix) << endl;
 	//cout << calc.resolvePostfix(postfix) << endl;
+
+	//int size = calc.getNumberOfTokens(expression);
+	//string* test = calc.splitString(expression);
+	calc.reverseString(expression);
 
 	//cout << calc.arrayToString(prefix) << endl;
 	//cout << calc.resolvePrefix(prefix) << endl;
 
 	delete [] postfix;
-	delete[] prefix;
-
+	//delete[] prefix;
 
 	cin.get();
 	return 0;

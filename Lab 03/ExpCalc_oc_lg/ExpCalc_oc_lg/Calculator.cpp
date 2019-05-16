@@ -135,6 +135,7 @@ std::string* Calculator::infixToPostfix(std::string infix)
 *
 * @return
 */
+
 std::string* Calculator::infixToPrefix(std::string expression)
 {
 	//Ensures the expression is right before proceding
@@ -209,13 +210,18 @@ std::string* Calculator::infixToPrefix(std::string expression)
 	//Delete the token array since the queue and stack are no longer needed
 	delete[] reversedArray;
 
+	//Set the last element of the array as a terminator
+	expressionArray[queueSize] = "\0";
+
 	std::string answer = arrayToString(expressionArray);
-	std::string* reverseAnswer = new std::string[queueSize + 1];
-	reverseAnswer =	reverseString(answer);
+	int len = getNumberOfTokens(answer);
+	std::string* temp2 = reverseString(answer);
+	std::string* reverseAnswer = new std::string[len + 1];
+	reverseAnswer = temp2;
 
 	delete[] expressionArray;
 
-	reverseAnswer[queueSize] = "\0";
+	//reverseAnswer[queueSize] = "\0";
 
 	return reverseAnswer;
 }
@@ -552,15 +558,19 @@ std::string Calculator::arrayToString(std::string* expressionArray)
 std::string* Calculator::reverseString(std::string expressionString)
 {
 	std::string *stringReverse = splitString(expressionString);
-	int len = getNumberOfTokens(expressionString);
+	int size = getNumberOfTokens(expressionString);
+	//std::string *stringReverse = new std::string[size + 1];
+	//stringReverse =	splitString(expressionString);
+
 	std::string temp;
-	for (int i = 0; i < len / 2 ; i++)
+	for (int i = 0; i < size / 2; i++)
 	{
-		temp = stringReverse[len - 1 - i];
-		stringReverse[len - 1 - i] = stringReverse[i];
+		temp = stringReverse[size - 1 - i];
+		stringReverse[size - 1 - i] = stringReverse[i];
 		stringReverse[i] = temp;
 	}
-	for (int j = 0; j < len ; j++)
+
+	for (int j = 0; j < size; j++)
 	{
 		if (stringReverse[j] == "(")
 		{
