@@ -28,15 +28,21 @@ int main()
 
 	string s = "1 + 45 - 7 % ( 23 / 99 )";
 
-	calc.expressionToPostFix(calc.splitString(s), calc.getNumberOfTokens(s));
+	//calc.expressionToPostFix(calc.splitString(s), calc.getNumberOfTokens(s));
 
 	unique_ptr<string[]> string2 = calc.splitString(s);
 	calc.reverseString(string2, calc.getNumberOfTokens(s));
-
 	for (int i = 0; i < calc.getNumberOfTokens(s); i++)
 	{
 		cout << string2[i];
 	}
+
+	unique_ptr<string[]> test = calc.infixToPrefix(string2, calc.getNumberOfTokens(s));
+	for (int i = 0; i < calc.getNumberOfTokens(s); i++)
+	{
+		cout << test[i];
+	}
+
 	
 	//cout << calc.getNext("123 - 1123 + 456");
 	//cout << calc.getNumberOfTokens("1 2334- 34 - 32 /                  234  % 0 ( < 8 >");

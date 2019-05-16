@@ -20,8 +20,8 @@ class Stack : protected List<T>
 {
 public:
 	void push(T&);
-	T pop();
-	T peek();
+	T& pop();
+	T& peek();
 	void empty();
 	int getCount();
 	bool isEmpty();
@@ -36,6 +36,7 @@ Puts data into stack.
 
 @return N/A.
 */
+
 template <typename T>
 void Stack<T>::push(T& newData)
 {
@@ -51,10 +52,11 @@ Removes data from the stack.
 
 @return N/A.
 */
+
 template <typename T>
-T Stack<T>::pop()
+T& Stack<T>::pop()
 {
-	T data = this->peek();
+	T& data = this->getFirstData();
 	
 	this->removeFirst();
 
@@ -71,7 +73,7 @@ Gets the first elemnt in the stack.
 @return First element in the stack.
 */
 template <typename T>
-T Stack<T>::peek()
+T& Stack<T>::peek()
 {
 	return this->getFirstData();
 }

@@ -35,9 +35,9 @@ public:
 	void removeFirst();
 	void removeLast();
 	void removeAll();
-	T getData(int); //An invalid index will throw an exception.
-	T getFirstData();
-	T getLastData();
+	T& getData(int); //An invalid index will throw an exception.
+	T& getFirstData();
+	T& getLastData();
 	void setData(T&, int); //An invalid index will fail silently!
 	void setFirstData(T&);
 	void setLastData(T&);
@@ -273,8 +273,9 @@ Gets data from the list
 @post Gets the data from the position entered.
 @return ptr of the current data.
 */
+
 template <typename T>
-T List<T>::getData(int pos)
+T& List<T>::getData(int pos)
 {
 	if (pos < 0 || pos > count - 1 || head == nullptr)
 	{
@@ -287,7 +288,7 @@ T List<T>::getData(int pos)
 		currentNode = currentNode->next;
 	}
 
-	return *(currentNode->data);
+	return currentNode->data;
 }
 
 /*
@@ -296,8 +297,9 @@ Gets data from the first element.
 @post Gets the first element.
 @return The data from the first element on the list.
 */
+
 template <typename T>
-T List<T>::getFirstData()
+T& List<T>::getFirstData()
 {
 	return getData(0);
 }
@@ -309,7 +311,7 @@ Gets data from the last element.
 @return The data from the last element on the list.
 */
 template <typename T>
-T List<T>::getLastData()
+T& List<T>::getLastData()
 {
 	return getData(count - 1);
 }

@@ -39,9 +39,9 @@ public:
 	~Queue();
 
 	void enqueue(T&);
-	T dequeue();
-	T getFront();
-	T getRear();
+	T& dequeue();
+	T& getFront();
+	T& getRear();
 	int getCount();
 	void empty();
 	bool isEmpty();
@@ -91,14 +91,14 @@ void Queue<T>::enqueue(T& newData)
 */
 
 template<typename T>
-T Queue<T>::dequeue()
+T& Queue<T>::dequeue()
 {
 	if (this->isEmpty())
 	{
 		throw "Queue empty";
 	}
 
-	T data = this->getFirstData();
+	T& data = this->getFirstData();
 	
 	if (this->front == this->rear)
 	{
@@ -125,7 +125,7 @@ T Queue<T>::dequeue()
 */
 
 template<typename T>
-T Queue<T>::getFront()
+T& Queue<T>::getFront()
 {
 	return this->getFirstData();
 }
@@ -139,7 +139,7 @@ T Queue<T>::getFront()
 */
 
 template<typename T>
-T Queue<T>::getRear()
+T& Queue<T>::getRear()
 {
 	return this->getLastData();
 }

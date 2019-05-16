@@ -36,82 +36,21 @@ std::unique_ptr<std::string[]> Calculator::splitString(std::string str)
 	return stringArray;
 }
 
-/*
-std::string Calculator::expressionToPostFix1(std::unique_ptr<std::string[]> &tokenArray, int tokenArraySize)
-{
-	Stack<std::string> expressionStack;
-	//Stack<std::string> operatorStack;
-	std::string result;
-	//std::unique_ptr<std::string[]> expressionArray;
-	//auto expressionArray = std::make_unique<std::string[]>(tokenArraySize);
-
-		for (int i = 0; i < tokenArraySize; i++)
-		{
-			if (isOperand(tokenArray[i]))
-			{
-				result += tokenArray[i];
-			}
-			else if (isOperator(tokenArray[i]))
-			{
-				if (expressionStack.isEmpty() ||
-					expressionStack.peek() == "(" ||
-					getOperatorPrecedence(tokenArray[i]) > getOperatorPrecedence(expressionStack.peek()))
-				{
-					expressionStack.push(tokenArray[i]);
-				}
-				else
-				{
-					while (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(expressionStack.peek()))
-					{
-						result += expressionStack.peek();
-						//expressionStack.push(operatorStack.peek());
-						expressionStack.pop();
-					}
-					expressionStack.push(tokenArray[i]);
-				}
-			}
-			else if (tokenArray[i] == "(")
-			{
-				expressionStack.push(tokenArray[i]);
-			}
-			else if (tokenArray[i] == ")")
-			{
-				while (!expressionStack.isEmpty() && expressionStack.peek() != "(") {
-					result += expressionStack.peek();
-					expressionStack.pop();
-				}
-				expressionStack.pop();
-			}
-			else
-			{
-				throw ExceptionMalformedExpression();
-			}
-		}
-		while (!expressionStack.isEmpty()) {
-			result += expressionStack.peek();
-			expressionStack.pop();
-		}
-
-	return result;
-}*/
-
-
 /**
 * expressionToPostFix
 *
 * @brief 
-*//*
-std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
+*/
+
+std::unique_ptr<std::string[]> Calculator::infixToPostfix(std::unique_ptr<std::string[]> tokenArray, int tokenArraySize)
 {
 	Stack<std::string> expressionStack;
 	Stack<std::string> operatorStack;
-	std::unique_ptr<std::string[]> expressionArray;
 	auto expressionArray = std::make_unique<std::string[]>(tokenArraySize);
 
 	for (int i = 0; i < tokenArraySize; i++)
 	{
 		std::cout << i << std::endl;
-		std::cout << operatorStack;
 		//Push operands immediately
 		if (isOperand(tokenArray[i]))
 		{
@@ -130,7 +69,7 @@ std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<s
 				operatorStack.pop();
 			}
 			//If operator stack is empty, is "(", or is lower precedence, push new operator
-			else if (operatorStack.count() == 0 ||
+			else if (operatorStack.getCount() == 0 ||
 				operatorStack.peek() == "(" ||
 				getOperatorPrecedence(tokenArray[i]) > getOperatorPrecedence(operatorStack.peek()))
 			{
@@ -139,7 +78,7 @@ std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<s
 			//If operator stack is equal or higher precedence, pop operators until it isn't, then push new operator
 			else if (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()))
 			{
-				while (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()) && operatorStack.count() > 0)
+				while (getOperatorPrecedence(tokenArray[i]) <= getOperatorPrecedence(operatorStack.peek()) && operatorStack.getCount() > 0)
 				{
 					expressionStack.push(operatorStack.peek());
 					operatorStack.pop();
@@ -154,20 +93,103 @@ std::unique_ptr<std::string[]> Calculator::expressionToPostFix(std::unique_ptr<s
 	}
 
 	//Pop remaining operators
-	while (operatorStack.count() > 0)
+	while (operatorStack.getCount() > 0)
 	{
 		expressionStack.push(operatorStack.peek());
 		operatorStack.pop();
 	}
 
-	while (expressionStack.count() > 0)
+	while (expressionStack.getCount() > 0)
 	{
 		std::cout << expressionStack.peek() << std::endl;
 		expressionStack.pop();
 	}
 
-	return;
-}*/
+	return expressionArray;
+}
+
+/**
+* expressionToPostFix
+*
+* @brief
+*
+* @param
+*
+* @return
+*/
+
+std::unique_ptr<std::string[]> Calculator::infixToPrefix(std::unique_ptr<std::string[]> &tokenArray, int arraySize)
+{
+	Calculator c;
+	Stack<std::string> operatorStack;
+	Queue<std::string> operandQueue;
+	std::unique_ptr<std::string[]> expressionArray;
+
+	for (int i = 0; i < arraySize; i++)
+	{
+		if (c.isOperand(tokenArray[i]))
+		{
+			operandQueue.enqueue(tokenArray[i]);
+		}
+		else if (c.isOperator(tokenArray[i]))
+		{
+			if (operatorStack.getCount() == 0 || c.getOperatorPrecedence(tokenArray[i]) >= c.getOperatorPrecedence(operatorStack.peek())
+				|| tokenArray[i] == "(")
+			{
+				operatorStack.push(tokenArray[i]);
+			}
+			else if (tokenArray[i] == ")")
+			{
+				while (operatorStack.peek() != "(")
+				{
+					operandQueue.enqueue(operatorStack.peek());
+					operatorStack.pop();
+				}
+				operatorStack.pop();
+			}
+			else if (c.getOperatorPrecedence(tokenArray[i]) < c.getOperatorPrecedence(operatorStack.peek()))
+			{
+				while (c.getOperatorPrecedence(operatorStack.peek()) < c.getOperatorPrecedence(tokenArray[i]) || operatorStack.getCount() >= 0)
+				{
+					operandQueue.enqueue(operatorStack.peek());
+					operatorStack.pop();
+				}
+				operatorStack.push(tokenArray[i]);
+			}
+		}
+		else
+		{
+			throw ExceptionMalformedExpression();
+		}
+
+	}
+	
+	//Pop remaining operators
+	while (operatorStack.getCount() >= 0)
+	{
+		operandQueue.enqueue(operatorStack.peek());
+		operatorStack.pop();
+	}
+
+	while (operandQueue.isEmpty())
+	{
+		std::cout << operandQueue.getFront() << std::endl;
+		operandQueue.dequeue();
+	}
+
+	for (int j = 0; j > operandQueue.getCount(); j++)
+	{
+		expressionArray[j] = operandQueue.getFront();
+	}
+	
+	return expressionArray;
+}
+
+int Calculator::resolvePrefix(Stack<std::string> prefixStack, Queue<std::string> prefixQueue)
+{
+
+	return 0;
+}
 
 /**
 * getNumberOfTokens
@@ -298,20 +320,25 @@ int Calculator::getOperatorPrecedence(std::string str)
 *
 * @return None.
 */
+
 void Calculator::reverseString(std::unique_ptr<std::string[]> &stringReverse, int size)
 {
 	int len = size / 2;
 	std::string temp;
-	if (size % 2 == 0)
+	for (int i = 0; i < len ; i++)
 	{
-		for (int i = 0; i < len ; i++)
+		temp = stringReverse[size - 1 - i];
+		stringReverse[size - 1 - i] = stringReverse[i];
+		stringReverse[i] = temp;
+		if (stringReverse[i] == "(")
 		{
-			temp = stringReverse[size - 1 - i];
-			stringReverse[size - 1 - i] = stringReverse[i];
-			stringReverse[i] = temp;
+			stringReverse[i] = ")";
+		}
+		else if (stringReverse[i] == ")")
+		{
+			stringReverse[i] = "(";
 		}
 	}
-
 }
 
 Calculator::Calculator()
