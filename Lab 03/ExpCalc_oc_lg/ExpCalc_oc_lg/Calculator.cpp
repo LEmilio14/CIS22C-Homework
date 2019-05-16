@@ -209,12 +209,10 @@ std::string* Calculator::infixToPrefix(std::string expression)
 	//Delete the token array since the queue and stack are no longer needed
 	delete[] reversedArray;
 
-	//Set the last element of the array as a terminator
-	//expressionArray[queueSize] = "\0";
-
 	std::string answer = arrayToString(expressionArray);
-	std::string* reverseAnswer = reverseString(answer);
-
+	std::string* reverseAnswer = new std::string[queueSize + 1];
+	reverseAnswer =	reverseString(answer);
+	
 	reverseAnswer[queueSize] = "\0";
 
 	return reverseAnswer;
@@ -317,7 +315,7 @@ int Calculator::resolvePostfix(std::string* postfixArray)
 
 int Calculator::resolvePrefix(std::string* prefixArray)
 {
-	Stack<std::string> operandStack;
+	Stack<std::string> operatorStack;
 	int prefixArraySize = 0, i = 0;
 
 	while (prefixArray[i] != "\0")
@@ -338,17 +336,57 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 		int i = 0;
 		while (tempArray[i] != "\0")
 		{
-			if (isOperand(tempArray[i]))
+			if (isOperator(tempArray[i]))
 			{
-				if (isOperand(operandStack.peek()) == isOperand(tempArray[i]))
-				{
-
-				}
+				operatorStack.push(tempArray[i]);
 			}
+			else if (isOperand(tempArray[i]))
+			{
+				while (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
+				{
+					int right = std::stoi(operatorStack.pop());
+					std::string op = operatorStack.pop();
+					int left = std::stoi(tempArray[i]);
+
+					if (op == "+")
+					{
+						tempArray[i] = std::to_string(left + right);
+						operatorStack.push(tempArray[i]);
+					}
+					else if (op == "-")
+					{
+						tempArray[i] = std::to_string(left - right);
+						operatorStack.push(tempArray[i]);
+					}
+					else if (op == "*")
+					{
+						tempArray[i] = std::to_string(left * right);
+						operatorStack.push(tempArray[i]);
+					}
+					else if (op == "/")
+					{
+						tempArray[i] = std::to_string(left / right);
+						operatorStack.push(tempArray[i]);
+					}
+					else if (op == "%")
+					{
+						tempArray[i] = std::to_string(left % right);
+						operatorStack.push(tempArray[i]);
+					}
+				}
+				operatorStack.push(tempArray[i]);
+			}
+			else
+			{
+				throw ExceptionMalformedExpression();
+			}
+
+			i++;
 		}
+		result = std::stoi(operatorStack.pop());
 	}
-	
-	return 0;
+	delete[] tempArray;
+	return result;
 }
 
 /**
