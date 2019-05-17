@@ -276,28 +276,25 @@ int Calculator::resolvePostfix(std::string* postfixArray)
 				if (tempArray[i] == "+")
 				{
 					tempArray[i] = std::to_string(left + right);
-					operandStack.push(tempArray[i]);
 				}
 				else if (tempArray[i] == "-")
 				{
 					tempArray[i] = std::to_string(left - right);
-					operandStack.push(tempArray[i]);
 				}
 				else if (tempArray[i] == "*")
 				{
 					tempArray[i] = std::to_string(left * right);
-					operandStack.push(tempArray[i]);
 				}
 				else if (tempArray[i] == "/")
 				{
 					tempArray[i] = std::to_string(left / right);
-					operandStack.push(tempArray[i]);
 				}
 				else if (tempArray[i] == "%")
 				{
 					tempArray[i] = std::to_string(left % right);
-					operandStack.push(tempArray[i]);
 				}
+
+				operandStack.push(tempArray[i]);
 			}
 			else
 			{
@@ -317,9 +314,11 @@ int Calculator::resolvePostfix(std::string* postfixArray)
 
 int Calculator::resolvePrefix(std::string* prefixArray)
 {
-	Stack<std::string> operatorStack;
-	int prefixArraySize = 0, i = 0;
+	Stack<std::string> evaluationStack;
+	int prefixArraySize = 0;
 	{
+		//Find the size of the array
+		int i = 0;
 		while (prefixArray[i] != "\0")
 		{
 			prefixArraySize++;
@@ -328,6 +327,7 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 		prefixArraySize++;
 	}
 
+	//Create a copy of the array
 	std::string* tempArray = new std::string[prefixArraySize];
 	for (int i = 0; i < prefixArraySize; i++)
 	{
@@ -341,59 +341,65 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 		{
 			if (isOperator(tempArray[i]))
 			{
-				operatorStack.push(tempArray[i]);
+				evaluationStack.push(tempArray[i]);
 			}
 			else if (isOperand(tempArray[i]))
 			{
-				//Checks if you are trying to push an operand on top another one.
-				while (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
+				//If an operand is being pushed on top of another operand
+				if (!evaluationStack.isEmpty() && isOperand(evaluationStack.peek()))
 				{
-					int left = std::stoi(operatorStack.pop());
-					std::string op = operatorStack.pop();
-					int right = std::stoi(tempArray[i]);
+					std::string temp = tempArray[i];
+					
+					//Pop an operand and an operator, then calculate using them and the operand to be pushed, and repeat as long as an operand is being pushed on an operand
+					while (!evaluationStack.isEmpty() && isOperand(evaluationStack.peek()) && isOperand(temp))
+					{
+						int left = std::stoi(evaluationStack.pop());
+						std::string op = evaluationStack.pop();
+						int right = std::stoi(temp);
 
-					if (op == "+")
-					{
-						tempArray[i] = std::to_string(left + right);
-						operatorStack.push(tempArray[i]);
+						if (op == "+")
+						{
+							temp = std::to_string(left + right);
+						}
+						else if (op == "-")
+						{
+							temp = std::to_string(left - right);
+						}
+						else if (op == "*")
+						{
+							temp = std::to_string(left * right);
+						}
+						else if (op == "/")
+						{
+							temp = std::to_string(left / right);
+						}
+						else if (op == "%")
+						{
+							temp = std::to_string(left % right);
+						}
 					}
-					else if (op == "-")
-					{
-						tempArray[i] = std::to_string(left - right);
-						operatorStack.push(tempArray[i]);
-					}
-					else if (op == "*")
-					{
-						tempArray[i] = std::to_string(left * right);
-						operatorStack.push(tempArray[i]);
-					}
-					else if (op == "/")
-					{
-						tempArray[i] = std::to_string(left / right);
-						operatorStack.push(tempArray[i]);
-					}
-					else if (op == "%")
-					{
-						tempArray[i] = std::to_string(left % right);
-						operatorStack.push(tempArray[i]);
-					}
+
+					tempArray[i] = temp;
+					evaluationStack.push(tempArray[i]);
 				}
-			
-				operatorStack.push(tempArray[i]);
-	
-
+				else
+				{
+					evaluationStack.push(tempArray[i]);
+				}
 			}
 			else
 			{
 				throw ExceptionMalformedExpression();
 			}
+
 			i++;
 		}
-		result = std::stoi(operatorStack.pop());
+		result = std::stoi(evaluationStack.pop());
 		delete[] tempArray;
 		return result;
 	}
 }
+
 /**
 * getNumberOfTokens
 *

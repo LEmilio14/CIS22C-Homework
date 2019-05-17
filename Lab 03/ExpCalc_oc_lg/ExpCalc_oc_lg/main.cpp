@@ -26,6 +26,7 @@ int main()
 			<< "Operators and operands must be separated by spaces." << endl
 			<< "Allowed operators: +, -, *, /, %, (, ). Negation is not allowed." << endl;
 		getline(cin, expression);
+		cout << endl;
 
 		try
 		{
@@ -36,7 +37,7 @@ int main()
 			cout << "Postfix Expression:" << endl;
 			cout << calc.arrayToString(postfix) << endl;
 			cout << "Postfix Result:" << endl;
-			cout << calc.resolvePostfix(postfix) << endl;
+			cout << calc.resolvePostfix(postfix) << endl << endl;
 
 			//Convert expression to prefix, then print out prefix expression and calculate
 			string* prefix = calc.infixToPrefix(expression);
@@ -44,7 +45,7 @@ int main()
 			cout << "Prefix Expression:" << endl;
 			cout << calc.arrayToString(prefix) << endl;
 			cout << "Prefix Result:" << endl;
-			cout << calc.resolvePrefix(prefix) << endl;
+			cout << calc.resolvePrefix(prefix) << endl << endl;
 
 			delete[] postfix;
 			delete[] prefix;
@@ -58,10 +59,11 @@ int main()
 		cout << "Restart? [0] = No, [1] = Yes" << endl;
 		cin >> again;
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << endl;
 	} while (again);
 
 	//Exit
-	cout << endl << endl;
+	cout << endl;
 	system("pause");
 	return 0;
 }

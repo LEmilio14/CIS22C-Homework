@@ -19,7 +19,8 @@
 #pragma once
 
 #include <string>
-#include <memory>
+
+#include <iostream>
 
 #include "ExceptionMalformedExpression.h"
 #include "Stack.h"
