@@ -346,7 +346,7 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 			}
 			else if (isOperand(tempArray[i]))
 			{
-				while (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
+				if (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
 				{
 					int left = std::stoi(operatorStack.pop());
 					std::string op = operatorStack.pop();
@@ -378,7 +378,10 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 						operatorStack.push(tempArray[i]);
 					}
 				}
-				operatorStack.push(tempArray[i]);
+				else
+				{
+					operatorStack.push(tempArray[i]);
+				}
 
 			}
 			else
@@ -386,7 +389,7 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 				throw ExceptionMalformedExpression();
 			}
 			i++;
-			while (!operatorStack.isEmpty())
+			if (!operatorStack.isEmpty())
 			{
 
 			}
