@@ -387,7 +387,8 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 			{
 				throw ExceptionMalformedExpression();
 			}
-		i++;
+			i++;
+		}
 		while (!operatorStack.isEmpty())
 		{
 			

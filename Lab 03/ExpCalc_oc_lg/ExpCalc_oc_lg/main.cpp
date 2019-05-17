@@ -21,8 +21,7 @@ int main()
 	cout << "Enter an expression." << endl
 		<< "Operators and operands must be separated by spaces." << endl
 		<< "Allowed operators: +, -, *, /, %, (, ). Negation is not allowed." << endl;
-	cin >> expression;
-	cin.ignore();
+	getline(cin, expression);
 
 	//Convert expression to postfix, then print out postfix expression and calculate
 	string* postfix = calc.infixToPostfix(expression);
