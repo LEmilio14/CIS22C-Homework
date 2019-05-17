@@ -16,23 +16,32 @@ int main()
 {
 	Calculator calc;
 
-	string expression = "4 + ( 9 / 4 - 2 % 3 ) + ( 5 - 2 ) * 3";
+	//Get user inputted expression
+	string expression;
+	cout << "Enter an expression." << endl
+		<< "Operators and operands must be separated by spaces." << endl
+		<< "Allowed operators: +, -, *, /, %, (, ). Negation is not allowed." << endl;
+	cin >> expression;
+	cin.ignore();
 
+	//Convert expression to postfix, then print out postfix expression and calculate
 	string* postfix = calc.infixToPostfix(expression);
-	string* prefix = calc.infixToPrefix(expression);
 
-	//cout << calc.arrayToString(postfix) << endl;
-	//cout << calc.resolvePostfix(postfix) << endl;
+	cout << "Postfix Expression:" << endl;
+	cout << calc.arrayToString(postfix) << endl;
+	cout << "Postfix Result:" << endl;
+	cout << calc.resolvePostfix(postfix) << endl;
 
-	//int size = calc.getNumberOfTokens(expression);
-	//string* test = calc.splitString(expression);
-	//calc.reverseString(expression);
+	//Convert expression to prefix, then print out prefix expression and calculate
+	//string* prefix = calc.infixToPrefix(expression);
 
-	cout << calc.arrayToString(prefix) << endl;
-	cout << calc.resolvePrefix(prefix) << endl;
+	//cout << "Prefix Expression:" << endl;
+	//cout << calc.arrayToString(prefix) << endl;
+	//cout << "Prefix Result:" << endl;
+	//cout << calc.resolvePrefix(prefix) << endl;
 
 	delete [] postfix;
-	delete[] prefix;
+	//delete [] prefix;
 
 	cin.get();
 	return 0;
