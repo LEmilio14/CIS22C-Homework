@@ -382,23 +382,23 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 				{
 					operatorStack.push(tempArray[i]);
 				}
+
 			}
 			else
 			{
 				throw ExceptionMalformedExpression();
 			}
 			i++;
-		}
-		while (!operatorStack.isEmpty())
-		{
-			
-		}
-		result = std::stoi(operatorStack.pop());
-	}
-	delete[] tempArray;
-	return result;
-}
+			if (!operatorStack.isEmpty())
+			{
 
+			}
+			result = std::stoi(operatorStack.pop());
+		}
+		delete[] tempArray;
+		return result;
+	}
+}
 /**
 * getNumberOfTokens
 *
