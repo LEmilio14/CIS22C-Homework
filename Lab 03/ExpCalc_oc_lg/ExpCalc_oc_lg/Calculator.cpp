@@ -346,7 +346,7 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 			}
 			else if (isOperand(tempArray[i]))
 			{
-				if (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
+				while (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
 				{
 					int left = std::stoi(operatorStack.pop());
 					std::string op = operatorStack.pop();
@@ -378,26 +378,24 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 						operatorStack.push(tempArray[i]);
 					}
 				}
-				else
-				{
-					operatorStack.push(tempArray[i]);
-				}
+				operatorStack.push(tempArray[i]);
+
 			}
 			else
 			{
 				throw ExceptionMalformedExpression();
 			}
-		i++;
-		while (!operatorStack.isEmpty())
-		{
-			
-		}
-		result = std::stoi(operatorStack.pop());
-	}
-	delete[] tempArray;
-	return result;
-}
+			i++;
+			while (!operatorStack.isEmpty())
+			{
 
+			}
+			result = std::stoi(operatorStack.pop());
+		}
+		delete[] tempArray;
+		return result;
+	}
+}
 /**
 * getNumberOfTokens
 *

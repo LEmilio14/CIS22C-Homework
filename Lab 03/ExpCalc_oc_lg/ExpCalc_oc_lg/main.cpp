@@ -28,7 +28,7 @@ int main()
 	//string* test = calc.splitString(expression);
 	//calc.reverseString(expression);
 
-	cout << calc.arrayToString(prefix) << endl;
+	//cout << calc.arrayToString(prefix) << endl;
 	cout << calc.resolvePrefix(prefix) << endl;
 
 	delete [] postfix;
