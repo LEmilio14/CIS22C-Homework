@@ -15,33 +15,53 @@ using namespace std;
 int main()
 {
 	Calculator calc;
+	bool again;
 
-	//Get user inputted expression
-	string expression;
-	cout << "Enter an expression." << endl
-		<< "Operators and operands must be separated by spaces." << endl
-		<< "Allowed operators: +, -, *, /, %, (, ). Negation is not allowed." << endl;
-	getline(cin, expression);
+	do
+	{
+		//Get user inputted expression
+		//4 + ( 9 / 4 - 2 % 3 ) + ( 5 - 2 ) * 3
+		string expression;
+		cout << "Enter an expression." << endl
+			<< "Operators and operands must be separated by spaces." << endl
+			<< "Allowed operators: +, -, *, /, %, (, ). Negation is not allowed." << endl;
+		getline(cin, expression);
 
-	//Convert expression to postfix, then print out postfix expression and calculate
-	string* postfix = calc.infixToPostfix(expression);
+		try
+		{
 
-	cout << "Postfix Expression:" << endl;
-	cout << calc.arrayToString(postfix) << endl;
-	cout << "Postfix Result:" << endl;
-	cout << calc.resolvePostfix(postfix) << endl;
+			//Convert expression to postfix, then print out postfix expression and calculate
+			string* postfix = calc.infixToPostfix(expression);
 
-	//Convert expression to prefix, then print out prefix expression and calculate
-	//string* prefix = calc.infixToPrefix(expression);
+			cout << "Postfix Expression:" << endl;
+			cout << calc.arrayToString(postfix) << endl;
+			cout << "Postfix Result:" << endl;
+			cout << calc.resolvePostfix(postfix) << endl;
 
-	//cout << "Prefix Expression:" << endl;
-	//cout << calc.arrayToString(prefix) << endl;
-	//cout << "Prefix Result:" << endl;
-	//cout << calc.resolvePrefix(prefix) << endl;
+			//Convert expression to prefix, then print out prefix expression and calculate
+			string* prefix = calc.infixToPrefix(expression);
 
-	delete [] postfix;
-	//delete [] prefix;
+			cout << "Prefix Expression:" << endl;
+			cout << calc.arrayToString(prefix) << endl;
+			//cout << "Prefix Result:" << endl;
+			//cout << calc.resolvePrefix(prefix) << endl;
 
-	cin.get();
+			delete[] postfix;
+			delete[] prefix;
+		}
+		catch (ExceptionMalformedExpression e)
+		{
+			cout << e.what() << endl;
+		}
+
+		//Ask user if they want to restart
+		cout << "Restart? [0] = No, [1] = Yes" << endl;
+		cin >> again;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	} while (again);
+
+	//Exit
+	cout << endl << endl;
+	system("pause");
 	return 0;
 }

@@ -664,7 +664,7 @@ void Calculator::validateExpression(std::string expression)
 				throw ExceptionMalformedExpression();
 			}
 
-			//Keep count of each type of parenthesis
+			//Keep count of each type of parenthesis, and there cannot be a close parentheses without a preceding non-paired open parentheses.
 			if (expressionArray[i] == "(")
 			{
 				openParentheses++;
@@ -672,6 +672,16 @@ void Calculator::validateExpression(std::string expression)
 			else if (expressionArray[i] == ")")
 			{
 				closeParentheses++;
+				if (closeParentheses > openParentheses)
+				{
+					throw ExceptionMalformedExpression();
+				}
+			}
+
+			//With the exception of ")", operators cannot be the last token
+			if (i == expressionArraySize - 1 && expressionArray[i] != ")")
+			{
+				throw ExceptionMalformedExpression();
 			}
 
 			expressionStack.push(expressionArray[i]);
