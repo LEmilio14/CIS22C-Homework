@@ -216,6 +216,7 @@ std::string* Calculator::infixToPrefix(std::string expression)
 	//Emilio: At this point, expressionArray holds the prefix expression but reversed, and it also has "\0" at the end.
 	//You need to reverse expressionArray now, so that it is correct. But keep in mind that there is an extra "\0" at the end and that you shouldn't touch it when reversing!
 	//reverseArray(expressionArray);
+	reverseArray(expressionArray);
 
 	return expressionArray;
 }
@@ -319,13 +320,14 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 {
 	Stack<std::string> operatorStack;
 	int prefixArraySize = 0, i = 0;
-
-	while (prefixArray[i] != "\0")
 	{
+		while (prefixArray[i] != "\0")
+		{
+			prefixArraySize++;
+			i++;
+		}
 		prefixArraySize++;
-		i++;
 	}
-	prefixArraySize++;
 
 	std::string* tempArray = new std::string[prefixArraySize];
 	for (int i = 0; i < prefixArraySize; i++)
@@ -344,11 +346,11 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 			}
 			else if (isOperand(tempArray[i]))
 			{
-				while (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
+				if (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
 				{
-					int right = std::stoi(operatorStack.pop());
+					int left = std::stoi(operatorStack.pop());
 					std::string op = operatorStack.pop();
-					int left = std::stoi(tempArray[i]);
+					int right = std::stoi(tempArray[i]);
 
 					if (op == "+")
 					{
@@ -376,14 +378,19 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 						operatorStack.push(tempArray[i]);
 					}
 				}
-				operatorStack.push(tempArray[i]);
+				else
+				{
+					operatorStack.push(tempArray[i]);
+				}
 			}
 			else
 			{
 				throw ExceptionMalformedExpression();
 			}
-
-			i++;
+		i++;
+		while (!operatorStack.isEmpty())
+		{
+				
 		}
 		result = std::stoi(operatorStack.pop());
 	}
@@ -418,6 +425,40 @@ int Calculator::getNumberOfTokens(std::string str)
 	}
 
 	return numberOfTokens;
+}
+
+/**
+* isOperator
+*
+* @brief Checks whether a given string is a valid operator, allowed characters: +, -, *, /, %, (, )
+*
+* @param str The string to check.
+*
+* @return Whether the string is a valid operator or not.
+*/
+std::string * Calculator::reverseArray(std::string *pArray)
+{
+	int pArraySize = 0;
+	{
+		int j = 0;
+		while (pArray[j] != "\0")
+		{
+			pArraySize++;
+			j++;
+		}
+	}
+	std::string* pStart = pArray;
+	std::string* pEnd = pStart + pArraySize - 1;
+	
+	while (pEnd > pStart)
+	{
+		std::string temp = *pStart;
+		*pStart = *pEnd;
+		*pEnd = temp;
+		pStart++;
+		pEnd--;
+	}
+	return pArray;
 }
 
 /**

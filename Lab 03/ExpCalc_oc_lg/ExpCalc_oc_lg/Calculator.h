@@ -29,7 +29,7 @@ class Calculator
 {
 private:
 	//std::string* splitString(std::string);
-	//std::string* reverseString(std::string*);
+	//std::string* reverseString(std::string);
 	bool isOperator(std::string);
 	bool isOperand(std::string);
 	//int getNumberOfTokens(std::string);
@@ -39,6 +39,7 @@ public:
 	std::string* splitString(std::string);
 	std::string* reverseString(std::string);
 	int getNumberOfTokens(std::string);
+	std::string* reverseArray(std::string*);
 	/**
 	* infixToPostfix
 	*

@@ -26,10 +26,10 @@ int main()
 
 	//int size = calc.getNumberOfTokens(expression);
 	//string* test = calc.splitString(expression);
-	calc.reverseString(expression);
+	//calc.reverseString(expression);
 
 	cout << calc.arrayToString(prefix) << endl;
-	//cout << calc.resolvePrefix(prefix) << endl;
+	cout << calc.resolvePrefix(prefix) << endl;
 
 	delete [] postfix;
 	delete[] prefix;
