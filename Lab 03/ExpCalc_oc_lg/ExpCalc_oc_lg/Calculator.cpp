@@ -306,7 +306,6 @@ int Calculator::resolvePostfix(std::string* postfixArray)
 
 			i++;
 		}
-
 		//The remaining operand is the result
 		result = std::stoi(operandStack.pop());
 	}
@@ -346,7 +345,8 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 			}
 			else if (isOperand(tempArray[i]))
 			{
-				if (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
+				//Checks if you are trying to push an operand on top another one.
+				while (isOperand(operatorStack.peek()) == isOperand(tempArray[i]))
 				{
 					int left = std::stoi(operatorStack.pop());
 					std::string op = operatorStack.pop();
@@ -378,10 +378,9 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 						operatorStack.push(tempArray[i]);
 					}
 				}
-				else
-				{
-					operatorStack.push(tempArray[i]);
-				}
+			
+				operatorStack.push(tempArray[i]);
+	
 
 			}
 			else
@@ -389,12 +388,8 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 				throw ExceptionMalformedExpression();
 			}
 			i++;
-			if (!operatorStack.isEmpty())
-			{
-
-			}
-			result = std::stoi(operatorStack.pop());
 		}
+		result = std::stoi(operatorStack.pop());
 		delete[] tempArray;
 		return result;
 	}

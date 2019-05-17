@@ -43,8 +43,8 @@ int main()
 
 			cout << "Prefix Expression:" << endl;
 			cout << calc.arrayToString(prefix) << endl;
-			//cout << "Prefix Result:" << endl;
-			//cout << calc.resolvePrefix(prefix) << endl;
+			cout << "Prefix Result:" << endl;
+			cout << calc.resolvePrefix(prefix) << endl;
 
 			delete[] postfix;
 			delete[] prefix;
