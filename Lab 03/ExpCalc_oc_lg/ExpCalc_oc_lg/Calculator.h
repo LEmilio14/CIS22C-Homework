@@ -11,7 +11,7 @@
 * Examples:
 * "1 + 2" (legal)
 * "( 12 - 34 )" (legal)
-* "123 % 456" (legal)
+* "4 + ( 9 / 4 - 2 % 3 ) + ( ( 5 - 2 ) * 3 )" (legal)
 * "(123 / 456)" (illegal: parentheses are not seperated by spaces)
 * "-23 + 46" (illegal: unary operator negation "-" not allowed)
 *********************************************************************************/
@@ -19,8 +19,6 @@
 #pragma once
 
 #include <string>
-
-#include <iostream>
 
 #include "ExceptionMalformedExpression.h"
 #include "Stack.h"
@@ -48,8 +46,16 @@ public:
 	* @return A dynamic array of tokens in postfix order. The array is terminated with the string "\0". This array must be properly deallocated.
 	*/
 	std::string* infixToPostfix(std::string);
+	/**
+	* infixToPrefix
+	*
+	* @brief Converts a string infix expression into an array of string tokens (operands and operators) in prefix order. The array is terminated with the string "\0".
+	*
+	* @param infix A string infix expression, with all separate operands and operators separated by spaces. An invalid expression will cause an exception.
+	*
+	* @return A dynamic array of tokens in prefix order. The array is terminated with the string "\0". This array must be properly deallocated.
+	*/
 	std::string* infixToPrefix(std::string);
-
 	/**
 	* resolvePostfix
 	*
@@ -60,8 +66,16 @@ public:
 	* @return The resulting evaluation of the postfix expression.
 	*/
 	int resolvePostfix(std::string*);
+	/**
+	* resolvePrefix
+	*
+	* @brief Calculates the result of a prefix expression, given the prefix expression as an array of tokens.
+	*
+	* @param postfixArray The postfix expression as an array. This array should be created by infixToPrefix().
+	*
+	* @return The resulting evaluation of the prefix expression.
+	*/
 	int resolvePrefix(std::string*);
-
 	/**
 	* arrayToString
 	*
