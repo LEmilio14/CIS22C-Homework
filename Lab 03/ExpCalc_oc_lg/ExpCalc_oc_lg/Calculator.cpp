@@ -390,7 +390,7 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 		i++;
 		while (!operatorStack.isEmpty())
 		{
-				
+			
 		}
 		result = std::stoi(operatorStack.pop());
 	}
@@ -407,7 +407,6 @@ int Calculator::resolvePrefix(std::string* prefixArray)
 *
 * @return The number of tokens in the string.
 */
-
 int Calculator::getNumberOfTokens(std::string str)
 {
 	int numberOfTokens = 0;
@@ -594,9 +593,6 @@ std::string* Calculator::reverseString(std::string expressionString)
 {
 	std::string *stringReverse = splitString(expressionString);
 	int size = getNumberOfTokens(expressionString);
-	//std::string *stringReverse = new std::string[size + 1];
-	//stringReverse =	splitString(expressionString);
-
 	std::string temp;
 	for (int i = 0; i < size / 2; i++)
 	{
@@ -604,7 +600,7 @@ std::string* Calculator::reverseString(std::string expressionString)
 		stringReverse[size - 1 - i] = stringReverse[i];
 		stringReverse[i] = temp;
 	}
-
+	//Reverse the Parenthesis in order to get the prefix right
 	for (int j = 0; j < size; j++)
 	{
 		if (stringReverse[j] == "(")
