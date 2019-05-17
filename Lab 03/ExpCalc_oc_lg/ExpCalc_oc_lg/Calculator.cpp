@@ -129,11 +129,11 @@ std::string* Calculator::infixToPostfix(std::string infix)
 /**
 * infixToPrefix
 *
-* @brief
+* @brief Converts an infix expression string to a prefix expression array. Terminator placed at the end of array.
 *
-* @param
+* @param The expression string.
 *
-* @return
+* @return A dynamic Array of strings with null terminator at the end.
 */
 
 std::string* Calculator::infixToPrefix(std::string expression)
@@ -213,9 +213,6 @@ std::string* Calculator::infixToPrefix(std::string expression)
 	//Set the last element of the array as a terminator
 	expressionArray[queueSize] = "\0";
 
-	//Emilio: At this point, expressionArray holds the prefix expression but reversed, and it also has "\0" at the end.
-	//You need to reverse expressionArray now, so that it is correct. But keep in mind that there is an extra "\0" at the end and that you shouldn't touch it when reversing!
-	//reverseArray(expressionArray);
 	reverseArray(expressionArray);
 
 	return expressionArray;
@@ -230,7 +227,6 @@ std::string* Calculator::infixToPrefix(std::string expression)
 *
 * @return The resulting evaluation of the postfix expression.
 */
-
 int Calculator::resolvePostfix(std::string* postfixArray)
 {
 	Stack<std::string> operandStack;
@@ -312,6 +308,15 @@ int Calculator::resolvePostfix(std::string* postfixArray)
 	return result;
 }
 
+/**
+* resolvePrefix
+*
+* @brief Calculates the result of a prefix expression, given the prefix expression as an array of tokens.
+*
+* @param prefixArray expression as an array. Array created by infixToPrefix.
+*
+* @return The resulting evaluation of the prefix expression.
+*/
 int Calculator::resolvePrefix(std::string* prefixArray)
 {
 	Stack<std::string> evaluationStack;
@@ -429,13 +434,13 @@ int Calculator::getNumberOfTokens(std::string str)
 }
 
 /**
-* isOperator
+* reverseArray
 *
-* @brief Checks whether a given string is a valid operator, allowed characters: +, -, *, /, %, (, )
+* @brief Reverse an array using ptrs.
 *
-* @param str The string to check.
+* @param ptr of an Array.
 *
-* @return Whether the string is a valid operator or not.
+* @return The reverse ptr string.
 */
 std::string * Calculator::reverseArray(std::string *pArray)
 {
@@ -471,7 +476,6 @@ std::string * Calculator::reverseArray(std::string *pArray)
 *
 * @return Whether the string is a valid operator or not.
 */
-
 bool Calculator::isOperator(std::string str)
 {
 	if (str == "+" ||
@@ -532,7 +536,6 @@ bool Calculator::isOperand(std::string str)
 *
 * @brief 
 */
-
 int Calculator::getOperatorPrecedence(std::string str)
 {
 	if (str == "+" || str == "-")
@@ -588,7 +591,7 @@ std::string Calculator::arrayToString(std::string* expressionArray)
 *
 * @param the array string and the size
 *
-* @return None.
+* @return Reverse pointer string.
 */
 
 std::string* Calculator::reverseString(std::string expressionString)
