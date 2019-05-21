@@ -83,11 +83,11 @@ int main()
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			//insertionSortRecursive(array, array.getLength());
 
+			//Quick Sort
 			quickSortRecursive(array, 0, array.getLength() - 1);
 
-			mergeSortRecursive(array);
-
-			mergeSortRecursive(array);
+			//Merge Sort
+			//mergeSortRecursive(array);
 
 			break;
 		}
@@ -107,6 +107,13 @@ int main()
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array, array.getLength());
+
+			//Quick Sort
+			quickSortRecursive(array, 0, array.getLength() - 1);
+
+			//Merge Sort
+			mergeSortRecursive(array);
+
 			break;
 		}
 		case TYPE_CHAR:
@@ -125,6 +132,13 @@ int main()
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array, array.getLength());
+
+			//Quick Sort
+			quickSortRecursive(array, 0, array.getLength() - 1);
+
+			//Merge Sort
+			mergeSortRecursive(array);
+
 			break;
 		}
 		case TYPE_STRING:
@@ -143,6 +157,12 @@ int main()
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array, array.getLength());
+
+			//Quick Sort
+			quickSortRecursive(array, 0, array.getLength() - 1);
+
+			//Merge Sort
+			mergeSortRecursive(array);
 
 			break;
 		}
@@ -199,15 +219,17 @@ void quickSortRecursive(Array<T>& arr, int start, int end)
 	{
 		int part = arr.partition(arr, start, end);
 		quickSortRecursive(arr, start, part - 1);
+		//quickSortRecursive(arr, part + 1, end);
+
+		cout << "Quick Sort - Depth " << start << " to " << end << endl;
+		for (int i = 0; i < arr.getLength(); i++)
+		{
+			cout << "[" << i << "] = " << arr[i] << endl;
+		}
+		cout << endl;
+
 		quickSortRecursive(arr, part + 1, end);
 	}
-
-	cout << "quick sort - Depth " << endl;
-	for (int i = 0; i < arr.getLength(); i++)
-	{
-		cout << "[" << i << "] = " << arr[i] << endl;
-	}
-	cout << endl;
 }
 
 template <typename T>

@@ -80,13 +80,13 @@ void Array<T>::swap(T *a, T *b)
 template<typename T>
 int Array<T>::partition(Array<T>& arr, int start, int end)
 {
-	int pivot = arr[end];
-	int i = (start - 1);
-	for (int j = start; j <= end; j++)
+	T pivot = arr[end]; //Last elemnt as a pivot point.
+	int i = (start - 1); //Index of smaller element.
+	for (int j = start; j <= end - 1; j++)
 	{
 		if (arr[j] >= pivot)
 		{
-			i++;
+			i++; //Increment the index of the smaller element.
 			swap(&arr[i], &arr[j]);
 		}
 	}
