@@ -17,6 +17,20 @@ using namespace std;
 template<typename T>
 void insertionSortRecursive(Array<T>&, int);
 
+<<<<<<< HEAD
+template<typename T>
+void quickSortRecursive(Array<T>& arr, int start, int end);
+=======
+template <typename T>
+void mergeSortRecursive(Array<T>);
+
+template <typename T>
+void mergeSortRecursive(Array<T>&, int, int);
+
+template <typename T>
+void merge(Array<T>&, const int, const int, const int);
+>>>>>>> 2c24bbccfb18c223dc1192dfd33ff5df92a35ab3
+
 int main()
 {
 	constexpr int SORT_MAX_SIZE = 32;
@@ -69,7 +83,13 @@ int main()
 			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
-			insertionSortRecursive(array, array.getLength());
+			//insertionSortRecursive(array, array.getLength());
+<<<<<<< HEAD
+
+			quickSortRecursive(array, 0, array.getLength() - 1);
+=======
+			mergeSortRecursive(array);
+>>>>>>> 2c24bbccfb18c223dc1192dfd33ff5df92a35ab3
 			break;
 		}
 		case TYPE_DOUBLE:
@@ -124,6 +144,7 @@ int main()
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array, array.getLength());
+
 			break;
 		}
 		default:
@@ -169,4 +190,111 @@ void insertionSortRecursive(Array<T>& arr, int size)
 		cout << "[" << i << "] = " << arr[i] << endl;
 	}
 	cout << endl;
+}
+
+template<typename T>
+void quickSortRecursive(Array<T>& arr, int start, int end)
+{
+
+	if (start < end)
+	{
+		int part = arr.partition(arr, start, end);
+		quickSortRecursive(arr, start, part - 1);
+		quickSortRecursive(arr, part + 1, end);
+	}
+
+	cout << "quick sort - Depth " << endl;
+	for (int i = 0; i < arr.getLength(); i++)
+	{
+		cout << "[" << i << "] = " << arr[i] << endl;
+	}
+	cout << endl;
+}
+
+template <typename T>
+void mergeSortRecursive(Array<T> arr)
+{
+	mergeSortRecursive(arr, 0, arr.getLength() - 1);
+}
+
+template <typename T>
+void mergeSortRecursive(Array<T>& arr, int start, int end)
+{	
+	//Recursion case
+	if (start < end)
+	{
+		//Split the array into 2 parts and sort them 
+		int middle = (start + end) / 2;
+		mergeSortRecursive(arr, start, middle);
+		mergeSortRecursive(arr, middle + 1, end);
+
+		//Merge the 2 parts together
+		merge(arr, start, middle, end);
+
+		//Print out the array
+		cout << "Merge Sort - " << start << " to " << end << endl;
+		for (int i = 0; i < arr.getLength(); i++)
+		{
+			cout << "[" << i << "] = " << arr[i] << endl;
+		}
+		cout << endl;
+	}
+}
+
+template <typename T>
+void merge(Array<T>& parentArr, const int start, const int middle, const int end)
+{
+	//Copy the left and right subarrays from the parent array
+	const int leftSize = middle - start + 1;
+	const int rightSize = end - middle;
+
+	T* leftArr = new T[leftSize];
+	T* rightArr = new T[rightSize];
+
+	for (int i = 0; i < leftSize; i++)
+	{
+		leftArr[i] = parentArr[start + i];
+	}
+	for (int i = 0; i < rightSize; i++)
+	{
+		rightArr[i] = parentArr[middle + i + 1];
+	}
+
+	//Merge the two subarrays into the parent array
+	int leftIndex = 0;
+	int rightIndex = 0;
+	int parentIndex = start;
+
+	while (leftIndex < leftSize && rightIndex < rightSize)
+	{
+		if (leftArr[leftIndex] <= rightArr[rightIndex])
+		{
+			parentArr[parentIndex] = leftArr[leftIndex];
+			leftIndex++;
+		}
+		else
+		{
+			parentArr[parentIndex] = rightArr[rightIndex];
+			rightIndex++;
+		}
+		parentIndex++;
+	}
+
+	//Merge remaining elements
+	while (leftIndex < leftSize)
+	{
+		parentArr[parentIndex] = leftArr[leftIndex];
+		leftIndex++;
+		parentIndex++;
+	}
+	while (rightIndex < rightSize)
+	{
+		parentArr[parentIndex] = rightArr[rightIndex];
+		rightIndex++;
+		parentIndex++;
+	}
+
+	delete[] leftArr;
+	delete[] rightArr;
+>>>>>>> 2c24bbccfb18c223dc1192dfd33ff5df92a35ab3
 }
