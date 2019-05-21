@@ -18,6 +18,12 @@ template<typename T>
 void insertionSortRecursive(Array<T>&, int);
 
 template<typename T>
+void swap(T *a, T *b);
+
+template<typename T>
+int partition(Array<T>& arr, int start, int end);
+
+template<typename T>
 void quickSortRecursive(Array<T>& arr, int start, int end);
 
 template <typename T>
@@ -212,12 +218,37 @@ void insertionSortRecursive(Array<T>& arr, int size)
 }
 
 template<typename T>
+void swap(T *a, T *b)
+{
+	T temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+template<typename T>
+int partition(Array<T>& arr, int start, int end)
+{
+	T pivot = arr[end]; //Last elemnt as a pivot point.
+	int i = (start - 1); //Index of smaller element.
+	for (int j = start; j <= end - 1; j++)
+	{
+		if (arr[j] >= pivot)
+		{
+			i++; //Increment the index of the smaller element.
+			swap(&arr[i], &arr[j]);
+		}
+	}
+	swap(&arr[i + 1], &arr[end]);
+	return (i + 1);
+}
+
+template<typename T>
 void quickSortRecursive(Array<T>& arr, int start, int end)
 {
 
 	if (start < end)
 	{
-		int part = arr.partition(arr, start, end);
+		int part = partition(arr, start, end);
 		cout << "Quick Sort - Depth " << start << " to " << end << endl;
 		for (int i = 0; i < arr.getLength(); i++)
 		{
@@ -225,8 +256,6 @@ void quickSortRecursive(Array<T>& arr, int start, int end)
 		}
 		cout << endl;
 		quickSortRecursive(arr, start, part - 1);
-		//quickSortRecursive(arr, part + 1, end);
-
 		quickSortRecursive(arr, part + 1, end);
 	}
 }

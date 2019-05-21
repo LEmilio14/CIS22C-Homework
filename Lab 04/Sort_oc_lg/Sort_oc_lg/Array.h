@@ -26,9 +26,6 @@ public:
 
 	Array& operator=(const Array) = delete;
 
-
-	void swap(T*, T*);
-	int partition(Array<T>&, int, int);
 	int getLength() const;
 
 	T& operator[](int);
@@ -67,31 +64,6 @@ template<typename T>
 int Array<T>::getLength() const
 {
 	return length;
-}
-
-template<typename T>
-void Array<T>::swap(T *a, T *b)
-{
-	T temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-template<typename T>
-int Array<T>::partition(Array<T>& arr, int start, int end)
-{
-	T pivot = arr[end]; //Last elemnt as a pivot point.
-	int i = (start - 1); //Index of smaller element.
-	for (int j = start; j <= end - 1; j++)
-	{
-		if (arr[j] >= pivot)
-		{
-			i++; //Increment the index of the smaller element.
-			swap(&arr[i], &arr[j]);
-		}
-	}
-	swap(&arr[i+1], &arr[end]);
-	return (i + 1);
 }
 
 template<typename T>
