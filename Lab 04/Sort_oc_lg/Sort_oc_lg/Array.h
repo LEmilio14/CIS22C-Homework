@@ -23,6 +23,9 @@ public:
 	Array(int);
 	~Array();
 
+	Array(const Array<T>&) = delete;
+	Array& operator=(const Array) = delete;
+
 	int getLength();
 	T& operator[](int);
 };

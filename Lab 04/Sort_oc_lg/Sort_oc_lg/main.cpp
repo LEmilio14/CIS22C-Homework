@@ -15,7 +15,7 @@ Luis Guerrero
 using namespace std;
 
 template<typename T>
-void insertionSortRecursive(Array<T>, int);
+void insertionSortRecursive(Array<T>&, int);
 
 int main()
 {
@@ -50,6 +50,7 @@ int main()
 		cout << "[" << TYPE_STRING << "] String" << endl;
 		cin >> type;
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << endl;
 
 		switch (type)
 		{
@@ -65,6 +66,7 @@ int main()
 				cin >> array[i];
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
+			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array, array.getLength());
@@ -82,6 +84,7 @@ int main()
 				cin >> array[i];
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
+			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array, array.getLength());
@@ -89,7 +92,7 @@ int main()
 		}
 		case TYPE_CHAR:
 		{
-			//Create array of type double
+			//Create array of type char
 			Array<char> array(size);
 
 			//User enters array elements
@@ -99,6 +102,7 @@ int main()
 				cin >> array[i];
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
+			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array, array.getLength());
@@ -106,7 +110,7 @@ int main()
 		}
 		case TYPE_STRING:
 		{
-			//Create array of type double
+			//Create array of type string
 			Array<string> array(size);
 
 			//User enters array elements
@@ -116,6 +120,7 @@ int main()
 				cin >> array[i];
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
+			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array, array.getLength());
@@ -129,6 +134,8 @@ int main()
 
 		cout << "Do you want to try again? [1] Yes [2] No" << endl;
 		cin >> again;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << endl;
 	} while (again == 1);
 
 	system("pause");
@@ -136,13 +143,9 @@ int main()
 }
 
 template<typename T>
-void insertionSortRecursive(Array<T> arr, int size)
+void insertionSortRecursive(Array<T>& arr, int size)
 {
-	if (size <= 1)
-	{
-		return;
-	}
-	else
+	if (size > 1)
 	{
 		insertionSortRecursive(arr, size - 1);
 		T last = arr[size - 1];
@@ -155,4 +158,11 @@ void insertionSortRecursive(Array<T> arr, int size)
 		}
 		arr[j + 1] = last;
 	}
+
+	cout << "Insertion Sort - Depth " << size << endl;
+	for (int i = 0; i < arr.getLength(); i++)
+	{
+		cout << "[" << i << "] = " << arr[i] << endl;
+	}
+	cout << endl;
 }
