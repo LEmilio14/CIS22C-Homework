@@ -29,7 +29,10 @@ public:
 template<typename T>
 Array<T>::Array(int len) : length(len), data(new T[len])
 {
-	
+	if (len < 0)
+	{
+		throw ExceptionInvalidArraySize();
+	}
 }
 
 template<typename T>
