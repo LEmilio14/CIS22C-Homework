@@ -17,10 +17,9 @@ using namespace std;
 template<typename T>
 void insertionSortRecursive(Array<T>&, int);
 
-<<<<<<< HEAD
 template<typename T>
 void quickSortRecursive(Array<T>& arr, int start, int end);
-=======
+
 template <typename T>
 void mergeSortRecursive(Array<T>);
 
@@ -29,7 +28,6 @@ void mergeSortRecursive(Array<T>&, int, int);
 
 template <typename T>
 void merge(Array<T>&, const int, const int, const int);
->>>>>>> 2c24bbccfb18c223dc1192dfd33ff5df92a35ab3
 
 int main()
 {
@@ -84,12 +82,13 @@ int main()
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			//insertionSortRecursive(array, array.getLength());
-<<<<<<< HEAD
 
 			quickSortRecursive(array, 0, array.getLength() - 1);
-=======
+
 			mergeSortRecursive(array);
->>>>>>> 2c24bbccfb18c223dc1192dfd33ff5df92a35ab3
+
+			mergeSortRecursive(array);
+
 			break;
 		}
 		case TYPE_DOUBLE:
@@ -296,5 +295,4 @@ void merge(Array<T>& parentArr, const int start, const int middle, const int end
 
 	delete[] leftArr;
 	delete[] rightArr;
->>>>>>> 2c24bbccfb18c223dc1192dfd33ff5df92a35ab3
 }

@@ -32,6 +32,9 @@ public:
 	int partition(Array<T>&, int, int);
 	int getLength() const;
 
+
+	int getLength() const;
+
 	T& operator[](int);
 };
 
