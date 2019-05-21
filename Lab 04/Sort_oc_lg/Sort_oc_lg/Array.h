@@ -18,15 +18,15 @@ class Array
 {
 private:
 	T* data;
-	int length;
+	const int length;
 public:
 	Array(int);
 	~Array();
+	Array(const Array<T>&);
 
-	Array(const Array<T>&) = delete;
 	Array& operator=(const Array) = delete;
 
-	int getLength();
+	int getLength() const;
 	T& operator[](int);
 };
 
@@ -46,7 +46,21 @@ Array<T>::~Array()
 }
 
 template<typename T>
-int Array<T>::getLength()
+Array<T>::Array(const Array<T>& array) : length(array.getLength()), data(new T[array.getLength()])
+{
+	if (array.getLength() < 0)
+	{
+		throw ExceptionInvalidArraySize();
+	}
+
+	for (int i = 0; i < array.getLength(); i++)
+	{
+		data[i] = array.data[i];
+	}
+}
+
+template<typename T>
+int Array<T>::getLength() const
 {
 	return length;
 }
