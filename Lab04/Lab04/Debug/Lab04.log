@@ -1,0 +1,2 @@
+﻿  main.cpp
+c:\users\alejo\documents\emilio visual studio\lab04\lab04\main.cpp(37): error C4700: uninitialized local variable 'arrayInt' used
