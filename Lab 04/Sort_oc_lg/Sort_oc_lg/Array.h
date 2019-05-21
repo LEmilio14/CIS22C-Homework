@@ -27,12 +27,8 @@ public:
 	Array& operator=(const Array) = delete;
 
 
-	int getLength();
 	void swap(T*, T*);
 	int partition(Array<T>&, int, int);
-	int getLength() const;
-
-
 	int getLength() const;
 
 	T& operator[](int);
