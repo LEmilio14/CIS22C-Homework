@@ -14,7 +14,8 @@ Luis Guerrero
 
 using namespace std;
 
-void displayDataTypes();
+template<typename T>
+void insertionSortRecursive(Array<T>, int);
 
 int main()
 {
@@ -42,7 +43,11 @@ int main()
 		} while (size < 0 || size > SORT_MAX_SIZE);
 
 		//Get the requested type of the array, 1 = int, 2 = double, 3 = char, 4 = string
-		displayDataTypes();
+		cout << "Choose the type of data you want to sort:" << endl;
+		cout << "[" << TYPE_INT << "] Integer" << endl;
+		cout << "[" << TYPE_DOUBLE << "] Double" << endl;
+		cout << "[" << TYPE_CHAR << "] Char" << endl;
+		cout << "[" << TYPE_STRING << "] String" << endl;
 		cin >> type;
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -50,72 +55,79 @@ int main()
 		{
 		case TYPE_INT:
 		{
-			Array<int> intArray(size);
+			//Create array of type int
+			Array<int> array(size);
 
 			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
-				cout << "Enter element " << i + 1 << ": ";
-				cin >> intArray[i];
-				arrayInt[i] = intArray[i];
-				cout << endl;
+				cout << "Enter element " << i << ": ";
+				cin >> array[i];
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
-			cout << endl << endl;
-			for (int i = 0; i < size; i++)
-			{
-				cout << intArray[i] << " ";
-			}
-			intArray.insertionSortRecursive(arrayInt, size);
-			cout << endl << endl;
-			for (int j = 0; j < size; j++)
-			{
-				cout << intArray[j] << " ";
-			}
-			cout << endl;
 
+			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
+			insertionSortRecursive(array, array.getLength());
 			break;
 		}
 		case TYPE_DOUBLE:
 		{
-			Array<double> doubArray(size);
+			//Create array of type double
+			Array<double> array(size);
+
+			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
-				cout << "Enter element " << i + 1 << ": ";
-				cin >> doubArray[i];
-				cout << endl;
+				cout << "Enter element " << i << ": ";
+				cin >> array[i];
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
 
-
+			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
+			insertionSortRecursive(array, array.getLength());
 			break;
 		}
 		case TYPE_CHAR:
 		{
-			Array<char> strArray(size);
+			//Create array of type double
+			Array<char> array(size);
+
+			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
-				cout << "Enter element " << i + 1 << ": ";
-				cin >> strArray[i];
-				cout << endl;
+				cout << "Enter element " << i << ": ";
+				cin >> array[i];
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
+
+			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
+			insertionSortRecursive(array, array.getLength());
 			break;
 		}
 		case TYPE_STRING:
 		{
-			Array<string> chrArray(size);
+			//Create array of type double
+			Array<string> array(size);
+
+			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
-				cout << "Enter element " << i + 1 << ": ";
-				cin >> chrArray[i];
-				cout << endl;
+				cout << "Enter element " << i << ": ";
+				cin >> array[i];
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
+
+			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
+			insertionSortRecursive(array, array.getLength());
 			break;
 		}
 		default:
+			//The user didn't pick a correct type
+			cout << "Invalid type. Restarting..." << endl;
 			break;
 		}
 
-
-		cout << "Do you want to sort something else? [1]Yes [2]No" << endl;
+		cout << "Do you want to try again? [1] Yes [2] No" << endl;
 		cin >> again;
 	} while (again == 1);
 
@@ -123,13 +135,24 @@ int main()
 	return 0;
 }
 
-void displayDataTypes()
+template<typename T>
+void insertionSortRecursive(Array<T> arr, int size)
 {
-	cout << "Choose the type of data you want to sort:" << endl;
-	cout << "[1] Integer" << endl;
-	cout << "[2] Double" << endl;
-	cout << "[3] Char" << endl;
-	cout << "[4] String" << endl;
+	if (size <= 1)
+	{
+		return;
+	}
+	else
+	{
+		insertionSortRecursive(arr, size - 1);
+		T last = arr[size - 1];
+		int j = size - 2;
 
-	return;
+		while (j >= 0 && arr[j] > last)
+		{
+			arr[j + 1] = arr[j];
+			j--;
+		}
+		arr[j + 1] = last;
+	}
 }

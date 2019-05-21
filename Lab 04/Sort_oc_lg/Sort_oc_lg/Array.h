@@ -11,6 +11,7 @@
 #pragma once
 
 #include "ExceptionInvalidArraySize.h"
+#include "ExceptionInvalidArrayIndex.h"
 
 template <typename T>
 class Array
@@ -56,6 +57,6 @@ T& Array<T>::operator[](int index)
 	}
 	else
 	{
-		return nullptr;
+		throw ExceptionInvalidArrayIndex();
 	}
 }

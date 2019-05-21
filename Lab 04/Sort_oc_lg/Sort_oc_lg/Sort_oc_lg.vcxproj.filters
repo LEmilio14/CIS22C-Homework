@@ -26,5 +26,8 @@
     <ClInclude Include="ExceptionInvalidArraySize.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ExceptionInvalidArrayIndex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
