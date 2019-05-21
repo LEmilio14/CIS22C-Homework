@@ -316,7 +316,7 @@ void merge(Array<T>& parentArr, const int start, const int middle, const int end
 
 	while (leftIndex < leftSize && rightIndex < rightSize)
 	{
-		if (leftArr[leftIndex] <= rightArr[rightIndex])
+		if (leftArr[leftIndex] >= rightArr[rightIndex])
 		{
 			parentArr[parentIndex] = leftArr[leftIndex];
 			leftIndex++;
