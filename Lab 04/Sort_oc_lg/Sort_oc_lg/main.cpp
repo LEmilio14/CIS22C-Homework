@@ -218,15 +218,14 @@ void quickSortRecursive(Array<T>& arr, int start, int end)
 	if (start < end)
 	{
 		int part = arr.partition(arr, start, end);
-		quickSortRecursive(arr, start, part - 1);
-		//quickSortRecursive(arr, part + 1, end);
-
 		cout << "Quick Sort - Depth " << start << " to " << end << endl;
 		for (int i = 0; i < arr.getLength(); i++)
 		{
 			cout << "[" << i << "] = " << arr[i] << endl;
 		}
 		cout << endl;
+		quickSortRecursive(arr, start, part - 1);
+		//quickSortRecursive(arr, part + 1, end);
 
 		quickSortRecursive(arr, part + 1, end);
 	}
