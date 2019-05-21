@@ -9,6 +9,7 @@ Luis Guerrero
 #include <iostream>
 #include <string>
 #include <fstream>
+
 #include "Array.h"
 
 using namespace std;
@@ -17,28 +18,41 @@ void displayDataTypes();
 
 int main()
 {
-	int size, userChoice, again;
+	constexpr int SORT_MAX_SIZE = 32;
+	constexpr int TYPE_INT = 1;
+	constexpr int TYPE_DOUBLE = 2;
+	constexpr int TYPE_CHAR = 3;
+	constexpr int TYPE_STRING = 4;
+	
+	int size, type, again;
+	//Repeat until the user exits the program
 	do
 	{
-		cout << "How many elements would you like to sort? (max elements 32)" << endl;
-		cin >> size;
-		while (size > 32)
+		//Get the requested size of the array, must be between 0 and SORT_MAX_SIZE
+		do
 		{
-			cout << "The number of elemnts exceed the maximun amount, try again" << endl;
-			cout << "How many elements would you like to sort? (max elements 32)" << endl;
+			cout << "How many elements would you like to sort? (max elements " << SORT_MAX_SIZE << ")" << endl;
 			cin >> size;
-		}
-		cout << endl;
-		displayDataTypes();
-		cin >> userChoice;
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			if (size < 0 || size > SORT_MAX_SIZE)
+			{
+				cout << "Invalid size. Size must be between 0 and " << SORT_MAX_SIZE << "." << endl;
+			}
+			cout << endl;
+		} while (size < 0 || size > SORT_MAX_SIZE);
 
-		switch (userChoice)
+		//Get the requested type of the array, 1 = int, 2 = double, 3 = char, 4 = string
+		displayDataTypes();
+		cin >> type;
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+		switch (type)
 		{
-		case 1:
+		case TYPE_INT:
 		{
-			int *arrayInt;
 			Array<int> intArray(size);
 
+			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
 				cout << "Enter element " << i + 1 << ": ";
@@ -61,7 +75,7 @@ int main()
 
 			break;
 		}
-		case 2:
+		case TYPE_DOUBLE:
 		{
 			Array<double> doubArray(size);
 			for (int i = 0; i < size; i++)
@@ -74,9 +88,9 @@ int main()
 
 			break;
 		}
-		case 3:
+		case TYPE_CHAR:
 		{
-			Array<string> strArray(size);
+			Array<char> strArray(size);
 			for (int i = 0; i < size; i++)
 			{
 				cout << "Enter element " << i + 1 << ": ";
@@ -85,9 +99,9 @@ int main()
 			}
 			break;
 		}
-		case 4:
+		case TYPE_STRING:
 		{
-			Array<char> chrArray(size);
+			Array<string> chrArray(size);
 			for (int i = 0; i < size; i++)
 			{
 				cout << "Enter element " << i + 1 << ": ";
@@ -111,11 +125,11 @@ int main()
 
 void displayDataTypes()
 {
-	cout << "Choose the type of data you want to sort" << endl;
+	cout << "Choose the type of data you want to sort:" << endl;
 	cout << "[1] Integer" << endl;
 	cout << "[2] Double" << endl;
-	cout << "[3] String" << endl;
-	cout << "[4] Char" << endl;
+	cout << "[3] Char" << endl;
+	cout << "[4] String" << endl;
 
 	return;
 }
