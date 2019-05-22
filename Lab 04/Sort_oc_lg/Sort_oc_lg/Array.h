@@ -1,11 +1,20 @@
 /********************************************************************************
 ************************************ Array **************************************
 *********************************************************************************
-* 
+* This class is a container for an array, and should be used as an array.
+* The subscript operator is overloaded to act like an array/vector.
+* The array size is fixed after construction.
 *****************
 ***** USAGE *****
 *****************
-* 
+* This class should be called using template initialization.
+* Array size can be aquired with getLength().
+* Data should be accessed using the subscript operator (ex. myArray[0]).
+* Copying the object creates a new Array with duplicate data.
+* The assignment operator is deleted.
+* Exceptions will be thrown if:
+*	Array constructed with negative size (ExceptionInvalidArraySize)
+*	Attempt to access data outside the array's managed space (ExceptionInvalidArrayIndex)
 *********************************************************************************/
 
 #pragma once
@@ -23,11 +32,24 @@ public:
 	Array(int);
 	~Array();
 	Array(const Array<T>&);
-
 	Array& operator=(const Array) = delete;
-
+	/**
+	* getLength
+	*
+	* @brief Returns the size of the contained array.
+	*
+	* @return The size of the contained array.
+	*/
 	int getLength() const;
-
+	/**
+	* operator[]
+	*
+	* @brief Returns the data at the passed index.
+	*
+	* @param index The index to get the data from the contained array.
+	*
+	* @return The data at the passed index.
+	*/
 	T& operator[](int);
 };
 
