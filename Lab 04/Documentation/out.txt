@@ -1,3 +1,4 @@
+Lab 04 by Olivier Chan and Luis Guerrero
 OUTPUT:
 How many elements would you like to sort? (max elements 32)
 

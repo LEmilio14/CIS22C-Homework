@@ -68,6 +68,7 @@ int main()
 	int size, type, again;
 	ofstream out;
 	out.open("out.txt", ofstream::trunc);
+	out << "Lab 04 by Olivier Chan and Luis Guerrero" << endl;
 	out << "OUTPUT:" << endl;
 	out.close();
 
