@@ -90,13 +90,13 @@ int main()
 			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
-			//insertionSortRecursive(array, array.getLength());
+			insertionSortRecursive(array, array.getLength());
 
 			//Quick Sort
 			quickSortRecursive(array);
 
 			//Merge Sort
-			//mergeSortRecursive(array);
+			mergeSortRecursive(array);
 
 			break;
 		}
