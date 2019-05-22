@@ -1,6 +1,6 @@
 /*
 CIS 22C
-Lab 04: 
+Lab 04: Create an array container and recursive Insertion Sort, Quick Sort, and Merge Sort functions that sort the array container.
 Authors:
 Olivier Chan Sion Moy
 Luis Guerrero
@@ -14,27 +14,43 @@ Luis Guerrero
 
 using namespace std;
 
+/**
+* insertionSortRecursive
+*
+* @brief Recursively insertion sorts a copy of an array (unless the second overloaded function is used instead) in descending order, printing out the result of each step.
+*
+* @param The array to sort. Unless the second overloaded function is used, this array will not get sorted - it is passed by value and a copy is made.
+*/
+template<typename T>
+void insertionSortRecursive(Array<T> arr);
 template<typename T>
 void insertionSortRecursive(Array<T>&, int);
 
+/**
+* quickSortRecursive
+*
+* @brief Recursively quick sorts a copy of an array (unless the second overloaded function is used instead) in descending order, printing out the result of each step.
+*
+* @param The array to sort. Unless the second overloaded function is used, this array will not get sorted - it is passed by value and a copy is made.
+*/
 template<typename T>
-void insertionSortRecursive(Array<T> arr);
-
-template<typename T>
-void swap(T *a, T *b);
-
-template<typename T>
-int partition(Array<T>& arr, int start, int end);
-
+void quickSortRecursive(Array<T> arr);
 template<typename T>
 void quickSortRecursive(Array<T>& arr, int start, int end);
 
 template<typename T>
-void quickSortRecursive(Array<T> arr);
-
+void swap(T *a, T *b);
+template<typename T>
+int partition(Array<T>& arr, int start, int end);
+/**
+* mergeSortRecursive
+*
+* @brief Recursively merge sorts a copy of an array (unless the second overloaded function is used instead) in descending order, printing out the result of each step.
+*
+* @param The array to sort. Unless the second overloaded function is used, this array will not get sorted - it is passed by value and a copy is made.
+*/
 template <typename T>
 void mergeSortRecursive(Array<T>);
-
 template <typename T>
 void mergeSortRecursive(Array<T>&, int, int);
 
