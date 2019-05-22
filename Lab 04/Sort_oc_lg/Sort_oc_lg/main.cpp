@@ -50,23 +50,37 @@ int main()
 	constexpr int TYPE_STRING = 4;
 	
 	int size, type, again;
+	ofstream out;
+	out.open("out.txt", ofstream::trunc);
+	out << "OUTPUT:" << endl;
+	out.close();
+
 	//Repeat until the user exits the program
 	do
 	{
+		out.open("out.txt", ofstream::app);
 		//Get the requested size of the array, must be between 0 and SORT_MAX_SIZE
 		do
 		{
+			out << "How many elements would you like to sort? (max elements " << SORT_MAX_SIZE << ")" << endl;
 			cout << "How many elements would you like to sort? (max elements " << SORT_MAX_SIZE << ")" << endl;
 			cin >> size;
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			if (size < 0 || size > SORT_MAX_SIZE)
 			{
+				out << "Invalid size. Size must be between 0 and " << SORT_MAX_SIZE << "." << endl;
 				cout << "Invalid size. Size must be between 0 and " << SORT_MAX_SIZE << "." << endl;
 			}
+			out << endl;
 			cout << endl;
 		} while (size < 0 || size > SORT_MAX_SIZE);
 
 		//Get the requested type of the array, 1 = int, 2 = double, 3 = char, 4 = string
+		out << "Choose the type of data you want to sort:" << endl;
+		out << "[" << TYPE_INT << "] Integer" << endl;
+		out << "[" << TYPE_DOUBLE << "] Double" << endl;
+		out << "[" << TYPE_CHAR << "] Char" << endl;
+		out << "[" << TYPE_STRING << "] String" << endl;
 		cout << "Choose the type of data you want to sort:" << endl;
 		cout << "[" << TYPE_INT << "] Integer" << endl;
 		cout << "[" << TYPE_DOUBLE << "] Double" << endl;
@@ -74,120 +88,147 @@ int main()
 		cout << "[" << TYPE_STRING << "] String" << endl;
 		cin >> type;
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		out << endl;
 		cout << endl;
+
+		out.close();
 
 		switch (type)
 		{
 		case TYPE_INT:
 		{
+			out.open("out.txt", ofstream::app);
+			
 			//Create array of type int
 			Array<int> array(size);
 
 			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
+				out << "Enter element " << i << ": ";
 				cout << "Enter element " << i << ": ";
 				cin >> array[i];
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				out << array[i] << endl;
 			}
 			cout << endl;
+			out << endl;
+
+			out.close();
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array);
-
-			//Quick Sort
 			quickSortRecursive(array);
-
-			//Merge Sort
 			mergeSortRecursive(array);
 
 			break;
 		}
 		case TYPE_DOUBLE:
 		{
+			out.open("out.txt", ofstream::app);
+			
 			//Create array of type double
 			Array<double> array(size);
 
 			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
+				out << "Enter element " << i << ": ";
 				cout << "Enter element " << i << ": ";
 				cin >> array[i];
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				out << array[i] << endl;
 			}
 			cout << endl;
+			out << endl;
+
+			out.close();
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array);
-
-			//Quick Sort
 			quickSortRecursive(array);
-
-			//Merge Sort
 			mergeSortRecursive(array);
 
 			break;
 		}
 		case TYPE_CHAR:
 		{
+			out.open("out.txt", ofstream::app);
+			
 			//Create array of type char
 			Array<char> array(size);
 
 			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
+				out << "Enter element " << i << ": ";
 				cout << "Enter element " << i << ": ";
 				cin >> array[i];
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				out << array[i] << endl;
 			}
 			cout << endl;
+			out << endl;
+
+			out.close();
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array);
-
-			//Quick Sort
 			quickSortRecursive(array);
-
-			//Merge Sort
 			mergeSortRecursive(array);
 
 			break;
 		}
 		case TYPE_STRING:
 		{
+			out.open("out.txt", ofstream::app);
+			
 			//Create array of type string
 			Array<string> array(size);
 
 			//User enters array elements
 			for (int i = 0; i < size; i++)
 			{
+				out << "Enter element " << i << ": ";
 				cout << "Enter element " << i << ": ";
 				cin >> array[i];
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				out << array[i] << endl;
 			}
 			cout << endl;
+			out << endl;
+
+			out.close();
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
 			insertionSortRecursive(array);
-
-			//Quick Sort
 			quickSortRecursive(array);
-
-			//Merge Sort
 			mergeSortRecursive(array);
 
 			break;
 		}
 		default:
+			out.open("out.txt", ofstream::app);
+			
 			//The user didn't pick a correct type
 			cout << "Invalid type. Restarting..." << endl;
+			out << "Invalid type. Restarting..." << endl;
+
+			out.close();
+
 			break;
 		}
 
+		out.open("out.txt", ofstream::app);
+		
+		out << "Do you want to try again? [1] Yes [2] No" << endl;
 		cout << "Do you want to try again? [1] Yes [2] No" << endl;
 		cin >> again;
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << endl;
+		out << endl;
+
+		out.close();
 	} while (again == 1);
 
 	system("pause");
@@ -215,12 +256,20 @@ void insertionSortRecursive(Array<T>& arr, int size)
 		arr[j + 1] = last;
 	}
 
+	ofstream out;
+	out.open("out.txt", ofstream::app);
+	
+	out << "Insertion Sort - Depth " << size << endl;
 	cout << "Insertion Sort - Depth " << size << endl;
 	for (int i = 0; i < arr.getLength(); i++)
 	{
+		out << "[" << i << "] = " << arr[i] << endl;
 		cout << "[" << i << "] = " << arr[i] << endl;
 	}
+	out << endl;
 	cout << endl;
+
+	out.close();
 }
 
 template<typename T>
@@ -260,13 +309,22 @@ void quickSortRecursive(Array<T>& arr, int start, int end)
 
 	if (start < end)
 	{
+		ofstream out;
+		out.open("out.txt", ofstream::app);
+		
 		int part = partition(arr, start, end);
+		out << "Quick Sort - " << start << " to " << end << endl;
 		cout << "Quick Sort - " << start << " to " << end << endl;
 		for (int i = 0; i < arr.getLength(); i++)
 		{
+			out << "[" << i << "] = " << arr[i] << endl;
 			cout << "[" << i << "] = " << arr[i] << endl;
 		}
+		out << endl;
 		cout << endl;
+
+		out.close();
+
 		quickSortRecursive(arr, start, part - 1);
 		quickSortRecursive(arr, part + 1, end);
 	}
@@ -298,13 +356,21 @@ void mergeSortRecursive(Array<T>& arr, int start, int end)
 		//Merge the 2 parts together
 		merge(arr, start, middle, end);
 
+		ofstream out;
+		out.open("out.txt", ofstream::app);
+
 		//Print out the array
+		out << "Merge Sort - " << start << " to " << end << endl;
 		cout << "Merge Sort - " << start << " to " << end << endl;
 		for (int i = 0; i < arr.getLength(); i++)
 		{
+			out << "[" << i << "] = " << arr[i] << endl;
 			cout << "[" << i << "] = " << arr[i] << endl;
 		}
+		out << endl;
 		cout << endl;
+
+		out.close();
 	}
 }
 
