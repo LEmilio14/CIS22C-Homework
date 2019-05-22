@@ -18,6 +18,9 @@ template<typename T>
 void insertionSortRecursive(Array<T>&, int);
 
 template<typename T>
+void insertionSortRecursive(Array<T> arr);
+
+template<typename T>
 void swap(T *a, T *b);
 
 template<typename T>
@@ -90,7 +93,7 @@ int main()
 			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
-			insertionSortRecursive(array, array.getLength());
+			insertionSortRecursive(array);
 
 			//Quick Sort
 			quickSortRecursive(array);
@@ -115,10 +118,10 @@ int main()
 			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
-			insertionSortRecursive(array, array.getLength());
+			insertionSortRecursive(array);
 
 			//Quick Sort
-			quickSortRecursive(array, 0, array.getLength() - 1);
+			quickSortRecursive(array);
 
 			//Merge Sort
 			mergeSortRecursive(array);
@@ -140,10 +143,10 @@ int main()
 			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
-			insertionSortRecursive(array, array.getLength());
+			insertionSortRecursive(array);
 
 			//Quick Sort
-			quickSortRecursive(array, 0, array.getLength() - 1);
+			quickSortRecursive(array);
 
 			//Merge Sort
 			mergeSortRecursive(array);
@@ -165,10 +168,10 @@ int main()
 			cout << endl;
 
 			//Sort the array using Insertion Sort, Quick Sort, and Merge Sort
-			insertionSortRecursive(array, array.getLength());
+			insertionSortRecursive(array);
 
 			//Quick Sort
-			quickSortRecursive(array, 0, array.getLength() - 1);
+			quickSortRecursive(array);
 
 			//Merge Sort
 			mergeSortRecursive(array);
@@ -218,6 +221,12 @@ void insertionSortRecursive(Array<T>& arr, int size)
 		cout << "[" << i << "] = " << arr[i] << endl;
 	}
 	cout << endl;
+}
+
+template<typename T>
+void insertionSortRecursive(Array<T> arr)
+{
+	insertionSortRecursive(arr, arr.getLength());
 }
 
 template<typename T>
