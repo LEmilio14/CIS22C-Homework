@@ -26,6 +26,9 @@ int partition(Array<T>& arr, int start, int end);
 template<typename T>
 void quickSortRecursive(Array<T>& arr, int start, int end);
 
+template<typename T>
+void quickSortRecursive(Array<T> arr);
+
 template <typename T>
 void mergeSortRecursive(Array<T>);
 
@@ -90,7 +93,7 @@ int main()
 			//insertionSortRecursive(array, array.getLength());
 
 			//Quick Sort
-			quickSortRecursive(array, 0, array.getLength() - 1);
+			quickSortRecursive(array);
 
 			//Merge Sort
 			//mergeSortRecursive(array);
@@ -258,6 +261,12 @@ void quickSortRecursive(Array<T>& arr, int start, int end)
 		quickSortRecursive(arr, start, part - 1);
 		quickSortRecursive(arr, part + 1, end);
 	}
+}
+
+template<typename T>
+void quickSortRecursive(Array<T> arr)
+{
+	quickSortRecursive(arr, 0, arr.getLength() - 1);
 }
 
 template <typename T>
