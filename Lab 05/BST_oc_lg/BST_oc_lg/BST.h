@@ -10,8 +10,6 @@
 
 #pragma once
 
-#include <iostream>
-
 #include "BST_Node.h"
 
 template <typename T>
