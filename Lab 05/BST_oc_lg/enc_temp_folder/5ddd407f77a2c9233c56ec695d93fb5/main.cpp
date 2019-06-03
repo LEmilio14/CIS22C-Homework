@@ -131,7 +131,7 @@ void inorder(BST_Node<T>* root, int level)
 		return;
 	}
 
-	inorder(root->left, level + 1);
+	inorder(root->left, level);
 	cout << root->data << endl;
 	inorder(root->right, level + 1);
 }

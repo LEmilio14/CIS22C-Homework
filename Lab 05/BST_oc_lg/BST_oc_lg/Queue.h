@@ -59,8 +59,6 @@ Queue<T>::Queue()
 *
 * @param newData The data to add to the front of the queue.
 */
-
-
 template<typename T>
 void Queue<T>::enqueue(T& newData)
 {

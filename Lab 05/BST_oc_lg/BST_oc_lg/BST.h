@@ -20,6 +20,9 @@ protected:
 	BST_Node<T>* head;
 
 	BST_Node<T>* insert(T&, BST_Node<T>*);
+	BST_Node<T>* remove(T&, BST_Node<T>*);
+	BST_Node<T>* findMin(BST_Node<T>*);
+	bool search(BST_Node<T>*, T&);
 public:
 	BST();
 	virtual ~BST();
@@ -39,6 +42,22 @@ public:
 	* @param The data to insert, as a reference.
 	*/
 	void insert(T&);
+	/**
+	* delete
+	*
+	* @brief Recursively deletes the data desired from the tree
+	*
+	* @param The data to insert, as a reference.
+	*/
+	void remove(T&);
+	/**
+	* search
+	*
+	* @brief Recursively searchs an item from a BST.
+	*
+	* @param The data to insert, as a reference.
+	*/
+	bool search(T&);
 };
 
 template <typename T>
@@ -98,4 +117,100 @@ BST_Node<T>* BST<T>::insert(T& d, BST_Node<T>* root)
 
 	//Return the root so previous recursion calls keep their current values for left and right
 	return root;
+}
+
+template<typename T>
+bool BST<T>::search(T& d)
+{
+	if (search(head, d) == true)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+
+template<typename T>
+bool BST<T>::search(BST_Node<T>* root, T& data)
+{
+	if (root == nullptr)//if the tree is empty, then return false
+	{
+		return false;
+	}
+	else if (root->data == data)//if the data is found return true.
+	{
+		return true;
+	}
+	else if (data < root->data)//if data is less than root, search the data from the left.
+	{
+		return search(root->left, data);
+	}
+	else //if data is greater than root, search the data from the right.
+	{
+		return search(root->right, data);
+	}
+}
+
+template<typename T>
+BST_Node<T>* BST<T>::remove(T& d, BST_Node<T>* root)
+{
+	if (root == nullptr) //if tree is empty return null.
+	{
+		return root;
+	}
+	else if (d < root->data)//if data is less than root, remove the root from the left.
+	{
+		root->left = remove(d, root->left);
+	}
+	else if (d > root->data)//if data is greater than root, remove the root from the right.
+	{
+		root->right = remove(d, root->right);
+	}
+	else
+	{
+		//if root has no child
+		if (root->left == nullptr && root->right == nullptr)
+		{
+			delete root;
+			root = nullptr;
+		}
+		else if (root->left == nullptr) //if root has only one right child
+		{
+			BST_Node<T>* temp = root->right;
+			//root = root->right;
+			delete temp;
+			return temp;
+		}
+		else if (root->right == nullptr) //if root has only one left child
+		{
+			BST_Node<T>* temp = root->left;
+			//root = root->left;
+			delete temp;
+			return temp;
+		}
+		else //if root has a left and right children.
+		{
+			BST_Node<T>* temp = findMin(root->right);
+			root->data = temp->data;
+			root->right = remove(temp->data, root->right);
+		}
+	}
+	return root;
+}
+
+template<typename T>
+void BST<T>::remove(T& d)
+{
+	remove(d, head);
+}
+
+template<typename T>
+BST_Node<T>* BST<T>::findMin(BST_Node<T>* root)
+{
+	BST_Node<T>* current = root;
+	while (current && current->left != nullptr)
+	{
+		current = current->left;
+	}
+	return current;
 }
