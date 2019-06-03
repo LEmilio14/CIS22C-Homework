@@ -11,6 +11,7 @@
 #pragma once
 
 #include "BST_Node.h"
+#include "Queue.h"
 
 template <typename T>
 class BST
@@ -23,6 +24,7 @@ protected:
 	BST_Node<T>* remove(T&, BST_Node<T>*);
 	BST_Node<T>* findMin(BST_Node<T>*);
 	bool search(BST_Node<T>*, T&);
+	void queueNodes(Queue<BST_Node<T>>&, BST_Node<T>*);
 public:
 	BST();
 	virtual ~BST();
@@ -58,6 +60,12 @@ public:
 	* @param The data to insert, as a reference.
 	*/
 	bool search(T&);
+	/**
+	* deleteAll
+	*
+	* @brief Deletes all managed nodes using a queue.
+	*/
+	void deleteAll();
 };
 
 template <typename T>
@@ -70,11 +78,7 @@ BST<T>::BST()
 template <typename T>
 BST<T>::~BST()
 {
-	if (head != nullptr)
-	{
-		delete head;
-		head = nullptr;
-	}
+	deleteAll();
 }
 
 template <typename T>
@@ -173,26 +177,36 @@ BST_Node<T>* BST<T>::remove(T& d, BST_Node<T>* root)
 		{
 			delete root;
 			root = nullptr;
+			return root;
 		}
 		else if (root->left == nullptr) //if root has only one right child
 		{
 			BST_Node<T>* temp = root->right;
-			//root = root->right;
+			root->data = temp->data;
+			root->left = temp->left;
+			root->right = temp->right;
 			delete temp;
-			return temp;
+			temp = nullptr;
+			return root;
 		}
 		else if (root->right == nullptr) //if root has only one left child
 		{
 			BST_Node<T>* temp = root->left;
-			//root = root->left;
+			root->data = temp->data;
+			root->left = temp->left;
+			root->right = temp->right;
 			delete temp;
-			return temp;
+			temp = nullptr;
+			return root;
 		}
 		else //if root has a left and right children.
 		{
 			BST_Node<T>* temp = findMin(root->right);
 			root->data = temp->data;
-			root->right = remove(temp->data, root->right);
+			std::cout << temp->data << std::endl;
+			delete temp;
+			temp = nullptr;
+			return root;
 		}
 	}
 	return root;
@@ -212,5 +226,31 @@ BST_Node<T>* BST<T>::findMin(BST_Node<T>* root)
 	{
 		current = current->left;
 	}
+	std::cout << current->data << std::endl;
 	return current;
+}
+
+template<typename T>
+void BST<T>::queueNodes(Queue<BST_Node<T>>& queue, BST_Node<T>* root)
+{
+	if (root == nullptr)
+	{
+		return;
+	}
+
+	queue.enqueue(*root);
+	queueNodes(queue, root->left);
+	queueNodes(queue, root->right);
+}
+
+template<typename T>
+void BST<T>::deleteAll()
+{
+	Queue<BST_Node<T>> deleteQueue;
+	queueNodes(deleteQueue, head);
+
+	while (!deleteQueue.isEmpty())
+	{
+		delete &(deleteQueue.dequeue());
+	}
 }

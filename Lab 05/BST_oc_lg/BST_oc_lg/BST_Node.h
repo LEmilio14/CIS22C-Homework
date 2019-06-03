@@ -35,15 +35,5 @@ BST_Node<T>::BST_Node(T& d, BST_Node<T>* l, BST_Node<T>* r) : data(d), left(l), 
 template <typename T>
 BST_Node<T>::~BST_Node()
 {
-	if (left != nullptr)
-	{
-		delete left;
-		left = nullptr;
-	}
-
-	if (right != nullptr)
-	{
-		delete right;
-		right = nullptr;
-	}
+	
 }
