@@ -7,6 +7,8 @@ Luis Guerrero
 */
 
 #include <iostream>
+#include <fstream>
+#include <string>
 
 #include "BST.h"
 
@@ -54,6 +56,27 @@ void postorder(BST_Node<T>*, int);
 
 int main()
 {
+	string name, bday;
+
+	BST<string> bstName = BST<string>();
+	BST<string> bstBday = BST<string>();
+
+	ifstream readFile ("InputData.txt");
+	if (readFile.is_open())
+	{
+		while (getline(readFile, name, '\n'))
+		{
+			getline(readFile, bday);
+			cout << name << endl;
+			cout << bday << endl;
+		}
+	}
+
+
+
+
+
+
 	//FOR TESTING
 	int myArray[10] = {50, 42, 12, 99, 10, 33, 75, 30, 87, 21};
 	int item1, item2;
