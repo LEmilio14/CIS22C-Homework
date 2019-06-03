@@ -207,8 +207,6 @@ BST_Node<T>* BST<T>::remove(T& d, BST_Node<T>* root)
 			root->right = remove(temp->data, root->right);
 			delete temp;
 			temp = nullptr;
-			//Since temp got deleted, set the left node of the new inorder successor to nullptr
-			findMin(root->right)->left = nullptr;
 			return root;
 		}
 	}
