@@ -116,12 +116,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Person.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BST.h" />
     <ClInclude Include="BST_Node.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>

@@ -65,26 +65,33 @@ int main()
 
 	cout << "Preorder:" << endl;
 	preorder(bst);
+	cout << endl;
 	cout << "Inorder:" << endl;
 	inorder(bst);
+	cout << endl;
 	cout << "Postorder:" << endl;
 	postorder(bst);
+	cout << endl;
+
 	cout << "Enter the item to search" << endl;
 	cin >> item1;
-
 	if (bst.search(item1) == true)
 	{
 		cout << "Found" << endl;
 	}
 	else
+	{
 		cout << "Not Found" << endl;
+	}
 	cout << endl;
+
 	cout << "Would you like to remove an item?" << endl;
 	cin >> item2;
 	bst.remove(item2);
 	cout << endl;
 	cout << "Inorder:" << endl;
 	inorder(bst);
+	cout << endl;
 
 	system("pause");
 	return 0;
