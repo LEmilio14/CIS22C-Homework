@@ -71,16 +71,15 @@ int main()
 	size = getFileSize("InputData.txt");
 
 	string *name = new string[size/2], *bday = new string[size/2], line;
-	Person person(name, bday);
 	if (readFile.is_open())
 	{
 		int i = 0;
 		while (!readFile.eof())
 		{
 			getline(readFile, line);
-			person.name[i] = line;
+			name[i] = line;
 			getline(readFile, line);
-			person.birthday[i] = line;
+			bday[i] = line;
 			i++;
 		}
 
@@ -90,12 +89,18 @@ int main()
 		cout << "File Not Open" << endl;
 	}
 
+	Person personArray[7];
+	for (int i = 0; i < size/2; i++)
+	{
+		personArray[i] = { Person(name[i], bday[i]) };
+	}
+
 	BST<string> bstName = BST<string>();
 	BST<string> bstBday = BST<string>();
 	for (int i = 0; i < 7; i++)
 	{
-		bstName.insert(person.name[i]);
-		bstBday.insert(person.birthday[i]);
+		bstName.insert(personArray[i].name);
+		bstBday.insert(personArray[i].birthday);
 	}
 	cout << "====== Names =======" << endl;
 	cout << "Preorder:" << endl;
