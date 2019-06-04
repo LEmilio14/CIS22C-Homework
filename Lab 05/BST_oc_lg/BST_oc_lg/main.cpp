@@ -111,8 +111,8 @@ int main()
 		bstName.insert(personArray[i]->name, personArray[i]->birthday);
 		bstBday.insert(personArray[i]->birthday, personArray[i]->name);
 	}
-	ofstream outNames("NamesOutput.txt");
 
+	ofstream outNames("NamesOutput.txt");
 	outNames << "====== Names ======" << "\t" << "====== Birthdays ======" << endl;
 	outNames << "\t\t***Pre-order***" << endl;
 	preorder(outNames, bstName);
@@ -126,6 +126,7 @@ int main()
 	inorder(outBdays, bstBday);
 	outBdays << "\t\t***Breadth-First***" << endl;
 	breadthFirst(outBdays, bstBday);
+	outBdays.close();
 
 	//Delete dynamic persons
 	for (int i = 0; i < size / 2; i++)
