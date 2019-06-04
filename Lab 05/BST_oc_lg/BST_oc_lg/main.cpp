@@ -70,16 +70,19 @@ int main()
 	ifstream readFile("InputData.txt");
 	size = getFileSize("InputData.txt");
 
-	string *name = new string[size/2], *bday = new string[size/2], line;
+	string* names = new string[size / 2];
+	string* bdays = new string[size / 2];
+	string line;
+
 	if (readFile.is_open())
 	{
 		int i = 0;
 		while (!readFile.eof())
 		{
 			getline(readFile, line);
-			name[i] = line;
+			names[i] = line;
 			getline(readFile, line);
-			bday[i] = line;
+			bdays[i] = line;
 			i++;
 		}
 
@@ -89,18 +92,18 @@ int main()
 		cout << "File Not Open" << endl;
 	}
 
-	Person personArray[7];
-	for (int i = 0; i < size/2; i++)
+	Person* personArray[7];
+	for (int i = 0; i < size / 2; i++)
 	{
-		personArray[i] = { Person(name[i], bday[i]) };
+		personArray[i] = new Person(names[i], bdays[i]);
 	}
 
 	BST<string> bstName = BST<string>();
 	BST<string> bstBday = BST<string>();
 	for (int i = 0; i < 7; i++)
 	{
-		bstName.insert(personArray[i].name);
-		bstBday.insert(personArray[i].birthday);
+		bstName.insert(personArray[i]->name);
+		bstBday.insert(personArray[i]->birthday);
 	}
 	cout << "====== Names =======" << endl;
 	cout << "Preorder:" << endl;
@@ -123,6 +126,10 @@ int main()
 	postorder(bstBday);
 	cout << endl;
 
+	for (int i = 0; i < size / 2; i++)
+	{
+		delete personArray[i];
+	}
 
 	/*FOR TESTING
 	int myArray[11] = {50, 42, 12, 99, 10, 33, 31, 75, 30, 87, 21};

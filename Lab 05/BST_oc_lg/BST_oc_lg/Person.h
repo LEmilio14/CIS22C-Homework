@@ -18,7 +18,6 @@ public:
 	std::string name; //Format: "first last"
 	std::string birthday; //Format: "yyyy-mm-dd"
 
-	Person();
 	Person(std::string, std::string);
 	virtual ~Person();
 };
