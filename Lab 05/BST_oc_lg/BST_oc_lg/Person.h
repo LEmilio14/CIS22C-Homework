@@ -12,18 +12,12 @@
 
 #include <string>
 
-class Person
+struct Person
 {
-private:
+public:
 	std::string name; //Format: "first last"
 	std::string birthday; //Format: "yyyy-mm-dd"
-public:
+
 	Person(std::string, std::string);
 	virtual ~Person();
-
-	void setName(std::string);
-	void setBday(std::string);
-
-	std::string getName();
-	std::string getBda();
 };
