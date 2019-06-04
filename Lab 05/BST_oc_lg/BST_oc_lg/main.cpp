@@ -110,9 +110,15 @@ int main()
 		bstName.insert(personArray[i]->name, personArray[i]->birthday);
 		bstBday.insert(personArray[i]->birthday, personArray[i]->name);
 	}
-	cout << "====== Names =======" << endl;
+	ofstream out("NamesOutput.txt");
+
+	out << "====== Names ======" << "\t" << "====== Birthday ======" << endl;
+	out << "Preorder:" << endl;
+	//preorder(bstName);
+
+	cout << "====== Names ======" << endl;
 	cout << "Preorder:" << endl;
-	preorder(bstName);
+	//preorder(bstName);
 	cout << endl;
 	cout << "Inorder:" << endl;
 	inorder(bstName);
@@ -151,12 +157,14 @@ void preorder(BST<T>& bst)
 template <typename T>
 void preorder(BST_Node<T>* root)
 {
+	ofstream out("NamesOutput.txt");
 	if (root == nullptr)
 	{
 		return;
 	}
 
 	cout << root->data << endl;
+	out << root->data << endl;
 	preorder(root->left);
 	preorder(root->right);
 }
