@@ -19,15 +19,16 @@ struct BST_Node
 {
 public:
 	T& data;
+	T& secondary;
 	BST_Node<T>* left;
 	BST_Node<T>* right;
 
-	BST_Node(T&, BST_Node<T>* = nullptr, BST_Node<T>* = nullptr);
+	BST_Node(T&, T&, BST_Node<T>* = nullptr, BST_Node<T>* = nullptr);
 	virtual ~BST_Node();
 };
 
 template <typename T>
-BST_Node<T>::BST_Node(T& d, BST_Node<T>* l, BST_Node<T>* r) : data(d), left(l), right(r)
+BST_Node<T>::BST_Node(T& d, T& s, BST_Node<T>* l, BST_Node<T>* r) : data(d), secondary(s), left(l), right(r)
 {
 
 }
