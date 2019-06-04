@@ -26,8 +26,6 @@ template <typename T>
 void preorder(BST<T>&);
 template <typename T>
 void preorder(BST_Node<T>*);
-template <typename T>
-void preorder(BST_Node<T>*, int);
 /**
 * inorder
 *
@@ -39,8 +37,6 @@ template <typename T>
 void inorder(BST<T>&);
 template <typename T>
 void inorder(BST_Node<T>*);
-template <typename T>
-void inorder(BST_Node<T>*, int);
 /**
 * postorder
 *
@@ -52,8 +48,6 @@ template <typename T>
 void postorder(BST<T>&);
 template <typename T>
 void postorder(BST_Node<T>*);
-template <typename T>
-void postorder(BST_Node<T>*, int);
 /**
 * breadthFirst
 *
@@ -64,9 +58,7 @@ void postorder(BST_Node<T>*, int);
 template <typename T>
 void breadthFirst(BST<T>&);
 template <typename T>
-void breadthFirst(BST_Node<T>*);
-template <typename T>
-void breadthFirst(BST_Node<T>*, int);
+void breadthFirst(Queue<BST_Node<T>*>&, BST_Node<T>*);
 /**
 * getFileSize
 *
@@ -139,6 +131,9 @@ int main()
 	postorder(bstBday);
 	cout << endl;
 
+	cout << "BREADTH" << endl;
+	breadthFirst(bstName);
+
 	for (int i = 0; i < size / 2; i++)
 	{
 		delete personArray[i];
@@ -191,15 +186,10 @@ int main()
 template <typename T>
 void preorder(BST<T>& bst)
 {
-	preorder(bst.getHead(), 0);
+	preorder(bst.getHead());
 }
 template <typename T>
 void preorder(BST_Node<T>* root)
-{
-	preorder(root, 0);
-}
-template <typename T>
-void preorder(BST_Node<T>* root, int level)
 {
 	if (root == nullptr)
 	{
@@ -207,77 +197,78 @@ void preorder(BST_Node<T>* root, int level)
 	}
 
 	cout << root->data << endl;
-	preorder(root->left, level + 1);
-	preorder(root->right, level + 1);
+	preorder(root->left);
+	preorder(root->right);
 }
 
 template <typename T>
 void inorder(BST<T>& bst)
 {
-	inorder(bst.getHead(), 0);
+	inorder(bst.getHead());
 }
 template <typename T>
 void inorder(BST_Node<T>* root)
-{
-	inorder(root, 0);
-}
-template <typename T>
-void inorder(BST_Node<T>* root, int level)
 {
 	if (root == nullptr)
 	{
 		return;
 	}
 
-	inorder(root->left, level + 1);
+	inorder(root->left);
 	cout << root->data << endl;
-	inorder(root->right, level + 1);
+	inorder(root->right);
 }
 
 template <typename T>
 void postorder(BST<T>& bst)
 {
-	postorder(bst.getHead(), 0);
+	postorder(bst.getHead());
 }
 template <typename T>
 void postorder(BST_Node<T>* root)
-{
-	postorder(root, 0);
-}
-template <typename T>
-void postorder(BST_Node<T>* root, int level)
 {
 	if (root == nullptr)
 	{
 		return;
 	}
 
-	postorder(root->left, level + 1);
-	postorder(root->right, level + 1);
+	postorder(root->left);
+	postorder(root->right);
 	cout << root->data << endl;
 }
 
 template <typename T>
 void breadthFirst(BST<T>& bst)
 {
-	breadthFirst(bst.getHead(), 0);
+	//Create empty queue
+	Queue<BST_Node<T>*> breadthQueue;
+	breadthFirst(breadthQueue, bst.getHead());
 }
 template <typename T>
-void breadthFirst(BST_Node<T>* root)
-{
-	breadthFirst(root, 0);
-}
-template <typename T>
-void breadthFirst(BST_Node<T>* root, int level)
+void breadthFirst(Queue<BST_Node<T>*>& queue, BST_Node<T>* root)
 {
 	if (root == nullptr)
 	{
 		return;
 	}
-
-	breadthFirst(root->left, level + 1);
-	breadthFirst(root->right, level + 1);
+	
+	//Print current node
 	cout << root->data << endl;
+	//Enqueue left and right
+	if (root->left != nullptr)
+	{
+		queue.enqueue(root->left);
+	}
+	if (root->right != nullptr)
+	{
+		queue.enqueue(root->right);
+	}
+	//Recurse with a dequeue
+	if (!queue.isEmpty())
+	{
+		breadthFirst(queue, queue.dequeue());
+	}
+	//The queue was empty, the traversal is complete
 }
 
 int getFileSize(const std::string &fileName)
