@@ -23,9 +23,9 @@ using namespace std;
 * @param The root of the BST to print.
 */
 template <typename T>
-void preorder(BST<T>&);
+void preorder(ostream& os, BST<T>&);
 template <typename T>
-void preorder(BST_Node<T>*);
+void preorder(ostream& os, BST_Node<T>*);
 /**
 * inorder
 *
@@ -112,34 +112,18 @@ int main()
 	}
 	ofstream out("NamesOutput.txt");
 
-	out << "====== Names ======" << "\t" << "====== Birthday ======" << endl;
-	out << "Preorder:" << endl;
-	//preorder(bstName);
+	out << "====== Names ======" << endl;
+	out << "***Pre-order***" << endl;
+	preorder(out, bstName);
+	out << "***Post-Order***" << endl;
+	//postorder(out, bstName);
+	out << "====== Birthdays ======" << endl;
+	out << "***In-Order***" << endl;
+	//inorder(out, bstBday);
+	out << "***Breadth-First***" << endl;
+	//breadthFirst(out, bstBday);
 
-	cout << "====== Names ======" << endl;
-	cout << "Preorder:" << endl;
-	//preorder(bstName);
-	cout << endl;
-	cout << "Inorder:" << endl;
-	inorder(bstName);
-	cout << endl;
-	cout << "Postorder:" << endl;
-	postorder(bstName);
-	cout << endl;
-	cout << "====== Birthdays =======" << endl;
-	cout << "Preorder:" << endl;
-	preorder(bstBday);
-	cout << endl;
-	cout << "Inorder:" << endl;
-	inorder(bstBday);
-	cout << endl;
-	cout << "Postorder:" << endl;
-	postorder(bstBday);
-	cout << endl;
-
-	cout << "BREADTH" << endl;
-	breadthFirst(bstName);
-
+	//Delete dynamic persons
 	for (int i = 0; i < size / 2; i++)
 	{
 		delete personArray[i];
@@ -150,23 +134,22 @@ int main()
 }
 
 template <typename T>
-void preorder(BST<T>& bst)
+void preorder(ostream& os, BST<T>& bst)
 {
-	preorder(bst.getHead());
+	preorder(os, bst.getHead());
 }
 template <typename T>
-void preorder(BST_Node<T>* root)
+void preorder(ostream& os, BST_Node<T>* root)
 {
-	ofstream out("NamesOutput.txt");
 	if (root == nullptr)
 	{
 		return;
 	}
 
-	cout << root->data << endl;
-	out << root->data << endl;
-	preorder(root->left);
-	preorder(root->right);
+	os << root->data << endl;
+	os << root->secondary << endl;
+	preorder(os, root->left);
+	preorder(os, root->right);
 }
 
 template <typename T>
