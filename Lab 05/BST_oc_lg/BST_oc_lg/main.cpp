@@ -65,22 +65,22 @@ int getFileSize(const std::string &fileName);
 
 int main()
 {
-	/*
 	int size = 0;
+	
 	ifstream readFile("InputData.txt");
 	size = getFileSize("InputData.txt");
 
 	string *name = new string[size/2], *bday = new string[size/2], line;
-
+	Person person(name, bday);
 	if (readFile.is_open())
 	{
 		int i = 0;
 		while (!readFile.eof())
 		{
 			getline(readFile, line);
-			name[i] = line;
+			person.name[i] = line;
 			getline(readFile, line);
-			bday[i] = line;
+			person.birthday[i] = line;
 			i++;
 		}
 
@@ -94,9 +94,10 @@ int main()
 	BST<string> bstBday = BST<string>();
 	for (int i = 0; i < 7; i++)
 	{
-		bstName.insert(name[i]);
-		bstBday.insert(bday[i]);
+		bstName.insert(person.name[i]);
+		bstBday.insert(person.birthday[i]);
 	}
+	cout << "====== Names =======" << endl;
 	cout << "Preorder:" << endl;
 	preorder(bstName);
 	cout << endl;
@@ -105,10 +106,20 @@ int main()
 	cout << endl;
 	cout << "Postorder:" << endl;
 	postorder(bstName);
-	cout << endl;*/
+	cout << endl;
+	cout << "====== Birthdays =======" << endl;
+	cout << "Preorder:" << endl;
+	preorder(bstBday);
+	cout << endl;
+	cout << "Inorder:" << endl;
+	inorder(bstBday);
+	cout << endl;
+	cout << "Postorder:" << endl;
+	postorder(bstBday);
+	cout << endl;
 
 
-	//FOR TESTING
+	/*FOR TESTING
 	int myArray[11] = {50, 42, 12, 99, 10, 33, 31, 75, 30, 87, 21};
 	int item1, item2;
 	BST<int> bst = BST<int>();
@@ -146,6 +157,7 @@ int main()
 	cout << "Inorder:" << endl;
 	inorder(bst);
 	cout << endl;
+	*/
 
 	system("pause");
 	return 0;

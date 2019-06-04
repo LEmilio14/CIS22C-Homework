@@ -15,9 +15,9 @@
 struct Person
 {
 public:
-	std::string name; //Format: "first last"
-	std::string birthday; //Format: "yyyy-mm-dd"
+	std::string *name; //Format: "first last"
+	std::string *birthday; //Format: "yyyy-mm-dd"
 
-	Person(std::string, std::string);
+	Person(std::string*, std::string*);
 	virtual ~Person();
 };
