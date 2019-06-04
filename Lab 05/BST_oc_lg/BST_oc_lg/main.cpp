@@ -9,6 +9,7 @@ Luis Guerrero
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 #include "BST.h"
 #include "Person.h"
@@ -34,9 +35,9 @@ void preorder(ostream& os, BST_Node<T>*);
 * @param The root of the BST to print.
 */
 template <typename T>
-void inorder(BST<T>&);
+void inorder(ostream& os, BST<T>&);
 template <typename T>
-void inorder(BST_Node<T>*);
+void inorder(ostream& os, BST_Node<T>*);
 /**
 * postorder
 *
@@ -45,9 +46,9 @@ void inorder(BST_Node<T>*);
 * @param The root of the BST to print.
 */
 template <typename T>
-void postorder(BST<T>&);
+void postorder(ostream& os, BST<T>&);
 template <typename T>
-void postorder(BST_Node<T>*);
+void postorder(ostream& os, BST_Node<T>*);
 /**
 * breadthFirst
 *
@@ -56,9 +57,9 @@ void postorder(BST_Node<T>*);
 * @param The root of the BST to print.
 */
 template <typename T>
-void breadthFirst(BST<T>&);
+void breadthFirst(ostream& os, BST<T>&);
 template <typename T>
-void breadthFirst(Queue<BST_Node<T>*>&, BST_Node<T>*);
+void breadthFirst(ostream& os, Queue<BST_Node<T>*>&, BST_Node<T>*);
 /**
 * getFileSize
 *
@@ -110,18 +111,21 @@ int main()
 		bstName.insert(personArray[i]->name, personArray[i]->birthday);
 		bstBday.insert(personArray[i]->birthday, personArray[i]->name);
 	}
-	ofstream out("NamesOutput.txt");
+	ofstream outNames("NamesOutput.txt");
 
-	out << "====== Names ======" << endl;
-	out << "***Pre-order***" << endl;
-	preorder(out, bstName);
-	out << "***Post-Order***" << endl;
-	//postorder(out, bstName);
-	out << "====== Birthdays ======" << endl;
-	out << "***In-Order***" << endl;
-	//inorder(out, bstBday);
-	out << "***Breadth-First***" << endl;
-	//breadthFirst(out, bstBday);
+	outNames << "====== Names ======" << "\t" << "====== Birthdays ======" << endl;
+	outNames << "\t\t***Pre-order***" << endl;
+	preorder(outNames, bstName);
+	outNames << "\t\t***Post-Order***" << endl;
+	postorder(outNames, bstName);
+	outNames.close();
+
+	ofstream outBdays("BirthdaysOutput.txt");
+	outBdays << "====== Birthdays ======" << "\t" << "====== Names ======" << endl;
+	outBdays << "\t\t***In-Order***" << endl;
+	inorder(outBdays, bstBday);
+	outBdays << "\t\t***Breadth-First***" << endl;
+	breadthFirst(outBdays, bstBday);
 
 	//Delete dynamic persons
 	for (int i = 0; i < size / 2; i++)
@@ -146,57 +150,59 @@ void preorder(ostream& os, BST_Node<T>* root)
 		return;
 	}
 
-	os << root->data << endl;
-	os << root->secondary << endl;
+	os << left << setw(17) << root->data 
+		<< right << setw(20) << root->secondary << endl;
 	preorder(os, root->left);
 	preorder(os, root->right);
 }
 
 template <typename T>
-void inorder(BST<T>& bst)
+void inorder(ostream& os, BST<T>& bst)
 {
-	inorder(bst.getHead());
+	inorder(os, bst.getHead());
 }
 template <typename T>
-void inorder(BST_Node<T>* root)
-{
-	if (root == nullptr)
-	{
-		return;
-	}
-
-	inorder(root->left);
-	cout << root->data << endl;
-	inorder(root->right);
-}
-
-template <typename T>
-void postorder(BST<T>& bst)
-{
-	postorder(bst.getHead());
-}
-template <typename T>
-void postorder(BST_Node<T>* root)
+void inorder(ostream& os, BST_Node<T>* root)
 {
 	if (root == nullptr)
 	{
 		return;
 	}
 
-	postorder(root->left);
-	postorder(root->right);
-	cout << root->data << endl;
+	inorder(os, root->left);
+	os << left << setw(28) << root->data
+		<< right  << root->secondary << endl;
+	inorder(os, root->right);
 }
 
 template <typename T>
-void breadthFirst(BST<T>& bst)
+void postorder(ostream& os, BST<T>& bst)
+{
+	postorder(os, bst.getHead());
+}
+template <typename T>
+void postorder(ostream& os, BST_Node<T>* root)
+{
+	if (root == nullptr)
+	{
+		return;
+	}
+
+	postorder(os, root->left);
+	postorder(os, root->right);
+	os << left << setw(17) << root->data
+		<< right << setw(20) << root->secondary << endl;
+}
+
+template <typename T>
+void breadthFirst(ostream& os, BST<T>& bst)
 {
 	//Create empty queue
 	Queue<BST_Node<T>*> breadthQueue;
-	breadthFirst(breadthQueue, bst.getHead());
+	breadthFirst(os, breadthQueue, bst.getHead());
 }
 template <typename T>
-void breadthFirst(Queue<BST_Node<T>*>& queue, BST_Node<T>* root)
+void breadthFirst(ostream& os, Queue<BST_Node<T>*>& queue, BST_Node<T>* root)
 {
 	if (root == nullptr)
 	{
@@ -204,7 +210,8 @@ void breadthFirst(Queue<BST_Node<T>*>& queue, BST_Node<T>* root)
 	}
 	
 	//Print current node
-	cout << root->data << endl;
+	os << left << setw(28) << root->data
+		<< right << root->secondary << endl;
 	//Enqueue left and right
 	if (root->left != nullptr)
 	{
@@ -217,7 +224,7 @@ void breadthFirst(Queue<BST_Node<T>*>& queue, BST_Node<T>* root)
 	//Recurse with a dequeue
 	if (!queue.isEmpty())
 	{
-		breadthFirst(queue, queue.dequeue());
+		breadthFirst(os, queue, queue.dequeue());
 	}
 	//The queue was empty, the traversal is complete
 }

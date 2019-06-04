@@ -128,6 +128,7 @@
     <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="BirthdaysOutput.txt" />
     <Text Include="InputData.txt" />
     <Text Include="NamesOutput.txt" />
   </ItemGroup>

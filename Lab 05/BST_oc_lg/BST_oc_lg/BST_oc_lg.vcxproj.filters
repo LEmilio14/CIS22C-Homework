@@ -52,5 +52,8 @@
     <Text Include="NamesOutput.txt">
       <Filter>Header Files</Filter>
     </Text>
+    <Text Include="BirthdaysOutput.txt">
+      <Filter>Header Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
