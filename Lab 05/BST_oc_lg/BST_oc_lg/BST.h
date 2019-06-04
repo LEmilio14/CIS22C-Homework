@@ -20,10 +20,10 @@ protected:
 	int count;
 	BST_Node<T>* head;
 
-	BST_Node<T>* insert(T&, BST_Node<T>*);
+	BST_Node<T>* insert(T&, T&, BST_Node<T>*);
 	BST_Node<T>* remove(T&, BST_Node<T>*);
 	BST_Node<T>* findMin(BST_Node<T>*);
-	bool search(BST_Node<T>*, T&);
+	BST_Node<T>* find(BST_Node<T>*, T&);
 	void queueNodes(Queue<BST_Node<T>>&, BST_Node<T>*);
 public:
 	BST();
@@ -43,7 +43,7 @@ public:
 	*
 	* @param The data to insert, as a reference.
 	*/
-	void insert(T&);
+	void insert(T&, T&);
 	/**
 	* delete
 	*
@@ -53,13 +53,15 @@ public:
 	*/
 	void remove(T&);
 	/**
-	* search
+	* find
 	*
 	* @brief Recursively searchs an item from a BST.
 	*
 	* @param The data to insert, as a reference.
+	*
+	* @return The found BST_Node.
 	*/
-	bool search(T&);
+	BST_Node<T>* find(T&);
 	/**
 	* deleteAll
 	*
@@ -87,36 +89,36 @@ BST_Node<T>* BST<T>::getHead()
 	return head;
 }
 template <typename T>
-void BST<T>::insert(T& d)
+void BST<T>::insert(T& d, T& s)
 {
-	insert(d, head);
+	insert(d, s, head);
 }
 
 template <typename T>
-BST_Node<T>* BST<T>::insert(T& d, BST_Node<T>* root)
+BST_Node<T>* BST<T>::insert(T& d, T& s, BST_Node<T>* root)
 {
 	//The BST is completely empty
 	if (head == nullptr)
 	{
-		head = new BST_Node<T>(d);
+		head = new BST_Node<T>(d, s);
 		return head;
 	}
 	
 	//If the root is non-existent, create a new node and return it - the new node will be saved in the previous call
 	if (root == nullptr)
 	{
-		return new BST_Node<T>(d);
+		return new BST_Node<T>(d, s);
 	}
 
 	//If the new data is less than root, recur for left root
 	if (d < root->data)
 	{
-		root->left = insert(d, root->left);
+		root->left = insert(d, s, root->left);
 	}
 	//If the new data is greater or equal than root, recur for right root
 	else
 	{
-		root->right = insert(d, root->right);
+		root->right = insert(d, s, root->right);
 	}
 
 	//Return the root so previous recursion calls keep their current values for left and right
@@ -124,34 +126,29 @@ BST_Node<T>* BST<T>::insert(T& d, BST_Node<T>* root)
 }
 
 template<typename T>
-bool BST<T>::search(T& d)
+BST_Node<T>* BST<T>::find(T& d)
 {
-	if (search(head, d) == true)
-	{
-		return true;
-	}
-	else
-		return false;
+	return find(head, d);
 }
 
 template<typename T>
-bool BST<T>::search(BST_Node<T>* root, T& data)
+BST_Node<T>* BST<T>::find(BST_Node<T>* root, T& data)
 {
 	if (root == nullptr)//if the tree is empty, then return false
 	{
-		return false;
+		return nullptr;
 	}
 	else if (root->data == data)//if the data is found return true.
 	{
-		return true;
+		return root;
 	}
 	else if (data < root->data)//if data is less than root, search the data from the left.
 	{
-		return search(root->left, data);
+		return find(root->left, data);
 	}
 	else //if data is greater than root, search the data from the right.
 	{
-		return search(root->right, data);
+		return find(root->right, data);
 	}
 }
 

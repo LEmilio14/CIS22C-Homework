@@ -55,6 +55,19 @@ void postorder(BST_Node<T>*);
 template <typename T>
 void postorder(BST_Node<T>*, int);
 /**
+* breadthFirst
+*
+* @brief Prints a BST in breadth first fashion.
+*
+* @param The root of the BST to print.
+*/
+template <typename T>
+void breadthFirst(BST<T>&);
+template <typename T>
+void breadthFirst(BST_Node<T>*);
+template <typename T>
+void breadthFirst(BST_Node<T>*, int);
+/**
 * getFileSize
 *
 * @brief Gets the size of a file depending on how many lines it has.
@@ -102,8 +115,8 @@ int main()
 	BST<string> bstBday = BST<string>();
 	for (int i = 0; i < 7; i++)
 	{
-		bstName.insert(personArray[i]->name);
-		bstBday.insert(personArray[i]->birthday);
+		bstName.insert(personArray[i]->name, personArray[i]->birthday);
+		bstBday.insert(personArray[i]->birthday, personArray[i]->name);
 	}
 	cout << "====== Names =======" << endl;
 	cout << "Preorder:" << endl;
@@ -241,6 +254,29 @@ void postorder(BST_Node<T>* root, int level)
 
 	postorder(root->left, level + 1);
 	postorder(root->right, level + 1);
+	cout << root->data << endl;
+}
+
+template <typename T>
+void breadthFirst(BST<T>& bst)
+{
+	breadthFirst(bst.getHead(), 0);
+}
+template <typename T>
+void breadthFirst(BST_Node<T>* root)
+{
+	breadthFirst(root, 0);
+}
+template <typename T>
+void breadthFirst(BST_Node<T>* root, int level)
+{
+	if (root == nullptr)
+	{
+		return;
+	}
+
+	breadthFirst(root->left, level + 1);
+	breadthFirst(root->right, level + 1);
 	cout << root->data << endl;
 }
 
