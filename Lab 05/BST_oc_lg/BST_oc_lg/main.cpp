@@ -131,46 +131,6 @@ int main()
 		delete personArray[i];
 	}
 
-	/*FOR TESTING
-	int myArray[11] = {50, 42, 12, 99, 10, 33, 31, 75, 30, 87, 21};
-	int item1, item2;
-	BST<int> bst = BST<int>();
-	for (int i = 0; i < 11; i++)
-	{
-		bst.insert(myArray[i]);
-	}
-
-	cout << "Preorder:" << endl;
-	preorder(bst);
-	cout << endl;
-	cout << "Inorder:" << endl;
-	inorder(bst);
-	cout << endl;
-	cout << "Postorder:" << endl;
-	postorder(bst);
-	cout << endl;
-
-	cout << "Enter the item to search" << endl;
-	cin >> item1;
-	if (bst.search(item1) == true)
-	{
-		cout << "Found" << endl;
-	}
-	else
-	{
-		cout << "Not Found" << endl;
-	}
-	cout << endl;
-
-	cout << "Would you like to remove an item?" << endl;
-	cin >> item2;
-	bst.remove(item2);
-	cout << endl;
-	cout << "Inorder:" << endl;
-	inorder(bst);
-	cout << endl;
-	*/
-
 	system("pause");
 	return 0;
 }
