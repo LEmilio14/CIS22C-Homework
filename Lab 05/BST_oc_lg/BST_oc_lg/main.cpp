@@ -65,6 +65,7 @@ int getFileSize(const std::string &fileName);
 
 int main()
 {
+	/*
 	int size = 0;
 	ifstream readFile("InputData.txt");
 	size = getFileSize("InputData.txt");
@@ -104,14 +105,14 @@ int main()
 	cout << endl;
 	cout << "Postorder:" << endl;
 	postorder(bstName);
-	cout << endl;
+	cout << endl;*/
 
 
 	//FOR TESTING
-	int myArray[10] = {50, 42, 12, 99, 10, 33, 75, 30, 87, 21};
+	int myArray[11] = {50, 42, 12, 99, 10, 33, 31, 75, 30, 87, 21};
 	int item1, item2;
 	BST<int> bst = BST<int>();
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		bst.insert(myArray[i]);
 	}
