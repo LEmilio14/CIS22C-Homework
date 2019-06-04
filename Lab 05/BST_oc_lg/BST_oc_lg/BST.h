@@ -177,7 +177,6 @@ BST_Node<T>* BST<T>::remove(T& d, BST_Node<T>* root)
 		{
 			delete root;
 			root = nullptr;
-			//return root;
 		}
 		else if (root->left == nullptr) //if root has only one right child
 		{
@@ -187,7 +186,6 @@ BST_Node<T>* BST<T>::remove(T& d, BST_Node<T>* root)
 			root->right = temp->right;
 			delete temp;
 			temp = nullptr;
-			//return root;
 		}
 		else if (root->right == nullptr) //if root has only one left child
 		{
@@ -197,21 +195,12 @@ BST_Node<T>* BST<T>::remove(T& d, BST_Node<T>* root)
 			root->right = temp->right;
 			delete temp;
 			temp = nullptr;
-			//return root;
 		}
 		else //if root has a left and right children.
 		{
 			BST_Node<T>* temp = findMin(root->right);
 			root->data = temp->data;
-			std::cout << temp->data << std::endl;
 			root->right = remove(temp->data, root->right);
-			/*
-			delete temp;
-			temp = nullptr;
-			//Since temp got deleted, set the left node of the new inorder successor to nullptr
-			BST_Node<T>* temp2 = findMin(root->right)->left = nullptr;
-			return root;
-			*/
 		}
 	}
 	return root;
@@ -231,7 +220,6 @@ BST_Node<T>* BST<T>::findMin(BST_Node<T>* root)
 	{
 		current = current->left;
 	}
-	std::cout << current->data << std::endl;
 	return current;
 }
 
