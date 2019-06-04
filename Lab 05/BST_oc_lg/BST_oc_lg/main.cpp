@@ -11,6 +11,7 @@ Luis Guerrero
 #include <string>
 
 #include "BST.h"
+#include"Person.h"
 
 using namespace std;
 
@@ -53,28 +54,57 @@ template <typename T>
 void postorder(BST_Node<T>*);
 template <typename T>
 void postorder(BST_Node<T>*, int);
+/**
+* getFileSize
+*
+* @brief Gets the size of a file depending on how many lines it has.
+*
+* @param The name of the file.
+*/
+int getFileSize(const std::string &fileName);
 
 int main()
 {
-	string name, bday;
+	int size = 0;
+	ifstream readFile("InputData.txt");
+	size = getFileSize("InputData.txt");
+
+	string *name = new string[size/2], *bday = new string[size/2], line;
+
+	if (readFile.is_open())
+	{
+		int i = 0;
+		while (!readFile.eof())
+		{
+			getline(readFile, line);
+			name[i] = line;
+			getline(readFile, line);
+			bday[i] = line;
+			i++;
+		}
+
+	}
+	else
+	{
+		cout << "File Not Open" << endl;
+	}
 
 	BST<string> bstName = BST<string>();
 	BST<string> bstBday = BST<string>();
-
-	ifstream readFile ("InputData.txt");
-	if (readFile.is_open())
+	for (int i = 0; i < 7; i++)
 	{
-		while (getline(readFile, name, '\n'))
-		{
-			getline(readFile, bday);
-			cout << name << endl;
-			cout << bday << endl;
-		}
+		bstName.insert(name[i]);
+		bstBday.insert(bday[i]);
 	}
-
-
-
-
+	cout << "Preorder:" << endl;
+	preorder(bstName);
+	cout << endl;
+	cout << "Inorder:" << endl;
+	inorder(bstName);
+	cout << endl;
+	cout << "Postorder:" << endl;
+	postorder(bstName);
+	cout << endl;
 
 
 	//FOR TESTING
@@ -187,4 +217,27 @@ void postorder(BST_Node<T>* root, int level)
 	postorder(root->left, level + 1);
 	postorder(root->right, level + 1);
 	cout << root->data << endl;
+}
+
+int getFileSize(const std::string &fileName)
+{
+	ifstream file(fileName/*ifstream::in | ifstream::binary*/);
+
+	string line;
+	int fileSize = 0;
+	if (file.is_open())
+	{
+		while (getline(file, line))
+		{
+			fileSize++;
+		}
+		file.close();
+	}
+	/*
+	file.seekg(0, ios::end);
+	int fileSize = file.tellg();
+	file.close();
+	*/
+
+	return fileSize;
 }

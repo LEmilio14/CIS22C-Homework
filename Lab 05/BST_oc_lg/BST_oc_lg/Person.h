@@ -20,4 +20,10 @@ private:
 public:
 	Person(std::string, std::string);
 	virtual ~Person();
+
+	void setName(std::string);
+	void setBday(std::string);
+
+	std::string getName();
+	std::string getBda();
 };
