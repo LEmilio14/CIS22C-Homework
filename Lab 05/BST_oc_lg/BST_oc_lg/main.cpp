@@ -112,10 +112,6 @@ int main()
 		bstBday.insert(personArray[i]->birthday, personArray[i]->name);
 	}
 
-	string modData = "Olivier Chan";
-
-	bstName.modify("John Smith", modData);
-
 	ofstream outNames("NamesOutput.txt");
 	outNames << "====== Names ======" << "\t" << "====== Birthdays ======" << endl;
 	outNames << "\t\t***Pre-order***" << endl;
@@ -132,11 +128,14 @@ int main()
 	breadthFirst(outBdays, bstBday);
 	outBdays.close();
 
-	//Delete dynamic persons
+	//Delete dynamic
 	for (int i = 0; i < size / 2; i++)
 	{
 		delete personArray[i];
 	}
+
+	delete[] names;
+	delete[] bdays;
 
 	system("pause");
 	return 0;

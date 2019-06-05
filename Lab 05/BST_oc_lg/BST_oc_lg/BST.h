@@ -287,8 +287,6 @@ void BST<T>::modify(T searchKey, T& replacementData, bool replaceKey)
 {
 	//Find the node to replace, by key
 	BST_Node<T>* nodeToModify = find(searchKey);
-	std::cout << nodeToModify->key << std::endl;
-	std::cout << nodeToModify->data << std::endl;
 
 	if (nodeToModify == nullptr)
 	{
@@ -303,11 +301,7 @@ void BST<T>::modify(T searchKey, T& replacementData, bool replaceKey)
 	//Otherwise we need to create a new node and insert it, and delete the "modified" node.
 	else
 	{
-		T& tempData = nodeToModify->data;
-		std::cout << "foo " << nodeToModify->data << std::endl;
+		insert(replacementData, nodeToModify->data);
 		remove(nodeToModify->key, nodeToModify);
-		std::cout << "bar " << tempData << std::endl;
-
-		insert(replacementData, tempData);
 	}
 }
