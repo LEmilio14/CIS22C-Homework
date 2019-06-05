@@ -232,7 +232,7 @@ void breadthFirst(ostream& os, Queue<BST_Node<T>*>& queue, BST_Node<T>* root)
 
 int getFileSize(const std::string &fileName)
 {
-	ifstream file(fileName/*ifstream::in | ifstream::binary*/);
+	ifstream file(fileName);
 
 	string line;
 	int fileSize = 0;
@@ -244,11 +244,5 @@ int getFileSize(const std::string &fileName)
 		}
 		file.close();
 	}
-	/*
-	file.seekg(0, ios::end);
-	int fileSize = file.tellg();
-	file.close();
-	*/
-
 	return fileSize;
 }
