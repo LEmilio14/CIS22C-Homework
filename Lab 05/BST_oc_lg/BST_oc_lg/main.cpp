@@ -15,7 +15,7 @@ Luis Guerrero
 #include "Person.h"
 
 using namespace std;
-
+\
 /**
 * preorder
 *
@@ -112,6 +112,10 @@ int main()
 		bstBday.insert(personArray[i]->birthday, personArray[i]->name);
 	}
 
+	string modData = "Olivier Chan";
+
+	bstName.modify("John Smith", modData);
+
 	ofstream outNames("NamesOutput.txt");
 	outNames << "====== Names ======" << "\t" << "====== Birthdays ======" << endl;
 	outNames << "\t\t***Pre-order***" << endl;
@@ -151,8 +155,8 @@ void preorder(ostream& os, BST_Node<T>* root)
 		return;
 	}
 
-	os << left << setw(17) << root->data 
-		<< right << setw(20) << root->secondary << endl;
+	os << left << setw(17) << root->key 
+		<< right << setw(20) << root->data << endl;
 	preorder(os, root->left);
 	preorder(os, root->right);
 }
@@ -171,8 +175,8 @@ void inorder(ostream& os, BST_Node<T>* root)
 	}
 
 	inorder(os, root->left);
-	os << left << setw(28) << root->data
-		<< right  << root->secondary << endl;
+	os << left << setw(28) << root->key
+		<< right  << root->data << endl;
 	inorder(os, root->right);
 }
 
@@ -191,8 +195,8 @@ void postorder(ostream& os, BST_Node<T>* root)
 
 	postorder(os, root->left);
 	postorder(os, root->right);
-	os << left << setw(17) << root->data
-		<< right << setw(20) << root->secondary << endl;
+	os << left << setw(17) << root->key
+		<< right << setw(20) << root->data << endl;
 }
 
 template <typename T>
@@ -211,8 +215,8 @@ void breadthFirst(ostream& os, Queue<BST_Node<T>*>& queue, BST_Node<T>* root)
 	}
 	
 	//Print current node
-	os << left << setw(28) << root->data
-		<< right << root->secondary << endl;
+	os << left << setw(28) << root->key
+		<< right << root->data << endl;
 	//Enqueue left and right
 	if (root->left != nullptr)
 	{
