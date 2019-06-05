@@ -125,7 +125,6 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Queue.h" />
-    <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="BirthdaysOutput.txt" />
