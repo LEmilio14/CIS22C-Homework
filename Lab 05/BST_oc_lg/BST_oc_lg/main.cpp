@@ -1,6 +1,6 @@
 ﻿/*
 CIS 22C
-Lab 05: 
+Lab 05: Create a link-based BST, and use it to output information read from a file in breadth, pre, in, and post order style.
 Authors:
 Olivier Chan Sion Moy
 Luis Guerrero
